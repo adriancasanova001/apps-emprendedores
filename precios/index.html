@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Calcula tu Precio">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f766e'/%3E%3Ctext x='50' y='70' font-size='62' font-weight='700' font-family='Arial,sans-serif' text-anchor='middle' fill='white'%3E%24%3C/text%3E%3C/svg%3E">
+<link id="favicon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f766e'/%3E%3Ctext x='50' y='70' font-size='62' font-weight='700' font-family='Arial,sans-serif' text-anchor='middle' fill='white'%3E%24%3C/text%3E%3C/svg%3E">
 <link id="apple-icon" rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f766e'/%3E%3Ctext x='50' y='70' font-size='62' font-weight='700' font-family='Arial,sans-serif' text-anchor='middle' fill='white'%3E%24%3C/text%3E%3C/svg%3E">
 <style>
 :root{
@@ -26,6 +26,7 @@
   --mal:#b91c1c; --mal-fondo:#fde4e4;
   --sombra:0 1px 3px rgba(20,30,45,.10);
   --radio:14px;
+  --primario-texto:var(--primario);
 }
 @media (prefers-color-scheme: dark){
   :root{
@@ -35,6 +36,7 @@
     --aviso:#facc15; --aviso-fondo:#3a3010;
     --mal:#f87171; --mal-fondo:#3b1717;
     --sombra:0 1px 3px rgba(0,0,0,.5);
+    --primario-texto:color-mix(in srgb,var(--primario) 55%,#fff);
   }
 }
 *{box-sizing:border-box}
@@ -46,7 +48,8 @@ button,input,select{font:inherit;color:inherit}
 h1,h2,h3{margin:0}
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 header.top{background:var(--primario);color:var(--sobre-primario);position:sticky;top:0;z-index:20;
-  padding-top:env(safe-area-inset-top)}
+  padding-top:env(safe-area-inset-top);box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.logo{max-height:36px;width:auto;max-width:96px;object-fit:contain;border-radius:8px;flex:none}
 header.top .wrap{display:flex;align-items:center;gap:8px;min-height:56px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
 header.top .marca{flex:1;min-width:0}
 header.top .marca b{display:block;font-size:17px;line-height:1.2;overflow-wrap:anywhere}
@@ -54,7 +57,7 @@ header.top .marca small{opacity:.85;font-size:12px}
 .nav{display:flex;gap:6px}
 .nav button{background:rgba(255,255,255,.18);color:var(--sobre-primario);border:0;border-radius:10px;min-height:44px;padding:0 14px;cursor:pointer;font-weight:600}
 .nav button.act{background:var(--sobre-primario);color:var(--primario)}
-main{padding:16px 0 120px}
+main.wrap{padding-top:28px;padding-bottom:120px}
 .vista{display:none}
 .vista.act{display:block}
 .card{background:var(--tarjeta);border:1px solid var(--borde);border-radius:var(--radio);box-shadow:var(--sombra);padding:16px;margin-bottom:16px}
@@ -71,9 +74,12 @@ input:focus,select:focus,button:focus-visible{outline:3px solid color-mix(in srg
 .btn.mal{color:var(--mal);border-color:var(--mal)}
 .btn.wa{background:#1fa855;border-color:#1fa855;color:#fff}
 .btn.chico{min-height:44px;padding:0 12px}
+.btn.out{background:transparent;border:2px solid var(--primario);color:var(--primario-texto)}
+.btn.suave{background:transparent;color:var(--suave);font-weight:500;font-size:14px}
+.ayuda{color:var(--suave);font-size:13px;margin:4px 0 0}
 .btn.block{width:100%}
 .acciones{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.cabeza{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.cabeza{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .cabeza h1{font-size:22px;flex:1;min-width:140px}
 .sw{display:flex;align-items:center;gap:12px;min-height:44px;cursor:pointer}
 .sw input{position:absolute;opacity:0;width:1px;height:1px}
@@ -125,7 +131,7 @@ input[type=range]{width:100%;min-height:44px;accent-color:var(--primario)}
 .lin.t span:first-child{color:var(--texto)}
 .res-err{color:var(--mal);font-weight:600;font-size:15px}
 @media (min-width:900px){
-  main{padding-bottom:40px}
+  main.wrap{padding-top:32px;padding-bottom:40px}
   .layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
   .resultado{position:sticky;top:76px;left:auto;right:auto;bottom:auto;border:1px solid var(--borde);border-top:3px solid var(--primario);
     border-radius:var(--radio);box-shadow:var(--sombra);padding:16px}
@@ -140,6 +146,8 @@ input[type=range]{width:100%;min-height:44px;accent-color:var(--primario)}
 .modal{background:var(--tarjeta);color:var(--texto);border-radius:var(--radio);padding:20px;max-width:420px;width:100%}
 .modal p{margin:0 0 16px;white-space:pre-line}
 .modal .acciones{justify-content:flex-end}
+.modal .acciones.col2{flex-direction:column}
+.modal .acciones.col2 .btn{width:100%}
 .colores{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .col{width:44px;height:44px;border-radius:50%;border:3px solid transparent;cursor:pointer;padding:0}
 .col.sel{border-color:var(--texto)}
@@ -154,6 +162,7 @@ footer{text-align:center;color:var(--suave);font-size:12px;padding:8px 16px 140p
 <div id="avisoGuardado">No se pudo usar el almacenamiento del navegador: tus cambios no se guardarán al cerrar. Usa "Respaldo" para guardar un archivo.</div>
 <header class="top">
   <div class="wrap">
+    <img id="hLogo" class="logo" alt="" hidden>
     <div class="marca"><b id="hNegocio">Calcula tu Precio</b><small>Calcula tu Precio</small></div>
     <nav class="nav" aria-label="Secciones">
       <button id="navProductos" type="button">Productos</button>
@@ -223,7 +232,7 @@ function codigoActivacion(codigoCelular, appId){
   return out;
 }
 function conGuion(s){ s = normCodigo(s); var m = Math.ceil(s.length / 2); return s.slice(0, m) + "-" + s.slice(m); }
-var K_CEL = "_q7x_c", K_ACT = "_q7x_a_" + APP_ID;
+var K_CEL = "_q7x_c", K_ACT = "_q7x_a_" + APP_ID, K_SUSP = "_q7x_s_" + APP_ID;
 var IDB_NOMBRE = "_q7x_db", IDB_TIENDA = "kv";
 function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
 function lsSet(k, v){ try { localStorage.setItem(k, v); return true; } catch(e){ return false; } }
@@ -286,12 +295,46 @@ function activacionValida(act, cel){
   var a = normCodigo(act);
   return a.length === 10 && celularValido(cel) && a === codigoActivacion(cel, APP_ID);
 }
+function huellaBloqueo(codigoCelular, appId){
+  return cyrb53(normCodigo(codigoCelular) + "|" + normCodigo(appId) + "|bloqueo", 7).toString(36);
+}
 var celular = "", activada = false, almacenOk = true, alActivar = null, yaArranco = false;
+var suspMarca = false, suspMostrada = false, bloqueoVerificado = false;
 function arrancar(){
   var pant = document.getElementById("act-pantalla");
   if (pant) pant.parentNode.removeChild(pant);
   document.body.classList.remove("act-bloq");
+  suspMostrada = false;
+  if (activada && suspMarca){
+    pantallaSuspension(); verificarBloqueo(); return;
+  }
   if (!yaArranco){ yaArranco = true; if (alActivar) alActivar(); }
+  if (activada) verificarBloqueo();
+}
+function marcarSusp(v){
+  suspMarca = !!v;
+  lsSet(K_SUSP, v ? "1" : ""); idbEscribir(K_SUSP, v ? "1" : "");
+}
+function verificarBloqueo(){
+  if (bloqueoVerificado) return;
+  bloqueoVerificado = true;
+  try {
+    if (typeof fetch !== "function") return;
+    var huella = huellaBloqueo(celular, APP_ID);
+    var url = new URL("../licencias/bloqueos.json", location.href) + "?t=" + Date.now();
+    fetch(url, {cache: "no-store"}).then(function(r){
+      if (!r.ok) throw new Error("http");
+      return r.json();
+    }).then(function(d){
+      if (!d || !Array.isArray(d.bloqueos)) return;
+      var esta = d.bloqueos.some(function(b){ return b && b.app === APP_ID && b.h === huella; });
+      if (esta){ marcarSusp(true); pantallaSuspension(); }
+      else {
+        marcarSusp(false);
+        if (suspMostrada) arrancar();
+      }
+    }).catch(function(){  });
+  } catch(e){}
 }
 function leerHash(){
   try {
@@ -308,6 +351,8 @@ function iniciar(cb){
   var lsOk = lsProbar();
   idbLeer(K_CEL, function(celIdb, idbOk1){
     idbLeer(K_ACT, function(actIdb, idbOk2){
+    idbLeer(K_SUSP, function(suspIdb){
+      suspMarca = lsGet(K_SUSP) === "1" || suspIdb === "1";
       almacenOk = lsOk || idbOk1 || idbOk2;
       var cels = [], acts = [];
       [lsGet(K_CEL), celIdb].forEach(function(c){ if (celularValido(c) && cels.indexOf(normCodigo(c)) < 0) cels.push(normCodigo(c)); });
@@ -328,6 +373,7 @@ function iniciar(cb){
         return pantalla("Ese link de activación no corresponde a este celular. Pega aquí el código que te envió tu vendedor o pídele uno nuevo.");
       }
       pantalla("");
+    });
     });
   });
 }
@@ -371,6 +417,23 @@ function estilos(){
     "@media (max-width:360px){.act-cod{font-size:28px;letter-spacing:1px}}";
   document.head.appendChild(s);
 }
+function pantallaSuspension(){
+  if (suspMostrada) return;
+  suspMostrada = true;
+  estilos();
+  document.body.classList.add("act-bloq");
+  var texto = "Hola, mi app " + APP_NOMBRE + " aparece suspendida. Mi código es " + conGuion(celular);
+  var el = document.createElement("div"); el.id = "act-pantalla";
+  el.innerHTML =
+    '<div class="act-cont">' +
+    '<h1>Tu licencia está suspendida</h1>' +
+    '<p class="act-suave" style="font-size:16px">Contacta a tu vendedor para reactivarla.</p>' +
+    '<div class="act-card">' +
+    '<a class="act-btn wa" id="act-wa" target="_blank" rel="noopener" href="https://wa.me/' + esc(WHATSAPP_VENDEDOR) + '?text=' + encodeURIComponent(texto) + '">Escribir por WhatsApp</a></div>' +
+    '<p class="act-suave" style="text-align:center;margin-top:16px">Tus datos siguen guardados en este celular.<br>' + esc(APP_NOMBRE) + '</p>' +
+    '</div>';
+  document.body.appendChild(el);
+}
 function pantalla(mensajeInicial){
   estilos();
   document.body.classList.add("act-bloq");
@@ -412,6 +475,8 @@ return {
   codigoCelular: function(){ return conGuion(celular); },
   almacenamientoOk: function(){ return almacenOk; },
   codigoActivacion: codigoActivacion,
+  huellaBloqueo: huellaBloqueo,
+  estaSuspendida: function(){ return suspMarca; },
   APP_ID: APP_ID
 };
 })();
@@ -476,7 +541,7 @@ function calcular(p, aj){
   r.insumosTanda = insumosTanda;
   if (!(rend > 0)){
     r.ok = false;
-    r.errores.push('Indica cuántas unidades salen de la tanda (mínimo 1).');
+    r.errores.push('Indica cuántas unidades salen de la preparación (mínimo 1).');
     return r;
   }
   var valorHora = (p.valorHora === null || p.valorHora === undefined || p.valorHora === '') ? aNum(aj.valorHora) : aNum(p.valorHora);
@@ -524,9 +589,11 @@ function pct(x){ return nf1.format(x * 100) + '%'; }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function aTexto(n){ return (n === null || n === undefined || n === '') ? '' : String(n).replace('.', ','); }
 function nuevoId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
-var CLAVE = 'calcula-tu-precio-v1';
+var CLAVE = 'ord_calc_datos', CLAVE_VIEJA = 'calcula-tu-precio-v1';
+var K_CID = 'ord_calc_cid', K_CONFIG = 'ord_calc_config';
 var guardadoOk = true;
 var estado;
+var CFG = null;
 function ajustesBase(){
   return {
     negocio:'', color:'#0f766e', valorHora:3000, unidadesMes:500,
@@ -561,11 +628,17 @@ function productoEjemplo(){
   return p;
 }
 function estadoInicial(){
-  return {version:1, ajustes:ajustesBase(), productos:[productoEjemplo()], bienvenida:true};
+  return {version:1, ajustes:ajustesBase(), productos:[productoEjemplo()], bienvenida:true, cfgId:''};
+}
+function normProducto(p){
+  var v = Object.assign(productoVacio(), p);
+  v.insumos = Array.isArray(p.insumos) ? p.insumos.map(function(i){ var x = Object.assign(insumoVacio(), i); x.id = nuevoId(); return x; }) : [];
+  v.id = nuevoId();
+  return v;
 }
 function normalizar(d){
   var base = ajustesBase();
-  var o = {version:1, ajustes:Object.assign({}, base, (d && d.ajustes) || {}), productos:[], bienvenida:!!(d && d.bienvenida)};
+  var o = {version:1, ajustes:Object.assign({}, base, (d && d.ajustes) || {}), productos:[], bienvenida:!!(d && d.bienvenida), cfgId:String((d && d.cfgId) || '')};
   if (!Array.isArray(o.ajustes.gastosFijos)) o.ajustes.gastosFijos = [];
   o.ajustes.gastosFijos = o.ajustes.gastosFijos.map(function(g){ return {id:g.id || nuevoId(), nombre:g.nombre || '', monto:g.monto || 0}; });
   ((d && d.productos) || []).forEach(function(p){
@@ -579,6 +652,10 @@ function normalizar(d){
 function cargar(){
   try {
     var t = localStorage.getItem(CLAVE);
+    if (!t){
+      var vieja = localStorage.getItem(CLAVE_VIEJA);
+      if (vieja){ localStorage.setItem(CLAVE, vieja); localStorage.removeItem(CLAVE_VIEJA); t = vieja; }
+    }
     if (t) return normalizar(JSON.parse(t));
   } catch(e){ guardadoOk = false; }
   return estadoInicial();
@@ -626,6 +703,7 @@ function aplicarColor(){
   iconoApple(c);
 }
 function iconoApple(c){
+  if (CFG && CFG.logo) return;
   try {
     var cv = document.createElement('canvas'); cv.width = cv.height = 180;
     var x = cv.getContext('2d');
@@ -638,7 +716,88 @@ function iconoApple(c){
 function aplicarNegocio(){
   var n = (estado.ajustes.negocio || '').trim();
   qs('#hNegocio').textContent = n || 'Calcula tu Precio';
-  qs('#fLicencia').textContent = n || '[nombre del negocio]';
+  qs('#fLicencia').textContent = (CFG && CFG.negocio) ? CFG.negocio : (n || '[nombre del negocio]');
+}
+function marcaBloqueada(){ return !!(CFG && CFG.bloquearMarca); }
+var ID_CONFIG = /^[a-z0-9-]{3,40}$/;
+function tieneFuncion(nombre){ return !!(CFG && CFG.funciones && CFG.funciones[nombre]); }
+function idConfig(){
+  var id = '';
+  try { id = new URLSearchParams(location.search).get('c') || ''; } catch(e){}
+  if (ID_CONFIG.test(id)){ try { localStorage.setItem(K_CID, id); } catch(e){} return id; }
+  try { id = localStorage.getItem(K_CID) || ''; } catch(e){ id = ''; }
+  return ID_CONFIG.test(id) ? id : '';
+}
+function validarConfig(d, id){
+  if (!d || typeof d !== 'object' || d.app !== Activacion.APP_ID) return null;
+  var logoOk = typeof d.logo === 'string' && /^data:image\/(png|jpeg|gif|webp|svg\+xml);base64,[A-Za-z0-9+\/=]+$/.test(d.logo);
+  return {
+    id:id,
+    negocio: typeof d.negocio === 'string' ? d.negocio.trim().slice(0, 80) : '',
+    color: (typeof d.color === 'string' && /^#[0-9a-fA-F]{6}$/.test(d.color)) ? d.color : '',
+    logo: logoOk ? d.logo : null,
+    bloquearMarca: d.bloquearMarca === true,
+    funciones: (d.funciones && typeof d.funciones === 'object' && !Array.isArray(d.funciones)) ? d.funciones : {},
+    productosIniciales: Array.isArray(d.productosIniciales) ? d.productosIniciales.filter(function(p){ return p && typeof p === 'object'; }) : []
+  };
+}
+function leerCacheConfig(id){
+  try {
+    var o = JSON.parse(localStorage.getItem(K_CONFIG) || 'null');
+    if (o && o.id === id) return validarConfig(o.cfg, id);
+  } catch(e){}
+  return null;
+}
+function descargarConfig(id){
+  try {
+    if (typeof fetch !== 'function') return;
+    fetch(new URL('../c/' + id + '.json', location.href) + '?t=' + Date.now(), {cache:'no-store'}).then(function(r){
+      if (!r.ok) throw new Error('http');
+      return r.json();
+    }).then(function(d){
+      var c = validarConfig(d, id);
+      if (!c){
+        if (d && typeof d === 'object' && d.app && d.app !== Activacion.APP_ID){
+          CFG = null; try { localStorage.removeItem(K_CID); localStorage.removeItem(K_CONFIG); } catch(e){}
+          refrescarTodo();
+        }
+        return;
+      }
+      CFG = c;
+      try { localStorage.setItem(K_CONFIG, JSON.stringify({id:id, cfg:c})); } catch(e){}
+      aplicarConfig(); refrescarTodo();
+    }).catch(function(){  });
+  } catch(e){}
+}
+function aplicarConfig(){
+  if (!CFG || !estado) return;
+  var primera = estado.cfgId !== CFG.id;
+  if (marcaBloqueada() || primera){
+    if (CFG.negocio) estado.ajustes.negocio = CFG.negocio;
+    if (CFG.color) estado.ajustes.color = CFG.color;
+  }
+  if (primera){
+    var propios = estado.productos.filter(function(p){ return !p.ejemplo; }).length;
+    if (!propios && CFG.productosIniciales.length){
+      estado.productos = CFG.productosIniciales.map(normProducto);
+    }
+    estado.cfgId = CFG.id;
+  }
+  guardar();
+}
+function aplicarLogo(){
+  var img = qs('#hLogo');
+  if (CFG && CFG.logo){
+    img.src = CFG.logo; img.hidden = false;
+    qs('#favicon').setAttribute('href', CFG.logo); qs('#apple-icon').setAttribute('href', CFG.logo);
+  } else { img.hidden = true; img.removeAttribute('src'); }
+}
+function refrescarTodo(){
+  if (!estado) return;
+  aplicarLogo(); aplicarColor(); aplicarNegocio();
+  if (vista === 'ficha' && !buscarProducto(prodActual)) return ir('lista');
+  if (vista === 'lista') dibujarLista();
+  else if (vista === 'ajustes') dibujarAjustes();
 }
 var vista = 'lista', prodActual = null, busqueda = '';
 function ir(v, id){
@@ -659,14 +818,15 @@ function dibujarLista(){
   if (estado.bienvenida){
     h += '<div class="card"><h2>¡Bienvenido/a a Calcula tu Precio!</h2>' +
       '<p class="nota">Descubre cuánto te cuesta de verdad cada producto y a qué precio venderlo para ganar. Parte mirando el ejemplo de abajo.</p>' +
-      '<ol class="pasos"><li><b>Anota tus insumos</b>: lo que compras y cuánto usas en una tanda.</li>' +
+      '<ol class="pasos"><li><b>Anota tus insumos</b>: lo que compras y cuánto usas en una preparación.</li>' +
       '<li><b>Suma tus otros costos</b>: envase, tu tiempo y gastos fijos (en Ajustes).</li>' +
       '<li><b>Elige tu ganancia</b> y mira el precio sugerido.</li></ol>' +
+      '<p class="nota"><b>Si haces una unidad a la vez</b> (una torta, una polera), pon 1 en unidades.</p>' +
       '<div class="acciones"><button class="btn pri" id="bNuevoB" type="button">Crear mi primer producto</button>' +
       (hayEj ? '<button class="btn mal" id="bBorrarEj" type="button">Borrar el ejemplo</button>' : '') +
       '<button class="btn" id="bCerrarBienv" type="button">Entendido</button></div></div>';
   }
-  h += '<div class="cabeza"><h1>Mis productos</h1><button class="btn pri" id="bNuevo" type="button">+ Nuevo producto</button></div>';
+  h += '<div class="cabeza"><h1>Mis productos</h1><button class="btn out" id="bNuevo" type="button">+ Nuevo producto</button></div>';
   if (estado.productos.length > 4){
     h += '<input type="search" id="buscador" placeholder="Buscar producto…" value="' + esc(busqueda) + '" aria-label="Buscar producto" style="margin-bottom:12px">';
   }
@@ -713,8 +873,9 @@ function filaInsumo(i, idx){
     '<div class="full"><label class="l">Precio que pagaste ($)</label><input type="text" inputmode="decimal" data-k="precio" value="' + esc(aTexto(i.precio)) + '" placeholder="Ej: 1.290"></div>' +
     '<div class="full"><label class="l">Cantidad que compraste</label><div class="fila-u"><input type="text" inputmode="decimal" data-k="cantCompra" value="' + esc(aTexto(i.cantCompra)) + '" placeholder="Ej: 1">' +
     '<select data-k="uCompra" aria-label="Unidad comprada">' + opcionesUnidad(i.uCompra) + '</select></div></div>' +
-    '<div class="full"><label class="l">Cantidad que usas en una tanda</label><div class="fila-u"><input type="text" inputmode="decimal" data-k="cantUsada" value="' + esc(aTexto(i.cantUsada)) + '" placeholder="Ej: 500">' +
-    '<select data-k="uUsada" aria-label="Unidad usada">' + opcionesUnidad(i.uUsada, i.uCompra) + '</select></div></div>' +
+    '<div class="full"><label class="l">Cantidad que usas en una preparación</label><div class="fila-u"><input type="text" inputmode="decimal" data-k="cantUsada" value="' + esc(aTexto(i.cantUsada)) + '" placeholder="Ej: 500">' +
+    '<select data-k="uUsada" aria-label="Unidad usada">' + opcionesUnidad(i.uUsada, i.uCompra) + '</select></div>' +
+    '<p class="ayuda">Ej.: de 1 kg de harina usas 500 g para una tanda de galletas</p></div>' +
     '<div class="aviso-i" data-av></div></div>' +
     '<div class="pie"><span>Costo usado: <span class="costo" data-costo>$0</span></span>' +
     '<button class="btn chico mal" data-a="delIns" type="button" aria-label="Quitar insumo">Quitar</button></div></div>';
@@ -727,15 +888,15 @@ function dibujarFicha(){
   var h = '<div class="cabeza"><button class="btn" id="bVolver" type="button">← Productos</button><h1>' + (p.ejemplo ? 'Ejemplo: ' : '') + 'Ficha del producto</h1></div><div class="layout"><div>';
   h += '<div class="card"><h2>Producto</h2><label class="l" for="fNombre">Nombre</label>' +
     '<input type="text" id="fNombre" data-f="nombre" value="' + esc(p.nombre) + '" placeholder="Ej: Galletas de avena"></div>';
-  h += '<div class="card"><h2>1. Insumos o ingredientes</h2><p class="nota">Anota lo que compraste y cuánto usas en <b>una tanda</b>. Yo hago la regla de tres y convierto kg↔g, L↔ml y m↔cm.</p>' +
+  h += '<div class="card"><h2>1. Insumos o ingredientes</h2><p class="nota">Anota lo que compraste y cuánto usas en <b>una preparación</b>. Yo hago la regla de tres y convierto kg↔g, L↔ml y m↔cm.</p>' +
     '<div id="insumos">' + p.insumos.map(filaInsumo).join('') + '</div>' +
     '<button class="btn block" id="bAddIns" type="button">+ Agregar insumo</button></div>';
-  h += '<div class="card"><h2>2. Rendimiento</h2><label class="l" for="fRend">¿Cuántas unidades salen de esa tanda?</label>' +
+  h += '<div class="card"><h2>2. Rendimiento</h2><label class="l" for="fRend">¿Cuántas unidades salen de esa preparación?</label>' +
     '<input type="text" id="fRend" inputmode="decimal" data-f="rendimiento" value="' + esc(aTexto(p.rendimiento)) + '" placeholder="Ej: 24">' +
-    '<p class="nota">Ejemplo: una receta que da 24 galletas.</p></div>';
+    '<p class="nota">Ejemplo: una receta que da 24 galletas. Si haces una unidad a la vez (una torta, una polera), pon 1.</p></div>';
   h += '<div class="card"><h2>3. Envase o empaque</h2><label class="l" for="fEnv">Costo del envase por unidad ($)</label>' +
     '<input type="text" id="fEnv" inputmode="decimal" data-f="envase" value="' + esc(aTexto(p.envase)) + '" placeholder="Ej: 50"></div>';
-  h += '<div class="card"><h2>4. Mano de obra (tu tiempo)</h2><div class="fila2"><div><label class="l" for="fHoras">Horas que demoras en la tanda</label>' +
+  h += '<div class="card"><h2>4. Mano de obra (tu tiempo)</h2><div class="fila2"><div><label class="l" for="fHoras">Horas que demoras en la preparación</label>' +
     '<input type="text" id="fHoras" inputmode="decimal" data-f="horas" value="' + esc(aTexto(p.horas)) + '" placeholder="Ej: 1,5"></div>' +
     '<div><label class="l" for="fVH">Valor de tu hora ($)</label><input type="text" id="fVH" inputmode="decimal" data-f="valorHora" value="' + esc(aTexto(vh)) + '"></div></div>' +
     '<p class="nota">Tu tiempo también vale. El valor de la hora por defecto está en Ajustes.</p></div>';
@@ -756,8 +917,9 @@ function dibujarFicha(){
   h += '<div class="card"><h2>¿Me conviene este precio?</h2><p class="nota">Escribe el precio al que vendes hoy y te digo cuánto ganas de verdad.</p>' +
     '<label class="l" for="fActual">Precio al que vendo hoy ($)</label><input type="text" id="fActual" inputmode="decimal" data-f="precioActual" value="' + esc(aTexto(p.precioActual)) + '" placeholder="Ej: 700">' +
     '<div id="conviene"></div></div>';
-  h += '<div class="acciones" style="margin-bottom:16px"><button class="btn wa" id="bWa" type="button">Compartir por WhatsApp</button>' +
-    '<button class="btn" id="bVolver2" type="button">Listo, volver</button></div>';
+  h += '<div class="acciones" style="margin-bottom:16px"><button class="btn wa" id="bWa" type="button">Enviar precio a un cliente</button>' +
+    '<button class="btn" id="bVolver2" type="button">Listo, volver</button></div>' +
+    '<div class="acciones" style="margin:-6px 0 16px"><button class="btn suave" id="bResumen" type="button">Guardar resumen para mí</button></div>';
   h += '</div>';
   h += '<aside class="resultado" id="resultado" aria-live="polite"></aside></div>';
   qs('#vFicha').innerHTML = h;
@@ -794,7 +956,7 @@ function recalcular(){
       '<div><small class="e">Ganancia por unidad</small><div class="gan ' + clase + '">' + $(r.ganancia) + ' (' + pct(r.margenReal) + ')</div></div>' +
       '<button class="vermas" id="bVerMas" type="button" aria-label="Ver desglose" aria-expanded="' + abierto + '">' + (abierto ? '▾' : '▴') + '</button></div>';
     h += '<div class="detalle">' + lineasCosto(r, p) +
-      '<div class="lin t"><span>Ganancia por tanda (' + nf.format(r.rend) + ' u.)</span><span class="gan ' + clase + '">' + $(r.gananciaTanda) + '</span></div>' +
+      '<div class="lin t"><span>Ganancia por preparación (' + nf.format(r.rend) + ' u.)</span><span class="gan ' + clase + '">' + $(r.gananciaTanda) + '</span></div>' +
       (r.avisos.length ? '<div class="nota" style="color:var(--aviso)">' + r.avisos.map(esc).join('<br>') + '</div>' : '') +
       '</div>';
   }
@@ -807,7 +969,7 @@ function recalcular(){
       var ev = evaluarPrecio(pa, r.costo, p);
       if (ev.ganancia < 0) ch = '<div class="alerta mal">Estás perdiendo ' + $(-ev.ganancia) + ' por unidad<small>Cada vez que vendes a ' + $(pa) + ' pones plata de tu bolsillo. Tu costo es ' + $(r.costo) + '.</small></div>';
       else if (ev.margen < 0.15) ch = '<div class="alerta aviso">Ganas poco: ' + $(ev.ganancia) + ' por unidad (' + pct(ev.margen) + ')<small>Con menos de 15% de margen cualquier imprevisto te deja sin ganancia.</small></div>';
-      else ch = '<div class="alerta ok">Vas bien: ganas ' + $(ev.ganancia) + ' por unidad (' + pct(ev.margen) + ')<small>Por tanda son ' + $(ev.ganancia * r.rend) + '.</small></div>';
+      else ch = '<div class="alerta ok">Vas bien: ganas ' + $(ev.ganancia) + ' por unidad (' + pct(ev.margen) + ')<small>Por preparación son ' + $(ev.ganancia * r.rend) + '.</small></div>';
     }
     cv.innerHTML = ch;
   }
@@ -831,13 +993,14 @@ function filaGasto(g, idx){
     '<button class="btn x mal" data-a="delGasto" type="button" aria-label="Quitar gasto">✕</button></div>';
 }
 function dibujarAjustes(){
-  var aj = estado.ajustes;
+  var aj = estado.ajustes, bl = marcaBloqueada(), dis = bl ? ' disabled' : '';
   var h = '<div class="cabeza"><h1>Ajustes</h1></div>';
   h += '<div class="card"><h2>Tu negocio</h2><label class="l" for="aNeg">Nombre del negocio</label>' +
-    '<input type="text" id="aNeg" data-s="negocio" value="' + esc(aj.negocio) + '" placeholder="Ej: Dulces de la Caro"><p class="nota">Aparece arriba, en el encabezado.</p>' +
+    '<input type="text" id="aNeg" data-s="negocio" value="' + esc(aj.negocio) + '" placeholder="Ej: Dulces de la Caro"' + dis + '><p class="nota">Aparece arriba, en el encabezado.' + (bl ? ' <b>Configurado por tu vendedor.</b>' : '') + '</p>' +
     '<label class="l">Color principal</label><div class="colores" id="colores">' +
-    PALETA.map(function(c){ return '<button type="button" class="col' + (c.toLowerCase() === (aj.color || '').toLowerCase() ? ' sel' : '') + '" data-c="' + c + '" style="background:' + c + '" aria-label="Color ' + c + '"></button>'; }).join('') +
-    '<input type="color" id="aColor" value="' + esc(/^#[0-9a-fA-F]{6}$/.test(aj.color) ? aj.color : '#0f766e') + '" aria-label="Color personalizado"></div></div>';
+    PALETA.map(function(c){ return '<button type="button" class="col' + (c.toLowerCase() === (aj.color || '').toLowerCase() ? ' sel' : '') + '" data-c="' + c + '" style="background:' + c + '" aria-label="Color ' + c + '"' + dis + '></button>'; }).join('') +
+    '<input type="color" id="aColor" value="' + esc(/^#[0-9a-fA-F]{6}$/.test(aj.color) ? aj.color : '#0f766e') + '" aria-label="Color personalizado"' + dis + '></div>' +
+    (bl ? '<p class="nota">Configurado por tu vendedor.</p>' : '') + '</div>';
   h += '<div class="card"><h2>Tu tiempo</h2><label class="l" for="aVH">Valor de la hora de trabajo por defecto ($)</label>' +
     '<input type="text" id="aVH" inputmode="decimal" data-s="valorHora" value="' + esc(aTexto(aj.valorHora)) + '"><p class="nota">Se usa en los productos nuevos y en los que no cambies el valor.</p></div>';
   h += '<div class="card"><h2>Gastos fijos del mes</h2><p class="nota">Arriendo, luz, internet, gas… lo que pagas aunque no vendas. Lo reparto entre las unidades que vendes al mes.</p>' +
@@ -880,23 +1043,53 @@ function importar(archivo){
     confirmar('Vas a reemplazar TODOS tus datos actuales por los del archivo (' + d.productos.length + ' productos). ¿Continuar?', 'Sí, reemplazar', true).then(function(ok){
       if (!ok) return;
       estado = normalizar(d); estado.bienvenida = false;
-      guardarYa(); aplicarColor(); aplicarNegocio(); ir('lista'); aviso('Respaldo cargado.');
+      aplicarConfig(); guardarYa(); refrescarTodo(); ir('lista'); aviso('Respaldo cargado.');
     });
   };
   rd.onerror = function(){ aviso('No pude leer el archivo.'); };
   rd.readAsText(archivo);
 }
-function compartirWa(){
+function abrirWa(texto){ window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank'); }
+function elegirPrecio(sug, act){
+  return new Promise(function(res){
+    var f = document.createElement('div'); f.className = 'modal-fondo';
+    f.innerHTML = '<div class="modal" role="dialog" aria-modal="true"><p>¿Qué precio quieres enviar?</p><div class="acciones col2">' +
+      '<button class="btn pri" data-v="' + sug + '" type="button">Precio sugerido: ' + esc($(sug)) + '</button>' +
+      '<button class="btn" data-v="' + act + '" type="button">Mi precio actual: ' + esc($(act)) + '</button>' +
+      '<button class="btn suave" data-v="" type="button">Cancelar</button></div></div>';
+    f.addEventListener('click', function(e){
+      var b = e.target.closest('button');
+      if (b || e.target === f){ document.body.removeChild(f); res(b && b.dataset.v ? +b.dataset.v : null); }
+    });
+    document.body.appendChild(f);
+    qs('button', f).focus();
+  });
+}
+function enviarPrecioCliente(){
+  var p = buscarProducto(prodActual); if (!p) return;
+  var r = calcular(p, estado.ajustes), pa = aNum(p.precioActual);
+  var sugOk = r.ok && r.precioOk;
+  if (!sugOk && !(pa > 0)){ aviso('Primero corrige los datos para tener un precio.'); return; }
+  var elegir = !sugOk ? Promise.resolve(Math.round(pa)) : (pa > 0 && Math.round(pa) !== r.precio) ? elegirPrecio(r.precio, Math.round(pa)) : Promise.resolve(r.precio);
+  elegir.then(function(precio){
+    if (!precio) return;
+    var n = (estado.ajustes.negocio || '').trim();
+    abrirWa('*' + (p.nombre || 'Producto') + '*: ' + $(precio) + ' c/u' + (n ? '\n' + n : ''));
+  });
+}
+function guardarResumen(){
   var p = buscarProducto(prodActual); if (!p) return;
   var r = calcular(p, estado.ajustes);
   if (!r.ok || !r.precioOk){ aviso('Primero corrige los datos para tener un precio.'); return; }
-  var n = (estado.ajustes.negocio || '').trim();
-  var t = '*' + (p.nombre || 'Producto') + '*' + (n ? ' · ' + n : '') + '\n' +
-    'Costo por unidad: ' + $(r.costo) + '\n' +
-    'Precio sugerido: ' + $(r.precio) + '\n' +
-    'Ganancia por unidad: ' + $(r.ganancia) + ' (' + pct(r.margenReal) + ')\n' +
-    '_Hecho con Calcula tu Precio_';
-  window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank');
+  confirmar('Este resumen incluye tus costos. Es solo para ti: no lo reenvíes a clientes.', 'Entendido, continuar').then(function(ok){
+    if (!ok) return;
+    var n = (estado.ajustes.negocio || '').trim();
+    abrirWa('*' + (p.nombre || 'Producto') + '*' + (n ? ' · ' + n : '') + '\n' +
+      'Costo por unidad: ' + $(r.costo) + '\n' +
+      'Precio sugerido: ' + $(r.precio) + '\n' +
+      'Ganancia por unidad: ' + $(r.ganancia) + ' (' + pct(r.margenReal) + ')\n' +
+      '_Hecho con Calcula tu Precio_');
+  });
 }
 function nuevoProducto(){
   var p = productoVacio();
@@ -939,7 +1132,8 @@ document.addEventListener('click', function(e){
   }
   if (id === 'bVolver' || id === 'bVolver2'){ guardarYa(); return ir('lista'); }
   if (id === 'bIrAjustes') return ir('ajustes');
-  if (id === 'bWa') return compartirWa();
+  if (id === 'bWa') return enviarPrecioCliente();
+  if (id === 'bResumen') return guardarResumen();
   if (id === 'bVerMas'){ var rs = qs('#resultado'); rs.classList.toggle('abierto'); return recalcular(); }
   if (id === 'bAddIns'){
     var p2 = buscarProducto(prodActual); p2.insumos.push(insumoVacio()); guardar();
@@ -951,7 +1145,7 @@ document.addEventListener('click', function(e){
     var fila = t.closest('.insumo'), p3 = buscarProducto(prodActual);
     p3.insumos.splice(+fila.dataset.idx, 1); guardar(); qs('#insumos').innerHTML = p3.insumos.map(filaInsumo).join(''); return recalcular();
   }
-  if (t.classList.contains('col')){ estado.ajustes.color = t.dataset.c; guardar(); aplicarColor(); return dibujarAjustes(); }
+  if (t.classList.contains('col') && !marcaBloqueada()){ estado.ajustes.color = t.dataset.c; guardar(); aplicarColor(); return dibujarAjustes(); }
   if (id === 'bAddGasto'){
     estado.ajustes.gastosFijos.push({id:nuevoId(), nombre:'', monto:''}); guardar();
     qs('#gastos').innerHTML = estado.ajustes.gastosFijos.map(filaGasto).join(''); resumenFijos();
@@ -964,17 +1158,18 @@ document.addEventListener('click', function(e){
   if (id === 'bBorrarTodo'){
     return confirmar('Se borrarán TODOS tus productos y ajustes de este dispositivo. Esto no se puede deshacer. ¿Seguro?', 'Borrar todo', true).then(function(ok){
       if (!ok) return;
-      estado = {version:1, ajustes:ajustesBase(), productos:[], bienvenida:false};
-      guardarYa(); aplicarColor(); aplicarNegocio(); ir('lista'); aviso('Datos borrados.');
+      estado = {version:1, ajustes:ajustesBase(), productos:[], bienvenida:false, cfgId:(CFG ? CFG.id : '')};
+      aplicarConfig(); guardarYa(); refrescarTodo(); ir('lista'); aviso('Datos borrados.');
     });
   }
 });
 document.addEventListener('input', function(e){
   var el = e.target;
   if (el.id === 'buscador'){ busqueda = el.value; return pintarListaProductos(); }
-  if (el.id === 'aColor'){ estado.ajustes.color = el.value; guardar(); return aplicarColor(); }
+  if (el.id === 'aColor' && !marcaBloqueada()){ estado.ajustes.color = el.value; guardar(); return aplicarColor(); }
   if (el.dataset.s){
     var k = el.dataset.s;
+    if (k === 'negocio' && marcaBloqueada()) return;
     estado.ajustes[k] = (k === 'negocio') ? el.value : aNum(el.value);
     guardar(); aplicarNegocio(); return resumenFijos();
   }
@@ -1024,9 +1219,13 @@ document.addEventListener('visibilitychange', function(){ if (document.hidden) g
 function arrancarApp(){
   estado = cargar();
   if (!guardadoOk) document.getElementById('avisoGuardado').style.display = 'block';
+  var cid = idConfig();
+  if (cid){ CFG = leerCacheConfig(cid); aplicarConfig(); }
+  aplicarLogo();
   aplicarColor();
   aplicarNegocio();
   ir('lista');
+  if (cid) descargarConfig(cid);
   try { if (!localStorage.getItem(CLAVE)) guardarYa(); } catch(e){ guardadoOk = false; document.getElementById('avisoGuardado').style.display = 'block'; }
 }
 Activacion.iniciar(arrancarApp);
