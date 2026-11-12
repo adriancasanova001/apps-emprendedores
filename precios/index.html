@@ -54,6 +54,7 @@ header.top .wrap{display:flex;align-items:center;gap:8px;min-height:56px;flex-wr
 header.top .marca{flex:1;min-width:0}
 header.top .marca b{display:block;font-size:17px;line-height:1.2;overflow-wrap:anywhere}
 header.top .marca small{opacity:.85;font-size:12px}
+header.top .marca small .lnk{background:none;border:0;padding:10px 0;margin:-10px 0;min-height:44px;color:inherit;font:inherit;text-decoration:underline;cursor:pointer;text-align:left}
 .nav{display:flex;gap:6px}
 .nav button{background:rgba(255,255,255,.18);color:var(--sobre-primario);border:0;border-radius:10px;min-height:44px;padding:0 14px;cursor:pointer;font-weight:600}
 .nav button.act{background:var(--sobre-primario);color:var(--primario)}
@@ -148,6 +149,12 @@ input[type=range]{width:100%;min-height:44px;accent-color:var(--primario)}
 .modal .acciones{justify-content:flex-end}
 .modal .acciones.col2{flex-direction:column}
 .modal .acciones.col2 .btn{width:100%}
+.modal h3{margin:0 0 12px;font-size:18px}
+.burbuja{background:#d9fdd3;color:#111b21;border-radius:12px 12px 12px 2px;padding:10px 14px;margin:0 0 14px;white-space:pre-wrap;overflow-wrap:anywhere;box-shadow:0 1px 1px rgba(0,0,0,.15);font-size:16px}
+.opcion{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 10px;border:1px solid var(--borde);border-radius:10px;margin-bottom:8px;cursor:pointer}
+.opcion input{width:22px;height:22px;flex:none}
+.privado{margin:32px 0 16px;padding-top:14px;border-top:1px dashed var(--borde);text-align:center}
+.privado .btn svg{width:16px;height:16px;flex:none}
 .colores{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .col{width:44px;height:44px;border-radius:50%;border:3px solid transparent;cursor:pointer;padding:0}
 .col.sel{border-color:var(--texto)}
@@ -163,7 +170,7 @@ footer{text-align:center;color:var(--suave);font-size:12px;padding:8px 16px 140p
 <header class="top">
   <div class="wrap">
     <img id="hLogo" class="logo" alt="" hidden>
-    <div class="marca"><b id="hNegocio">Calcula tu Precio</b><small>Calcula tu Precio</small></div>
+    <div class="marca"><b id="hNegocio">Calcula tu Precio</b><small id="hSub">Calcula tu Precio</small></div>
     <nav class="nav" aria-label="Secciones">
       <button id="navProductos" type="button">Productos</button>
       <button id="navAjustes" type="button">Ajustes</button>
@@ -297,6 +304,18 @@ function activacionValida(act, cel){
 }
 function huellaBloqueo(codigoCelular, appId){
   return cyrb53(normCodigo(codigoCelular) + "|" + normCodigo(appId) + "|bloqueo", 7).toString(36);
+}
+function extraerCodigo(texto){
+  var toks = String(texto == null ? "" : texto).match(/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*/g) || [], cand = [];
+  toks.forEach(function(t){
+    var n = normCodigo(t);
+    if (n.length !== 10) return;
+    for (var i = 0; i < 10; i++) if (ALFABETO.indexOf(n.charAt(i)) < 0) return;
+    cand.push({n: n, marca: /[0-9-]/.test(t)});
+  });
+  for (var k = 0; k < cand.length; k++) if (activacionValida(cand[k].n, celular)) return cand[k].n;
+  for (var m = 0; m < cand.length; m++) if (cand[m].marca) return cand[m].n;
+  return cand.length ? cand[0].n : "";
 }
 var celular = "", activada = false, almacenOk = true, alActivar = null, yaArranco = false;
 var suspMarca = false, suspMostrada = false, bloqueoVerificado = false;
@@ -450,7 +469,9 @@ function pantalla(mensajeInicial){
     '<button type="button" class="act-btn" id="act-copiar">Copiar</button>' +
     '<a class="act-btn wa" id="act-wa" target="_blank" rel="noopener" href="https://wa.me/' + esc(WHATSAPP_VENDEDOR) + '?text=' + encodeURIComponent(texto) + '">Enviar código por WhatsApp</a></div>' +
     '<div class="act-card"><label for="act-in" style="font-weight:600">Pega aquí tu código de activación</label>' +
-    '<input id="act-in" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXXX-XXXXX" maxlength="14" style="margin-top:8px">' +
+    '<input id="act-in" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXXX-XXXXX" aria-describedby="act-ayuda" style="margin-top:8px">' +
+    '<button type="button" class="act-btn" id="act-pegar">Pegar</button>' +
+    '<p class="act-suave" id="act-ayuda">Puedes pegar el mensaje completo que te llegó: la app encuentra el código sola.</p>' +
     '<div class="act-err" id="act-err" role="alert"></div>' +
     '<button type="button" class="act-btn pri" id="act-ok">Activar</button></div>' +
     '<p class="act-suave" style="text-align:center;margin-top:16px">' + esc(APP_NOMBRE) + '</p>' +
@@ -461,11 +482,34 @@ function pantalla(mensajeInicial){
   mostrarError(mensajeInicial);
   el.querySelector("#act-copiar").addEventListener("click", function(){ copiar(cel, this); });
   function intentar(){
-    var v = normCodigo(inp.value);
+    var v = extraerCodigo(inp.value) || normCodigo(inp.value);
     if (!v){ return mostrarError("Escribe o pega tu código de activación."); }
     if (activacionValida(v, celular)){ activar(v); return arrancar(); }
     mostrarError("Ese código no es válido para este celular. Revisa que esté completo y sin errores, o pídele uno nuevo a tu vendedor.");
   }
+  function procesar(texto){
+    var c = extraerCodigo(texto);
+    if (c){ inp.value = conGuion(c); intentar(); }
+    return !!c;
+  }
+  inp.addEventListener("input", function(){ procesar(inp.value); });
+  inp.addEventListener("paste", function(e){
+    try {
+      var t = e.clipboardData && e.clipboardData.getData("text");
+      if (t && procesar(t)) e.preventDefault();
+    } catch(x){}
+  });
+  el.querySelector("#act-pegar").addEventListener("click", function(){
+    function ayuda(){ inp.focus(); mostrarError("Mantén presionado el campo y elige Pegar"); }
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.readText) return ayuda();
+      navigator.clipboard.readText().then(function(t){
+        if (!t) return ayuda();
+        mostrarError("");
+        if (!procesar(t)){ inp.value = t; intentar(); }
+      }, ayuda);
+    } catch(e){ ayuda(); }
+  });
   el.querySelector("#act-ok").addEventListener("click", intentar);
   inp.addEventListener("keydown", function(e){ if (e.key === "Enter") intentar(); });
 }
@@ -704,6 +748,9 @@ function aplicarColor(){
 function aplicarNegocio(){
   var n = (estado.ajustes.negocio || '').trim();
   qs('#hNegocio').textContent = n || 'Calcula tu Precio';
+  var sub = qs('#hSub');
+  if (!n && !CFG) sub.innerHTML = '<button type="button" class="lnk" id="hPonerNombre">Pon el nombre de tu negocio</button>';
+  else sub.textContent = 'Calcula tu Precio';
   qs('#fLicencia').textContent = (CFG && CFG.negocio) ? CFG.negocio : (n || '[nombre del negocio]');
 }
 function marcaBloqueada(){ return !!(CFG && CFG.bloquearMarca); }
@@ -907,7 +954,7 @@ function dibujarFicha(){
     '<div id="conviene"></div></div>';
   h += '<div class="acciones" style="margin-bottom:16px"><button class="btn wa" id="bWa" type="button">Enviar precio a un cliente</button>' +
     '<button class="btn" id="bVolver2" type="button">Listo, volver</button></div>' +
-    '<div class="acciones" style="margin:-6px 0 16px"><button class="btn suave" id="bResumen" type="button">Guardar resumen para mí</button></div>';
+    '<div class="privado"><button class="btn suave" id="bResumen" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Resumen con mis costos (solo para mí)</button></div>';
   h += '</div>';
   h += '<aside class="resultado" id="resultado" aria-live="polite"></aside></div>';
   qs('#vFicha').innerHTML = h;
@@ -1038,31 +1085,37 @@ function importar(archivo){
   rd.readAsText(archivo);
 }
 function abrirWa(texto){ window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank'); }
-function elegirPrecio(sug, act){
+function textoCliente(p, precio){
+  var n = (estado.ajustes.negocio || '').trim();
+  return '*' + (p.nombre || 'Producto') + '*: ' + $(precio) + ' c/u' + (n ? '\n' + n : '');
+}
+function vistaPreviaCliente(p, sug, act){
   return new Promise(function(res){
+    var precio = sug || act, dos = !!(sug && act && sug !== act);
     var f = document.createElement('div'); f.className = 'modal-fondo';
-    f.innerHTML = '<div class="modal" role="dialog" aria-modal="true"><p>¿Qué precio quieres enviar?</p><div class="acciones col2">' +
-      '<button class="btn pri" data-v="' + sug + '" type="button">Precio sugerido: ' + esc($(sug)) + '</button>' +
-      '<button class="btn" data-v="' + act + '" type="button">Mi precio actual: ' + esc($(act)) + '</button>' +
-      '<button class="btn suave" data-v="" type="button">Cancelar</button></div></div>';
+    f.innerHTML = '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="vpT"><h3 id="vpT">Así lo verá tu cliente</h3>' +
+      (dos ? '<label class="opcion"><input type="radio" name="vpPrecio" value="' + sug + '" checked><span>Precio sugerido: <b>' + esc($(sug)) + '</b></span></label>' +
+             '<label class="opcion"><input type="radio" name="vpPrecio" value="' + act + '"><span>Mi precio actual: <b>' + esc($(act)) + '</b></span></label>' : '') +
+      '<div class="burbuja" id="vpTexto"></div>' +
+      '<div class="acciones col2"><button class="btn wa" data-v="1" type="button">Enviar por WhatsApp</button>' +
+      '<button class="btn" data-v="" type="button">Cancelar</button></div></div>';
+    function pintar(){ qs('#vpTexto', f).textContent = textoCliente(p, precio); }
+    f.addEventListener('change', function(e){ if (e.target.name === 'vpPrecio'){ precio = +e.target.value; pintar(); } });
     f.addEventListener('click', function(e){
       var b = e.target.closest('button');
-      if (b || e.target === f){ document.body.removeChild(f); res(b && b.dataset.v ? +b.dataset.v : null); }
+      if (b || e.target === f){ document.body.removeChild(f); res(b && b.dataset.v ? textoCliente(p, precio) : null); }
     });
-    document.body.appendChild(f);
-    qs('button', f).focus();
+    document.body.appendChild(f); pintar();
+    qs('button[data-v="1"]', f).focus();
   });
 }
 function enviarPrecioCliente(){
   var p = buscarProducto(prodActual); if (!p) return;
-  var r = calcular(p, estado.ajustes), pa = aNum(p.precioActual);
+  var r = calcular(p, estado.ajustes), pa = Math.round(aNum(p.precioActual));
   var sugOk = r.ok && r.precioOk;
   if (!sugOk && !(pa > 0)){ aviso('Primero corrige los datos para tener un precio.'); return; }
-  var elegir = !sugOk ? Promise.resolve(Math.round(pa)) : (pa > 0 && Math.round(pa) !== r.precio) ? elegirPrecio(r.precio, Math.round(pa)) : Promise.resolve(r.precio);
-  elegir.then(function(precio){
-    if (!precio) return;
-    var n = (estado.ajustes.negocio || '').trim();
-    abrirWa('*' + (p.nombre || 'Producto') + '*: ' + $(precio) + ' c/u' + (n ? '\n' + n : ''));
+  vistaPreviaCliente(p, sugOk ? r.precio : 0, pa > 0 ? pa : 0).then(function(texto){
+    if (texto) abrirWa(texto);
   });
 }
 function guardarResumen(){
@@ -1090,7 +1143,7 @@ document.addEventListener('click', function(e){
   var t = e.target.closest('button'); if (!t) return;
   var id = t.id, a = t.dataset.a;
   if (id === 'navProductos') return ir('lista');
-  if (id === 'navAjustes') return ir('ajustes');
+  if (id === 'navAjustes' || id === 'hPonerNombre') return ir('ajustes');
   if (id === 'bNuevo' || id === 'bNuevoB') return nuevoProducto();
   if (id === 'bCerrarBienv'){ estado.bienvenida = false; guardar(); return dibujarLista(); }
   if (id === 'bBorrarEj'){
