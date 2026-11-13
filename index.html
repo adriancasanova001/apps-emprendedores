@@ -302,7 +302,8 @@ footer .sep{margin:0 8px}
   v.addEventListener("error", respaldo);
   var src = v.querySelector("source");
   if (src) src.addEventListener("error", respaldo);
-  if (v.networkState === 3) respaldo();
+  v.addEventListener("loadedmetadata", function () { sec.classList.remove("sin-video"); });
+  window.addEventListener("load", function () { setTimeout(function () { if (v.networkState === 3 && v.readyState === 0) respaldo(); }, 4000); });
 })();
 </script>
 <script>
