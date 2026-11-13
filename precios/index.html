@@ -868,7 +868,7 @@ function dibujarLista(){
   }
   h += '<div id="listaProd"></div>';
   h += '<div class="card"><h2>Respaldo de tus datos</h2><p class="nota">Guarda un archivo con todos tus productos y ajustes, o recupéralo en otro celular o computador.</p>' +
-    '<div class="acciones"><button class="btn pri bExp" type="button">Exportar respaldo</button><button class="btn bImp" type="button">Importar respaldo</button></div></div>';
+    '<div class="acciones"><button class="btn pri bExp" type="button"' + '>Exportar respaldo</button><button class="btn bImp" type="button"' + '>Importar respaldo</button></div></div>';
   qs('#vLista').innerHTML = h;
   pintarListaProductos();
 }
@@ -953,7 +953,7 @@ function dibujarFicha(){
   h += '<div class="card"><h2>¿Me conviene este precio?</h2><p class="nota">Escribe el precio al que vendes hoy y te digo cuánto ganas de verdad.</p>' +
     '<label class="l" for="fActual">Precio al que vendo hoy ($)</label><input type="text" id="fActual" inputmode="decimal" data-f="precioActual" value="' + esc(aTexto(p.precioActual)) + '" placeholder="Ej: 700">' +
     '<div id="conviene"></div></div>';
-  h += '<div class="acciones" style="margin-bottom:16px"><button class="btn wa" id="bWa" type="button">Enviar precio a un cliente</button>' +
+  h += '<div class="acciones" style="margin-bottom:16px"><button class="btn wa" id="bWa" type="button"' + '>Enviar precio a un cliente</button>' +
     '<button class="btn" id="bVolver2" type="button">Listo, volver</button></div>' +
     '<div class="privado"><button class="btn suave" id="bResumen" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Resumen con mis costos (solo para mí)</button></div>';
   h += '</div>';
@@ -1047,8 +1047,8 @@ function dibujarAjustes(){
     '<p class="nota" id="resumenFijos"></p></div>';
   if (promptInstalar) h += '<div class="card"><h2>Instalar en este celular</h2><p class="nota">Ten la app en tu pantalla de inicio, a pantalla completa y sin internet.</p><button class="btn pri" id="bInstalar" type="button">Instalar en este celular</button></div>';
   h += '<div class="card"><h2>Respaldo de tus datos</h2><p class="nota">Descarga un archivo con todo (productos y ajustes) o recupéralo desde uno.</p>' +
-    '<div class="acciones"><button class="btn pri bExp" type="button">Exportar respaldo</button><button class="btn bImp" type="button">Importar respaldo</button></div></div>';
-  h += '<div class="card"><h2>Licencia</h2><p class="nota" style="margin-bottom:6px"><b style="color:var(--ok)">Activada en este celular</b></p>' +
+    '<div class="acciones"><button class="btn pri bExp" type="button"' + '>Exportar respaldo</button><button class="btn bImp" type="button"' + '>Importar respaldo</button></div></div>';
+  h += '<div class="card"><h2>Licencia</h2><p class="nota" style="margin-bottom:6px">'+ '<b style="color:var(--ok)">Activada en este celular</b></p>' +
     '<p class="nota" style="margin:0">Código del celular: <b>' + esc(Activacion.codigoCelular()) + '</b></p></div>';
   h += '<div class="card"><h2>Borrar todo</h2><p class="nota">Elimina todos los productos y ajustes de este dispositivo.</p><button class="btn mal" id="bBorrarTodo" type="button">Borrar todos mis datos</button></div>';
   qs('#vAjustes').innerHTML = h;

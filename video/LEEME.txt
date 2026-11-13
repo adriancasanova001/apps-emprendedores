@@ -1,0 +1,4 @@
+Para activar el video de la pagina principal, copiar en esta carpeta:
+  - calcula-tu-precio.mp4  (vertical 9:16, idealmente menos de 15 MB)
+  - portada.jpg            (imagen de portada del video)
+Mientras no esten, la pagina muestra la maqueta de respaldo con el ejemplo de las galletas.
