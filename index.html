@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ordenaíto</title>
-<meta name="description" content="Apps simples para ordenar tu negocio. Las pagas una vez y son tuyas: funcionan sin internet y sin mensualidad. Mira cómo funciona Calcula tu Precio.">
+<title>Ordenaíto · Apps simples para ordenar tu negocio</title>
+<meta name="description" content="Calcula tu Precio y Agenda de Horas: apps simples para emprendedores de Chile. Funcionan sin internet, las pagas una vez y son tuyas. Prueba la demo de la Agenda.">
 <meta name="theme-color" content="#0f766e">
 <link rel="icon" type="image/svg+xml" href="icono.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Ordenaíto">
 <meta property="og:locale" content="es_CL">
 <meta property="og:title" content="Ordenaíto: apps simples para ordenar tu negocio">
-<meta property="og:description" content="Las pagas una vez y son tuyas. Funcionan sin internet y sin mensualidad. Tu negocio, ordenaíto.">
+<meta property="og:description" content="Calcula tu Precio y Agenda de Horas. Las pagas una vez y son tuyas. Funcionan sin internet. Tu negocio, ordenaíto.">
 <meta property="og:image" content="https://ordenaito.cl/og.png">
 <meta property="og:image:width" content="1080">
 <meta property="og:image:height" content="1080">
@@ -21,188 +21,342 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --verde:#0f766e; --verde-osc:#0b4f4a; --acento:#f59e0b; --acento-suave:#fdf3d0;
-  --fondo:#f4f6f8; --tarjeta:#ffffff; --texto:#1b2430; --suave:#5d6b7a; --borde:#d8dee5;
-  --verde-texto:#0f766e; --sombra:0 2px 10px rgba(20,30,45,.08);
+  --verde:#0f766e; --verde2:#14a39a; --verde-osc:#0b4f4a; --acento:#f59e0b; --acento2:#fbbf24;
+  --fondo:#f2f7f6; --tarjeta:#ffffff; --texto:#13202b; --suave:#566676; --borde:#d6e2e0;
+  --verde-texto:#0f766e; --chip:#e3f3f1; --vidrio:rgba(255,255,255,.72);
+  --sombra:0 1px 2px rgba(15,40,50,.06),0 12px 32px -8px rgba(15,60,60,.16);
+  --sombra-g:0 30px 80px -20px rgba(11,79,74,.38);
+  --grad:linear-gradient(135deg,#14a39a 0%,#0f766e 55%,#0b4f4a 100%);
   --titulo:"Poppins",system-ui,"Segoe UI",Arial,sans-serif;
   --cuerpo:"Nunito",system-ui,"Segoe UI",Arial,sans-serif;
 }
 @media (prefers-color-scheme: dark){
-  :root{ --fondo:#10151b; --tarjeta:#1a222b; --texto:#e8edf2; --suave:#9aa8b6; --borde:#2e3945;
-    --verde-texto:#5eead4; --acento-suave:#3a3010; --sombra:0 2px 10px rgba(0,0,0,.5); }
+  :root{ --fondo:#0a1114; --tarjeta:#121c20; --texto:#e8f1f0; --suave:#9db0b3; --borde:#24343a;
+    --verde-texto:#5eead4; --chip:#12302f; --vidrio:rgba(14,22,26,.72);
+    --sombra:0 1px 2px rgba(0,0,0,.4),0 12px 32px -8px rgba(0,0,0,.6); --sombra-g:0 30px 80px -20px rgba(0,0,0,.8); }
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--fondo);color:var(--texto);font:400 17px/1.55 var(--cuerpo)}
-h1,h2,h3{font-family:var(--titulo);margin:0;line-height:1.15}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--fondo);color:var(--texto);font:400 17px/1.6 var(--cuerpo);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--titulo);margin:0;line-height:1.12;letter-spacing:-.02em}
 p{margin:0 0 12px}
 a{color:var(--verde-texto)}
-.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
-:focus-visible{outline:3px solid var(--acento);outline-offset:2px}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 22px;border-radius:14px;border:2px solid transparent;
-  font:800 17px/1.2 var(--cuerpo);text-decoration:none;text-align:center;cursor:pointer}
-.btn.acento{background:var(--acento);color:#1b2430}
-.btn.borde{border-color:rgba(255,255,255,.85);color:#fff;background:transparent}
-.btn.verde{background:var(--verde);color:#fff}
+img,svg{max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 18px}
+:focus-visible{outline:3px solid var(--acento);outline-offset:3px;border-radius:8px}
+.ic{width:1.25em;height:1.25em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:12px 26px;border-radius:16px;border:2px solid transparent;
+  font:800 17px/1.2 var(--cuerpo);text-decoration:none;text-align:center;cursor:pointer;transition:transform .15s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.acento{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1b2430;box-shadow:0 10px 24px -8px rgba(245,158,11,.7)}
+.btn.verde{background:var(--grad);color:#fff;box-shadow:0 12px 26px -10px rgba(15,118,110,.75)}
+.btn.wa{background:linear-gradient(135deg,#25d366,#0f9d58);color:#052e1b;box-shadow:0 12px 26px -10px rgba(37,211,102,.7)}
+.btn.vidrio{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55);color:#fff;backdrop-filter:blur(6px)}
 .btn.linea{border-color:var(--verde-texto);color:var(--verde-texto);background:transparent}
 .btn.block{width:100%}
-.cabecera{padding:14px 0}
-.cabecera .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.btn.chico{min-height:44px;padding:8px 18px;font-size:15px;border-radius:13px}
+
+
+.cabecera{position:sticky;top:0;z-index:50;background:var(--vidrio);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--borde)}
+.cabecera .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
 .cabecera a.logo{display:block;line-height:0}
-.cabecera svg{height:40px;width:auto;max-width:100%}
+.cabecera svg{height:38px;width:auto;max-width:100%}
 .logo-oscuro{display:none}
 @media (prefers-color-scheme: dark){ .logo-claro{display:none} .logo-oscuro{display:block} }
-.portada{background:radial-gradient(circle at 90% 0,#13897f 0,transparent 50%),linear-gradient(160deg,var(--verde) 0%,var(--verde-osc) 100%);color:#fff;padding:36px 0 44px}
-.portada h1{font-size:clamp(28px,7.4vw,46px);font-weight:800;letter-spacing:-.5px;max-width:20ch}
-.portada .lema{font:800 clamp(20px,5vw,26px)/1.2 var(--titulo);color:var(--acento);margin:14px 0 8px}
-.portada p.sub{font-size:18px;max-width:34em;opacity:.95;margin-bottom:22px}
-.botones{display:flex;flex-direction:column;gap:12px;max-width:420px}
-.portada .nota{margin:16px 0 0;font-size:15px;font-weight:700;opacity:.9}
-section.bloque{padding:44px 0}
-section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
-.bajada{color:var(--suave);max-width:40em;margin-bottom:22px}
-.etiqueta{display:inline-block;background:var(--acento);color:#1b2430;font:800 13px/1 var(--cuerpo);padding:6px 11px;border-radius:99px;margin-bottom:10px;letter-spacing:.3px}
-.app{display:grid;gap:28px;align-items:center}
-.beneficios{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
-.beneficios li{display:flex;gap:12px;align-items:flex-start}
-.beneficios .ic{flex:none;width:28px;height:28px;border-radius:50%;background:var(--verde);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;margin-top:1px}
-.beneficios b{display:block}
-.beneficios span.d{color:var(--suave);font-size:16px}
-.maqueta{display:flex;justify-content:center}
-.cel{width:260px;max-width:100%;background:#0d1117;border-radius:40px;padding:11px;box-shadow:0 24px 48px rgba(0,0,0,.28)}
-.pant{background:#f4f6f8;border-radius:30px;overflow:hidden;color:#1b2430;font-family:var(--cuerpo)}
-.pant .barra{background:var(--verde);color:#fff;padding:26px 16px 12px;font:700 16px/1.2 var(--titulo)}
-.pant .barra small{display:block;font:600 11px var(--cuerpo);opacity:.85;margin-top:2px}
-.pant .tj{background:#fff;margin:10px;border-radius:14px;padding:12px;box-shadow:0 1px 4px rgba(20,30,45,.08)}
-.pant .tj h4{font:700 14px var(--titulo);margin:0 0 6px}
-.pant .fila{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px solid #e6eaef}
-.pant .fila:last-child{border:0}
-.pant .precio{background:var(--verde);color:#fff;margin:10px;border-radius:14px;padding:12px}
-.pant .precio small{font-size:12px;opacity:.9}
-.pant .precio b{display:block;font:800 32px/1.1 var(--titulo)}
-.pant .ganas{display:inline-block;margin-top:4px;background:var(--acento);color:#1b2430;font-weight:800;font-size:12px;padding:3px 9px;border-radius:99px}
-.pant .conv h4{font-size:13px}
-.pant .conv p{font-size:12.5px;font-weight:700;color:#15803d;margin:0}
-.video-marco{width:100%;max-width:320px;aspect-ratio:9/16;margin:0 auto;background:#0d1117;border-radius:34px;padding:10px;box-shadow:0 24px 48px rgba(0,0,0,.28);overflow:hidden}
-.video-marco video{display:block;width:100%;height:100%;border-radius:25px;background:#000;object-fit:cover}
-.video-resp{display:none;text-align:center}
-.video-resp p{color:var(--suave);max-width:28em;margin:18px auto 0}
-#video.sin-video .video-marco{display:none}
-#video.sin-video .video-resp{display:block}
-#video .maqueta{margin:0}
-#video{scroll-margin-top:8px}
-.planes{display:grid;gap:16px;margin-top:30px}
-.plan{background:var(--tarjeta);border:1px solid var(--borde);border-radius:20px;padding:22px 20px;box-shadow:var(--sombra);display:flex;flex-direction:column}
-.plan.dest{border:2px solid var(--verde-texto)}
-.plan h3{font-size:22px}
-.plan .precio-g{font:800 40px/1.1 var(--titulo);margin:10px 0 2px;letter-spacing:-1px}
-.plan .precio-g span{background:linear-gradient(transparent 62%,var(--acento) 62%)}
-.plan .promo{display:inline-block;background:var(--acento);color:#1f2937;font-weight:800;font-size:13px;line-height:1.3;padding:5px 12px;border-radius:12px;margin:6px 0 4px}
-.plan .normal{color:var(--suave);font-weight:700;font-size:16px;margin:2px 0 0}
-.plan .lema{color:var(--verde-texto);font-weight:800;font-size:15px;margin:2px 0 0}
-.medida{margin-top:18px;background:var(--tarjeta);border:2px dashed var(--borde);border-radius:20px;padding:20px;text-align:center}
-.medida h3{font-size:20px;margin-bottom:6px}
-.medida p{color:var(--suave);max-width:36em;margin:0 auto 14px}
-.plan .unico{color:var(--suave);font-weight:700;font-size:15px;margin-bottom:14px}
-.plan ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:8px;flex:1}
-.plan li{padding-left:26px;position:relative}
-.plan li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--verde-texto);font-weight:800}
-.prox{display:grid;gap:14px}
-.prox .tj{background:var(--tarjeta);border:1px dashed var(--borde);border-radius:18px;padding:18px}
-.prox h3{font-size:19px;margin:8px 0 4px}
-.prox p{color:var(--suave);margin:0;font-size:16px}
-.chip{display:inline-block;background:var(--acento-suave);color:#a16207;font:800 12px/1 var(--cuerpo);padding:5px 10px;border-radius:99px}
-@media (prefers-color-scheme: dark){ .chip{color:#facc15} }
-.pasos{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px;counter-reset:p}
-.pasos li{background:var(--tarjeta);border:1px solid var(--borde);border-radius:18px;padding:16px 16px 16px 66px;position:relative;counter-increment:p;box-shadow:var(--sombra)}
-.pasos li::before{content:counter(p);position:absolute;left:16px;top:14px;width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;font:800 18px/36px var(--titulo);text-align:center}
-.pasos b{display:block;font-size:18px}
-.pasos span{color:var(--suave)}
-details{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;margin-bottom:10px}
-summary{cursor:pointer;min-height:48px;padding:12px 44px 12px 16px;font-weight:800;list-style:none;position:relative}
+.menu{display:none;gap:6px;align-items:center}
+.menu a:not(.btn){padding:10px 14px;border-radius:12px;color:var(--texto);text-decoration:none;font-weight:800;font-size:16px}
+.menu a:not(.btn):hover{background:var(--chip)}
+
+
+.portada{position:relative;overflow:hidden;color:#fff;background:linear-gradient(160deg,#0f766e 0%,#0b4f4a 60%,#08383a 100%);padding:44px 0 0}
+.portada::before,.portada::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none}
+.portada::before{width:520px;height:520px;right:-120px;top:-160px;background:#2dd4bf;opacity:.45}
+.portada::after{width:420px;height:420px;left:-140px;bottom:-120px;background:#f59e0b;opacity:.28}
+.portada .wrap{position:relative;z-index:1;display:grid;gap:30px}
+.insignia{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:7px 14px;border-radius:99px;font-weight:800;font-size:14px;backdrop-filter:blur(6px)}
+.portada h1{font-size:clamp(34px,8.6vw,64px);font-weight:800;margin:16px 0 14px;max-width:15ch}
+.portada h1 em{font-style:normal;background:linear-gradient(135deg,#fde68a,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.portada .sub{font-size:clamp(18px,4.4vw,21px);max-width:30em;opacity:.95;margin-bottom:24px}
+.botones{display:flex;flex-direction:column;gap:12px;max-width:440px}
+.confianza{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 20px;font-weight:800;font-size:15px}
+.confianza li{display:flex;align-items:center;gap:8px;opacity:.95}
+.confianza .ic{color:#fcd34d}
+.escena{position:relative;height:470px;margin:6px auto 0;width:100%;max-width:540px}
+.escena .tel{position:absolute;bottom:-70px}
+.escena .t1{left:50%;margin-left:-168px;width:184px;transform:rotate(-6deg);z-index:2}
+.escena .t2{left:50%;margin-left:-6px;width:196px;transform:rotate(5deg);bottom:-100px}
+.flota{position:absolute;z-index:3;background:var(--tarjeta);color:var(--texto);border-radius:16px;padding:10px 14px;box-shadow:0 18px 40px -12px rgba(0,0,0,.45);font-weight:800;font-size:14px;line-height:1.25;display:flex;gap:10px;align-items:center}
+.flota b{display:block;font:800 20px/1.1 var(--titulo);color:var(--verde-texto)}
+.flota .pt{width:36px;height:36px;border-radius:12px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center}
+.flota.f1{left:4px;top:60px;animation:flota 6s ease-in-out infinite}
+.flota.f2{right:0;top:170px;animation:flota 7s ease-in-out -2s infinite}
+@keyframes flota{50%{transform:translateY(-10px)}}
+
+
+.tel{position:relative;background:#0b1114;border-radius:38px;padding:8px;box-shadow:var(--sombra-g),inset 0 0 0 1.5px #2a3a40;width:100%;max-width:290px}
+.tel::before{content:"";position:absolute;top:14px;left:50%;width:70px;height:20px;margin-left:-35px;background:#0b1114;border-radius:99px;z-index:3}
+.tel .pantalla{position:relative;border-radius:31px;overflow:hidden;aspect-ratio:1170/2532;background:#fff}
+.tel picture,.tel img{display:block;width:100%;height:100%;object-fit:cover}
+.video-fila .tel .pantalla{aspect-ratio:9/16}
+.tel .pantalla video{display:block;width:100%;height:100%;object-fit:cover;background:#000}
+
+
+.carr{display:flex;flex-direction:column;align-items:center;gap:18px}
+.carr .pantalla picture{position:absolute;inset:0;opacity:0;transition:opacity .5s}
+.carr .pantalla picture.on{opacity:1}
+.carr .pie{text-align:center;min-height:62px;max-width:300px}
+.carr .pie b{display:block;font:800 18px/1.2 var(--titulo)}
+.carr .pie span{color:var(--suave);font-size:15.5px}
+.puntos{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.puntos button{min-width:44px;min-height:44px;padding:0 14px;border-radius:99px;border:1.5px solid var(--borde);background:var(--tarjeta);color:var(--suave);font:800 14px var(--cuerpo);cursor:pointer}
+.puntos button[aria-pressed="true"]{background:var(--grad);color:#fff;border-color:transparent}
+
+
+section.bloque{padding:68px 0;position:relative}
+.cab{max-width:640px;margin-bottom:34px}
+.cab.centro{margin-left:auto;margin-right:auto;text-align:center}
+.etiqueta{display:inline-flex;align-items:center;gap:7px;background:var(--chip);color:var(--verde-texto);font:800 13px/1 var(--cuerpo);padding:8px 13px;border-radius:99px;margin-bottom:14px;letter-spacing:.4px;text-transform:uppercase}
+.etiqueta.ambar{background:#fef3c7;color:#92400e}
+@media (prefers-color-scheme: dark){ .etiqueta.ambar{background:#3a2f0c;color:#fcd34d} }
+.cab h2{font-size:clamp(30px,6.6vw,46px);font-weight:800}
+.cab p{color:var(--suave);font-size:18px;margin-top:12px}
+
+
+.ventajas{background:var(--tarjeta);border-bottom:1px solid var(--borde)}
+.ventajas .wrap{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;padding-top:22px;padding-bottom:22px}
+.ventajas div{display:flex;align-items:center;gap:11px;font-weight:800;font-size:15px;line-height:1.25;padding:8px 0}
+.ventajas .ic{width:40px;height:40px;padding:9px;border-radius:13px;background:var(--chip);color:var(--verde-texto)}
+
+
+.app{display:grid;gap:40px;align-items:center}
+.app.inv .carr{order:-1}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.lista li{display:flex;gap:14px;align-items:flex-start;background:var(--tarjeta);border:1px solid var(--borde);border-radius:20px;padding:15px 16px;box-shadow:var(--sombra)}
+.lista .ic{width:44px;height:44px;padding:11px;border-radius:14px;background:var(--grad);color:#fff}
+.lista b{display:block;font:700 17.5px/1.25 var(--titulo);margin-bottom:2px}
+.lista span{color:var(--suave);font-size:16px;line-height:1.45}
+.fondo-suave{background:linear-gradient(180deg,transparent,var(--chip) 18%,var(--chip) 82%,transparent)}
+
+
+.video-fila{display:grid;gap:36px;align-items:center}
+.video-fila .tel{margin:0 auto;max-width:300px}
+.pasitos{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:12px;counter-reset:p}
+.pasitos li{counter-increment:p;position:relative;padding-left:54px;min-height:40px;font-weight:700}
+.pasitos li::before{content:counter(p);position:absolute;left:0;top:-2px;width:40px;height:40px;border-radius:50%;background:var(--grad);color:#fff;font:800 18px/40px var(--titulo);text-align:center}
+.pasitos span{display:block;font-weight:400;color:var(--suave);font-size:16px}
+#video.sin-video .video-fila .pantalla{background:var(--grad)}
+
+
+.demo{margin-top:30px;border-radius:28px;padding:26px 22px;color:#fff;background:linear-gradient(150deg,#0f766e,#0b4f4a);box-shadow:var(--sombra-g);position:relative;overflow:hidden}
+.demo::after{content:"";position:absolute;width:300px;height:300px;right:-90px;top:-110px;border-radius:50%;background:#2dd4bf;opacity:.3;filter:blur(50px)}
+.demo>*{position:relative;z-index:1}
+.demo h3{font-size:clamp(22px,5.4vw,28px);margin:10px 0 8px}
+.demo p{opacity:.95;max-width:34em}
+.demo .botones{margin-top:16px}
+.demo small{display:block;margin-top:14px;opacity:.85;font-size:14.5px;line-height:1.45}
+
+
+.planes{display:grid;gap:18px;margin-top:40px}
+.plan{position:relative;background:var(--tarjeta);border:1px solid var(--borde);border-radius:26px;padding:26px 22px;box-shadow:var(--sombra);display:flex;flex-direction:column}
+.plan.dest{border:2px solid var(--verde-texto);box-shadow:var(--sombra-g)}
+.plan .cinta{position:absolute;top:-13px;left:22px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1b2430;font:800 12.5px/1 var(--cuerpo);padding:7px 13px;border-radius:99px;letter-spacing:.3px}
+.plan h3{font-size:23px}
+.plan .lema{color:var(--verde-texto);font-weight:800;font-size:15.5px;margin:2px 0 0}
+.plan .normal{color:var(--suave);font-weight:700;font-size:16px;margin:12px 0 0}
+.plan .lema+.precio-g{margin-top:16px}
+.plan .precio-g{font:800 50px/1.05 var(--titulo);letter-spacing:-.03em;margin:2px 0 2px}
+.plan .precio-g span{background:linear-gradient(transparent 66%,rgba(245,158,11,.55) 66%)}
+.plan .promo{display:inline-block;align-self:flex-start;background:#fef3c7;color:#92400e;font-weight:800;font-size:13px;line-height:1.3;padding:5px 12px;border-radius:12px;margin:12px 0 0}
+@media (prefers-color-scheme: dark){ .plan .promo{background:#3a2f0c;color:#fcd34d} }
+.plan .unico{color:var(--suave);font-weight:700;font-size:15px;margin:2px 0 16px}
+.plan ul{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:10px;flex:1}
+.plan li{padding-left:30px;position:relative}
+.plan li::before{content:"";position:absolute;left:0;top:3px;width:20px;height:20px;border-radius:50%;background:var(--grad)}
+.plan li::after{content:"";position:absolute;left:6px;top:8px;width:8px;height:4.5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg)}
+.medida{margin-top:20px;background:var(--tarjeta);border:2px dashed var(--borde);border-radius:24px;padding:22px;text-align:center}
+.medida h3{font-size:21px;margin-bottom:6px}
+.medida p{color:var(--suave);max-width:38em;margin:0 auto 14px}
+
+
+.prox{display:grid;gap:16px}
+.prox .tj{background:var(--tarjeta);border:1.5px dashed var(--borde);border-radius:24px;padding:24px}
+.prox .tj .ic{display:block;width:48px;height:48px;padding:12px;border-radius:15px;background:var(--chip);color:var(--verde-texto);margin-bottom:14px}
+.prox h3{font-size:21px;margin:10px 0 6px}
+.prox p{color:var(--suave);margin:0}
+.chip{display:inline-block;background:#fef3c7;color:#92400e;font:800 12px/1 var(--cuerpo);padding:6px 11px;border-radius:99px;letter-spacing:.4px}
+@media (prefers-color-scheme: dark){ .chip{background:#3a2f0c;color:#fcd34d} }
+
+
+.pasos{list-style:none;margin:0;padding:0;display:grid;gap:16px;counter-reset:p}
+.pasos li{background:var(--tarjeta);border:1px solid var(--borde);border-radius:24px;padding:24px 22px;position:relative;counter-increment:p;box-shadow:var(--sombra)}
+.pasos li::after{content:counter(p);position:absolute;right:18px;top:6px;font:800 76px/1 var(--titulo);color:var(--chip)}
+.pasos .ic{width:52px;height:52px;padding:13px;border-radius:17px;background:var(--grad);color:#fff;margin-bottom:14px;position:relative;z-index:1}
+.pasos b{display:block;font:700 19px/1.25 var(--titulo);margin-bottom:6px;position:relative;z-index:1}
+.pasos span{color:var(--suave);position:relative;z-index:1}
+
+
+.faq{max-width:780px;margin:0 auto}
+details{background:var(--tarjeta);border:1px solid var(--borde);border-radius:18px;margin-bottom:12px;box-shadow:var(--sombra)}
+summary{cursor:pointer;min-height:56px;padding:15px 52px 15px 20px;font-weight:800;list-style:none;position:relative}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+";position:absolute;right:16px;top:8px;font:800 24px/32px var(--titulo);color:var(--verde-texto)}
-details[open] summary::after{content:"\2212"}
-details p{padding:0 16px 14px;margin:0;color:var(--suave)}
-.cierre{background:linear-gradient(160deg,var(--verde) 0%,var(--verde-osc) 100%);color:#fff;text-align:center;padding:40px 0}
-.cierre h2{font-size:clamp(24px,6vw,32px);margin-bottom:8px}
-.cierre p{opacity:.95}
-.cierre .botones{margin:18px auto 0;align-items:stretch}
-footer{padding:26px 0 34px;text-align:center;color:var(--suave);font-size:15px}
+summary::after{content:"";position:absolute;right:20px;top:50%;width:10px;height:10px;margin-top:-8px;border-right:2.5px solid var(--verde-texto);border-bottom:2.5px solid var(--verde-texto);transform:rotate(45deg);transition:transform .2s}
+details[open] summary::after{transform:rotate(-135deg);margin-top:-2px}
+details p{padding:0 20px 18px;margin:0;color:var(--suave)}
+
+
+.cierre{position:relative;overflow:hidden;background:linear-gradient(160deg,#0f766e 0%,#0b4f4a 70%);color:#fff;text-align:center;padding:76px 0}
+.cierre::before{content:"";position:absolute;width:420px;height:420px;left:50%;top:-200px;margin-left:-210px;border-radius:50%;background:#2dd4bf;opacity:.3;filter:blur(70px)}
+.cierre .wrap{position:relative}
+.cierre h2{font-size:clamp(30px,7vw,48px);margin-bottom:10px}
+.cierre p{opacity:.95;font-size:19px;max-width:30em;margin:0 auto}
+.cierre .botones{margin:26px auto 0;align-items:stretch}
+footer{padding:34px 0 44px;text-align:center;color:var(--suave);font-size:15px}
 footer a{font-weight:700}
 footer .sep{margin:0 8px}
-.doc{padding:28px 16px 36px;max-width:720px}
-.doc h1{font-size:clamp(28px,7vw,38px);margin-bottom:6px}
-.doc h2{font-size:21px;margin:28px 0 8px}
-.doc .vigencia{color:var(--suave);font-weight:700;margin-bottom:18px}
-.doc ul{padding-left:22px;margin:0 0 12px}
-.doc li{margin-bottom:6px}
-.volver{display:inline-flex;align-items:center;min-height:44px;font-weight:800}
+
+
+.js .rev{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .rev.ver{opacity:1;transform:none}
+
 @media (min-width:720px){
   .botones{flex-direction:row;max-width:none}
-  .botones .btn{padding:10px 28px}
-  .app{grid-template-columns:1fr auto;gap:48px}
+  .ventajas .wrap{grid-template-columns:repeat(4,1fr)}
   .planes{grid-template-columns:1fr 1fr}
-  .prox{grid-template-columns:repeat(3,1fr)}
+  .prox{grid-template-columns:repeat(2,1fr)}
   .pasos{grid-template-columns:repeat(3,1fr)}
-  .pasos li{padding:68px 16px 18px}
-  .pasos li::before{top:16px}
-  .portada{padding:56px 0 64px}
   .cierre .botones{justify-content:center}
+  .demo{padding:34px 36px}
+}
+@media (min-width:980px){
+  body{font-size:18px}
+  .menu{display:flex}
+  .portada{padding:72px 0 0}
+  .portada .wrap{grid-template-columns:1.05fr .95fr;align-items:center;gap:20px}
+  .escena{height:600px;max-width:none}
+  .escena .t1{margin-left:-250px;width:250px}
+  .escena .t2{margin-left:-40px;width:270px;bottom:-120px}
+  .flota.f1{left:0}
+  .app{grid-template-columns:1fr 1fr;gap:72px}
+  .app.inv{grid-template-columns:1fr 1fr}
+  .app.inv .carr{order:0}
+  .video-fila{grid-template-columns:1fr 1fr;gap:72px}
+  .carr .tel{max-width:310px}
+  section.bloque{padding:96px 0}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .flota{animation:none!important}
+  .js .rev{opacity:1;transform:none;transition:none}
 }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><path d="M3 3l18 18"/></symbol>
+<symbol id="i-pago" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/></symbol>
+<symbol id="i-cel" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></symbol>
+<symbol id="i-chile" viewBox="0 0 24 24"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-calc" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="3"/><path d="M8 7h8M8 12h2M14 12h2M8 17h2M14 17h2"/></symbol>
+<symbol id="i-alerta" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+<symbol id="i-pct" viewBox="0 0 24 24"><path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+<symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-5-5.7"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M10 8.5l5 3.5-5 3.5z"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-5.4A8 8 0 1 1 21 12z"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5M4 21h16"/></symbol>
+<symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l3 12h11l2-8H6"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></symbol>
+<symbol id="i-brush" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.2"/><circle cx="12" cy="7" r="1.2"/><circle cx="16" cy="10" r="1.2"/><path d="M12 21c-2 0-2-2 0-3s3-2 1-4"/></symbol>
+</defs></svg>
+
 <header class="cabecera"><div class="wrap">
   <a class="logo" href="./" aria-label="Ordenaíto, inicio">
     <span class="logo-claro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 136" role="img" aria-label="ordenaíto"><g transform="translate(6 8) scale(1.2)"><path d="M40 8 H60 A32 32 0 0 1 92 40 V50 C92 64 93 78 91 90 C90 94.5 86 95 82 91.5 C76 86 69 80 60 80 H40 A32 32 0 0 1 8 48 V40 A32 32 0 0 1 40 8 Z" fill="#0f766e"/><rect x="27.8" y="31.8" width="12.4" height="12.4" rx="3.8" fill="#ffffff"/><path d="M61.69 43.3 L68.31 32.7" fill="none" stroke="#f59e0b" stroke-width="10.5" stroke-linecap="round"/><path d="M31 54 Q50 73 69 54" fill="none" stroke="#f59e0b" stroke-width="8.5" stroke-linecap="round"/></g><path transform="translate(150 104)" d="M2.21 -25.85Q2.21 -33.86 5.75 -39.84Q9.29 -45.82 15.41 -49.04Q21.53 -52.26 29.26 -52.26Q36.98 -52.26 43.1 -49.04Q49.22 -45.82 52.76 -39.84Q56.3 -33.86 56.3 -25.85Q56.3 -17.85 52.76 -11.82Q49.22 -5.8 43.06 -2.58Q36.89 0.64 29.16 0.64Q21.44 0.64 15.32 -2.58Q9.2 -5.8 5.7 -11.78Q2.21 -17.76 2.21 -25.85ZM38 -25.85Q38 -31.1 35.47 -33.86Q32.94 -36.62 29.26 -36.62Q25.58 -36.62 23.09 -33.86Q20.61 -31.1 20.61 -25.85Q20.61 -20.52 23 -17.76Q25.39 -15 29.16 -15Q32.94 -15 35.47 -17.8Q38 -20.61 38 -25.85ZM96.35 -52.07V-32.84H91.29Q85.4 -32.84 82.55 -30.54Q79.7 -28.24 79.7 -22.54V0H61.66V-51.61H79.7V-42.5Q82.73 -46.92 87.06 -49.5Q91.38 -52.07 96.35 -52.07ZM119.92 -52.26Q124.89 -52.26 128.8 -50.19Q132.71 -48.12 134.92 -44.53V-68.08H153.04V0H134.92V-7.18Q132.8 -3.59 128.94 -1.47Q125.08 0.64 119.83 0.64Q113.67 0.64 108.65 -2.58Q103.64 -5.8 100.74 -11.82Q97.84 -17.85 97.84 -25.85Q97.84 -33.86 100.74 -39.84Q103.64 -45.82 108.7 -49.04Q113.76 -52.26 119.92 -52.26ZM125.63 -36.52Q121.58 -36.52 118.91 -33.72Q116.24 -30.91 116.24 -25.85Q116.24 -20.88 118.91 -17.99Q121.58 -15.09 125.63 -15.09Q129.58 -15.09 132.3 -17.94Q135.01 -20.79 135.01 -25.85Q135.01 -30.82 132.3 -33.67Q129.58 -36.52 125.63 -36.52ZM210.38 -22.17H176.25Q176.53 -17.94 178.6 -15.87Q180.67 -13.8 183.89 -13.8Q188.4 -13.8 190.33 -17.85H209.56Q208.36 -12.51 204.91 -8.33Q201.46 -4.14 196.22 -1.75Q190.97 0.64 184.62 0.64Q176.99 0.64 171.05 -2.58Q165.12 -5.8 161.76 -11.78Q158.4 -17.76 158.4 -25.85Q158.4 -33.95 161.72 -39.88Q165.03 -45.82 170.96 -49.04Q176.9 -52.26 184.62 -52.26Q192.26 -52.26 198.15 -49.13Q204.04 -46 207.35 -40.16Q210.66 -34.32 210.66 -26.4Q210.66 -24.29 210.38 -22.17ZM192.26 -30.91Q192.26 -34.22 190.05 -36.11Q187.84 -38 184.53 -38Q181.22 -38 179.1 -36.2Q176.99 -34.41 176.34 -30.91ZM269.2 -30.08V0H251.16V-27.69Q251.16 -32.11 248.86 -34.64Q246.56 -37.17 242.7 -37.17Q238.65 -37.17 236.35 -34.64Q234.05 -32.11 234.05 -27.69V0H216.02V-51.61H234.05V-44.25Q236.44 -47.75 240.49 -49.91Q244.54 -52.07 249.78 -52.07Q258.71 -52.07 263.95 -46.14Q269.2 -40.2 269.2 -30.08ZM296.18 -52.26Q301.51 -52.26 305.38 -50.14Q309.24 -48.02 311.36 -44.44V-51.61H329.39V0H311.36V-7.18Q309.24 -3.59 305.33 -1.47Q301.42 0.64 296.18 0.64Q290.01 0.64 285 -2.58Q279.98 -5.8 277.09 -11.82Q274.19 -17.85 274.19 -25.85Q274.19 -33.86 277.09 -39.84Q279.98 -45.82 285 -49.04Q290.01 -52.26 296.18 -52.26ZM301.97 -36.52Q297.92 -36.52 295.26 -33.72Q292.59 -30.91 292.59 -25.85Q292.59 -20.88 295.26 -17.99Q297.92 -15.09 301.97 -15.09Q305.93 -15.09 308.64 -17.94Q311.36 -20.79 311.36 -25.85Q311.36 -30.82 308.64 -33.67Q305.93 -36.52 301.97 -36.52ZM357.56 -51.61V0H339.44V-51.61ZM398.07 -15.36V0H390.25Q370.47 0 370.47 -19.6V-36.62H364.12V-51.61H370.47V-64.12H388.59V-51.61H397.98V-36.62H388.59V-19.32Q388.59 -17.2 389.56 -16.28Q390.52 -15.36 392.82 -15.36ZM401.4 -25.85Q401.4 -33.86 404.95 -39.84Q408.49 -45.82 414.61 -49.04Q420.72 -52.26 428.45 -52.26Q436.18 -52.26 442.3 -49.04Q448.42 -45.82 451.96 -39.84Q455.5 -33.86 455.5 -25.85Q455.5 -17.85 451.96 -11.82Q448.42 -5.8 442.25 -2.58Q436.09 0.64 428.36 0.64Q420.63 0.64 414.51 -2.58Q408.4 -5.8 404.9 -11.78Q401.4 -17.76 401.4 -25.85ZM437.19 -25.85Q437.19 -31.1 434.66 -33.86Q432.13 -36.62 428.45 -36.62Q424.77 -36.62 422.29 -33.86Q419.8 -31.1 419.8 -25.85Q419.8 -20.52 422.2 -17.76Q424.59 -15 428.36 -15Q432.13 -15 434.66 -17.8Q437.19 -20.61 437.19 -25.85Z" fill="#0f766e"/><path d="M495.69 40.1 L503.31 27.9" fill="none" stroke="#f59e0b" stroke-width="12.07" stroke-linecap="round"/></svg></span><span class="logo-oscuro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 136" role="img" aria-label="ordenaíto"><g transform="translate(6 8) scale(1.2)"><path d="M40 8 H60 A32 32 0 0 1 92 40 V50 C92 64 93 78 91 90 C90 94.5 86 95 82 91.5 C76 86 69 80 60 80 H40 A32 32 0 0 1 8 48 V40 A32 32 0 0 1 40 8 Z" fill="#ffffff"/><rect x="27.8" y="31.8" width="12.4" height="12.4" rx="3.8" fill="#0b4f4a"/><path d="M61.69 43.3 L68.31 32.7" fill="none" stroke="#f59e0b" stroke-width="10.5" stroke-linecap="round"/><path d="M31 54 Q50 73 69 54" fill="none" stroke="#f59e0b" stroke-width="8.5" stroke-linecap="round"/></g><path transform="translate(150 104)" d="M2.21 -25.85Q2.21 -33.86 5.75 -39.84Q9.29 -45.82 15.41 -49.04Q21.53 -52.26 29.26 -52.26Q36.98 -52.26 43.1 -49.04Q49.22 -45.82 52.76 -39.84Q56.3 -33.86 56.3 -25.85Q56.3 -17.85 52.76 -11.82Q49.22 -5.8 43.06 -2.58Q36.89 0.64 29.16 0.64Q21.44 0.64 15.32 -2.58Q9.2 -5.8 5.7 -11.78Q2.21 -17.76 2.21 -25.85ZM38 -25.85Q38 -31.1 35.47 -33.86Q32.94 -36.62 29.26 -36.62Q25.58 -36.62 23.09 -33.86Q20.61 -31.1 20.61 -25.85Q20.61 -20.52 23 -17.76Q25.39 -15 29.16 -15Q32.94 -15 35.47 -17.8Q38 -20.61 38 -25.85ZM96.35 -52.07V-32.84H91.29Q85.4 -32.84 82.55 -30.54Q79.7 -28.24 79.7 -22.54V0H61.66V-51.61H79.7V-42.5Q82.73 -46.92 87.06 -49.5Q91.38 -52.07 96.35 -52.07ZM119.92 -52.26Q124.89 -52.26 128.8 -50.19Q132.71 -48.12 134.92 -44.53V-68.08H153.04V0H134.92V-7.18Q132.8 -3.59 128.94 -1.47Q125.08 0.64 119.83 0.64Q113.67 0.64 108.65 -2.58Q103.64 -5.8 100.74 -11.82Q97.84 -17.85 97.84 -25.85Q97.84 -33.86 100.74 -39.84Q103.64 -45.82 108.7 -49.04Q113.76 -52.26 119.92 -52.26ZM125.63 -36.52Q121.58 -36.52 118.91 -33.72Q116.24 -30.91 116.24 -25.85Q116.24 -20.88 118.91 -17.99Q121.58 -15.09 125.63 -15.09Q129.58 -15.09 132.3 -17.94Q135.01 -20.79 135.01 -25.85Q135.01 -30.82 132.3 -33.67Q129.58 -36.52 125.63 -36.52ZM210.38 -22.17H176.25Q176.53 -17.94 178.6 -15.87Q180.67 -13.8 183.89 -13.8Q188.4 -13.8 190.33 -17.85H209.56Q208.36 -12.51 204.91 -8.33Q201.46 -4.14 196.22 -1.75Q190.97 0.64 184.62 0.64Q176.99 0.64 171.05 -2.58Q165.12 -5.8 161.76 -11.78Q158.4 -17.76 158.4 -25.85Q158.4 -33.95 161.72 -39.88Q165.03 -45.82 170.96 -49.04Q176.9 -52.26 184.62 -52.26Q192.26 -52.26 198.15 -49.13Q204.04 -46 207.35 -40.16Q210.66 -34.32 210.66 -26.4Q210.66 -24.29 210.38 -22.17ZM192.26 -30.91Q192.26 -34.22 190.05 -36.11Q187.84 -38 184.53 -38Q181.22 -38 179.1 -36.2Q176.99 -34.41 176.34 -30.91ZM269.2 -30.08V0H251.16V-27.69Q251.16 -32.11 248.86 -34.64Q246.56 -37.17 242.7 -37.17Q238.65 -37.17 236.35 -34.64Q234.05 -32.11 234.05 -27.69V0H216.02V-51.61H234.05V-44.25Q236.44 -47.75 240.49 -49.91Q244.54 -52.07 249.78 -52.07Q258.71 -52.07 263.95 -46.14Q269.2 -40.2 269.2 -30.08ZM296.18 -52.26Q301.51 -52.26 305.38 -50.14Q309.24 -48.02 311.36 -44.44V-51.61H329.39V0H311.36V-7.18Q309.24 -3.59 305.33 -1.47Q301.42 0.64 296.18 0.64Q290.01 0.64 285 -2.58Q279.98 -5.8 277.09 -11.82Q274.19 -17.85 274.19 -25.85Q274.19 -33.86 277.09 -39.84Q279.98 -45.82 285 -49.04Q290.01 -52.26 296.18 -52.26ZM301.97 -36.52Q297.92 -36.52 295.26 -33.72Q292.59 -30.91 292.59 -25.85Q292.59 -20.88 295.26 -17.99Q297.92 -15.09 301.97 -15.09Q305.93 -15.09 308.64 -17.94Q311.36 -20.79 311.36 -25.85Q311.36 -30.82 308.64 -33.67Q305.93 -36.52 301.97 -36.52ZM357.56 -51.61V0H339.44V-51.61ZM398.07 -15.36V0H390.25Q370.47 0 370.47 -19.6V-36.62H364.12V-51.61H370.47V-64.12H388.59V-51.61H397.98V-36.62H388.59V-19.32Q388.59 -17.2 389.56 -16.28Q390.52 -15.36 392.82 -15.36ZM401.4 -25.85Q401.4 -33.86 404.95 -39.84Q408.49 -45.82 414.61 -49.04Q420.72 -52.26 428.45 -52.26Q436.18 -52.26 442.3 -49.04Q448.42 -45.82 451.96 -39.84Q455.5 -33.86 455.5 -25.85Q455.5 -17.85 451.96 -11.82Q448.42 -5.8 442.25 -2.58Q436.09 0.64 428.36 0.64Q420.63 0.64 414.51 -2.58Q408.4 -5.8 404.9 -11.78Q401.4 -17.76 401.4 -25.85ZM437.19 -25.85Q437.19 -31.1 434.66 -33.86Q432.13 -36.62 428.45 -36.62Q424.77 -36.62 422.29 -33.86Q419.8 -31.1 419.8 -25.85Q419.8 -20.52 422.2 -17.76Q424.59 -15 428.36 -15Q432.13 -15 434.66 -17.8Q437.19 -20.61 437.19 -25.85Z" fill="#ffffff"/><path d="M495.69 40.1 L503.31 27.9" fill="none" stroke="#f59e0b" stroke-width="12.07" stroke-linecap="round"/></svg></span>
   </a>
+  <nav class="menu" aria-label="Principal">
+    <a href="#calcula">Calcula tu Precio</a>
+    <a href="#agenda">Agenda de Horas</a>
+    <a href="#como">Cómo funciona</a>
+    <a href="ayuda/">Ayuda</a>
+    <a class="btn wa chico" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más.">Escríbenos</a>
+  </nav>
 </div></header>
+
 <main>
+
 <section class="portada"><div class="wrap">
-  <h1>Apps simples para ordenar tu negocio. Las pagas una vez y son tuyas.</h1>
-  <p class="lema">Tu negocio, ordenaíto.</p>
-  <p class="sub">Para quienes emprenden en Chile: sin mensualidades, sin internet y sin enredos.</p>
-  <div class="botones">
-    <a class="btn acento" href="#video">Ver cómo funciona</a>
-    <a class="btn borde" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más.">Escríbenos por WhatsApp</a>
+  <div>
+    <span class="insignia"><svg class="ic"><use href="#i-pago"/></svg> Pago único · Sin mensualidad</span>
+    <h1>Ordena tu negocio <em>desde tu celular</em></h1>
+    <p class="sub">Apps simples y bonitas para emprendedores de Chile. Las pagas una vez, son tuyas y funcionan sin internet.</p>
+    <div class="botones">
+      <a class="btn acento" href="#calcula"><svg class="ic"><use href="#i-calc"/></svg> Ver las apps</a>
+      <a class="btn vidrio" href="#agenda"><svg class="ic"><use href="#i-play"/></svg> Probar la demo de Agenda</a>
+    </div>
+    <ul class="confianza">
+      <li><svg class="ic"><use href="#i-wifi"/></svg> Funciona sin internet</li>
+      <li><svg class="ic"><use href="#i-cel"/></svg> iPhone y Android</li>
+      <li><svg class="ic"><use href="#i-chile"/></svg> Hecha en Chile</li>
+    </ul>
   </div>
-  <p class="nota">Pago único. Sin mensualidades.</p>
+  <div class="escena" aria-hidden="false">
+    <div class="flota f1"><span class="pt"><svg class="ic"><use href="#i-pct"/></svg></span><span>Calcula tu Precio<b>Ganas $385 c/u</b></span></div>
+    <div class="flota f2"><span class="pt"><svg class="ic"><use href="#i-cal"/></svg></span><span>Agenda de Horas<b>5 citas hoy</b></span></div>
+    <div class="tel t1"><div class="pantalla"><picture><source media="(prefers-color-scheme: dark)" srcset="img/ca-ficha-osc.webp"><img src="img/ca-ficha.webp" alt="Pantalla de Calcula tu Precio con el ejemplo de galletas de avena: costo $515, precio $900 y ganancia $385" width="1170" height="2532" decoding="async" fetchpriority="high"></picture></div></div>
+    <div class="tel t2"><div class="pantalla"><picture><source media="(prefers-color-scheme: dark)" srcset="img/ag-dia-osc.webp"><img src="img/ag-dia.webp" alt="Pantalla de Agenda de Horas con las citas del día" width="1170" height="2532" decoding="async" fetchpriority="high"></picture></div></div>
+  </div>
 </div></section>
+
+<div class="ventajas"><div class="wrap">
+  <div><svg class="ic"><use href="#i-pago"/></svg>Pagas una sola vez</div>
+  <div><svg class="ic"><use href="#i-wifi"/></svg>Sin internet, sin cuotas</div>
+  <div><svg class="ic"><use href="#i-key"/></svg>Se activa en tu celular</div>
+  <div><svg class="ic"><use href="#i-chat"/></svg>Ayuda por WhatsApp</div>
+</div></div>
+
+
 <section class="bloque" id="calcula"><div class="wrap">
-  <span class="etiqueta">YA DISPONIBLE</span>
-  <h2>Calcula tu Precio</h2>
-  <p class="bajada">Descubre cuánto ganas de verdad con cada producto y a qué precio venderlo.</p>
   <div class="app">
-    <div>
-      <ul class="beneficios">
-        <li><span class="ic" aria-hidden="true">1</span><div><b>Tu costo real por unidad</b><span class="d">Suma insumos, envase, tu tiempo y tus gastos fijos. Se acabó el precio "al ojo".</span></div></li>
-        <li><span class="ic" aria-hidden="true">2</span><div><b>Te sugiere a qué precio vender</b><span class="d">Eliges cuánto quieres ganar y la app calcula el precio, con IVA o comisión si los necesitas.</span></div></li>
-        <li><span class="ic" aria-hidden="true">3</span><div><b>Te avisa si vendes a pérdida</b><span class="d">Anota el precio al que vendes hoy y ve cuánto ganas, o cuánto pierdes, por cada unidad.</span></div></li>
-        <li><span class="ic" aria-hidden="true">4</span><div><b>Envía tus precios por WhatsApp</b><span class="d">Mandas a tu cliente solo el nombre y el precio, nunca tus costos.</span></div></li>
+    <div class="rev">
+      <div class="cab" style="margin-bottom:24px">
+        <span class="etiqueta"><svg class="ic"><use href="#i-calc"/></svg> Ya disponible</span>
+        <h2>Calcula tu Precio</h2>
+        <p>Descubre cuánto ganas de verdad con cada producto y a qué precio venderlo. Se acabó el precio "al ojo".</p>
+      </div>
+      <ul class="lista">
+        <li><svg class="ic"><use href="#i-calc"/></svg><div><b>Tu costo real por unidad</b><span>Suma insumos, envase, tu tiempo y tus gastos fijos.</span></div></li>
+        <li><svg class="ic"><use href="#i-pct"/></svg><div><b>Te sugiere a qué precio vender</b><span>Eliges cuánto quieres ganar y la app calcula el precio, con IVA o comisión si los necesitas.</span></div></li>
+        <li><svg class="ic"><use href="#i-alerta"/></svg><div><b>Te avisa si vendes a pérdida</b><span>Anota el precio al que vendes hoy y mira cuánto ganas, o cuánto pierdes, por cada unidad.</span></div></li>
+        <li><svg class="ic"><use href="#i-send"/></svg><div><b>Envía tus precios por WhatsApp</b><span>Mandas a tu cliente solo el nombre y el precio, nunca tus costos.</span></div></li>
       </ul>
+      <p style="margin-top:20px"><a class="btn verde" href="#planes-calcula">Ver precios</a> &nbsp;<a class="btn linea" href="#video">Ver el video</a></p>
     </div>
-    <div class="maqueta">
-      <div class="cel" role="img" aria-label="Ejemplo de la app: galletas de avena con costo de $515 por unidad, precio sugerido de $900 y ganancia de $385"><div class="pant" aria-hidden="true">
-        <div class="barra">Galletas de avena<small>Calcula tu Precio</small></div>
-        <div class="tj"><h4>Costo por unidad</h4>
-          <div class="fila"><span>Insumos</span><b>$178</b></div>
-          <div class="fila"><span>Envase</span><b>$50</b></div>
-          <div class="fila"><span>Tu tiempo</span><b>$188</b></div>
-          <div class="fila"><span>Gastos fijos</span><b>$100</b></div>
-          <div class="fila"><span>Total</span><b>$515</b></div>
-        </div>
-        <div class="precio"><small>Precio sugerido</small><b>$900</b><span class="ganas">Ganas $385 c/u</span></div>
-        <div class="tj conv"><h4>¿Me conviene vender a $700?</h4><p>Vas bien: ganas $185 por unidad</p></div>
+    <div class="carr rev" data-carr>
+      <div class="tel"><div class="pantalla">
+        <picture class="on" data-t="Productos" data-d="Margen promedio y alertas a primera vista."><source media="(prefers-color-scheme: dark)" srcset="img/ca-lista-osc.webp"><img src="img/ca-lista.webp" alt="Lista de productos de Calcula tu Precio con margen promedio y alertas" width="1170" height="2532" decoding="async"></picture>
+        <picture data-t="Ficha" data-d="Costo, ganancia y margen real de cada producto."><source media="(prefers-color-scheme: dark)" srcset="img/ca-ficha-osc.webp"><img src="img/ca-ficha.webp" alt="Ficha de producto: galletas de avena con costo, ganancia y margen real" width="1170" height="2532" decoding="async" loading="lazy"></picture>
       </div></div>
+      <div class="pie"><b>Tus productos, claros</b><span>Margen promedio y alertas a primera vista.</span></div>
+      <div class="puntos"></div>
     </div>
   </div>
-  <div class="planes">
-    <article class="plan">
+
+  <div class="planes" id="planes-calcula">
+    <article class="plan rev">
       <h3>Básica</h3>
+      <p class="lema">Todo lo necesario para ordenar tus precios</p>
       <p class="promo">Promoción de lanzamiento hasta el 16 de diciembre</p>
       <p class="normal">Precio normal <s>$19.990</s></p>
       <div class="precio-g"><span>$9.990</span></div>
@@ -216,7 +370,8 @@ footer .sep{margin:0 8px}
       </ul>
       <a class="btn verde block" href="#" data-wa="Hola, quiero Calcula tu Precio, versión básica ($9.990, promoción de lanzamiento).">Quiero la básica</a>
     </article>
-    <article class="plan dest">
+    <article class="plan dest rev">
+      <span class="cinta">★ LA MÁS COMPLETA</span>
       <h3>Personalizada</h3>
       <p class="lema">¡Te la dejamos andando!</p>
       <p class="promo">Promoción de lanzamiento hasta el 16 de diciembre</p>
@@ -229,70 +384,164 @@ footer .sep{margin:0 8px}
         <li>Activación en 2 celulares</li>
         <li><b>Ayuda personalizada</b> por WhatsApp</li>
       </ul>
-      <a class="btn verde block" href="#" data-wa="Hola, quiero Calcula tu Precio personalizada ($14.990, promoción de lanzamiento).">Quiero la personalizada</a>
+      <a class="btn acento block" href="#" data-wa="Hola, quiero Calcula tu Precio personalizada ($14.990, promoción de lanzamiento).">Quiero la personalizada</a>
     </article>
   </div>
-  <div class="medida">
+  <div class="medida rev">
     <h3>¿La quieres hecha a tu gusto?</h3>
     <p>Cuéntanos qué necesitas: más productos cargados, otros textos o ajustes para tu rubro. Lo conversamos y te cotizamos. Tiene un costo adicional según lo que pidas.</p>
     <a class="btn linea" href="#" data-wa="Hola, quiero cotizar una versión a mi gusto de Calcula tu Precio.">Quiero cotizar a mi gusto</a>
   </div>
-  <p style="text-align:center;margin-top:18px"><a class="btn linea" href="#video">Ver cómo funciona antes de decidir</a></p>
 </div></section>
-<section class="bloque" id="video" style="padding-top:8px"><div class="wrap">
-  <h2 style="text-align:center">Mira cómo funciona</h2>
-  <p class="bajada" style="text-align:center;margin-left:auto;margin-right:auto">Un recorrido corto por Calcula tu Precio, en un celular real.</p>
-  <div class="video-marco">
-    <video controls playsinline preload="metadata" poster="video/portada.jpg"><source src="video/calcula-tu-precio.mp4" type="video/mp4"></video>
-  </div>
-  <div class="video-resp">
-    <div class="maqueta"><div class="cel" role="img" aria-label="Ejemplo de la app: galletas de avena con costo de $515 por unidad, precio sugerido de $900 y ganancia de $385"><div class="pant" aria-hidden="true">
-        <div class="barra">Galletas de avena<small>Calcula tu Precio</small></div>
-        <div class="tj"><h4>Costo por unidad</h4>
-          <div class="fila"><span>Insumos</span><b>$178</b></div>
-          <div class="fila"><span>Envase</span><b>$50</b></div>
-          <div class="fila"><span>Tu tiempo</span><b>$188</b></div>
-          <div class="fila"><span>Gastos fijos</span><b>$100</b></div>
-          <div class="fila"><span>Total</span><b>$515</b></div>
-        </div>
-        <div class="precio"><small>Precio sugerido</small><b>$900</b><span class="ganas">Ganas $385 c/u</span></div>
-        <div class="tj conv"><h4>¿Me conviene vender a $700?</h4><p>Vas bien: ganas $185 por unidad</p></div>
-      </div></div></div>
-    <p>Pronto: video de la app funcionando. ¿Dudas? <a href="#" data-wa="Hola, vi Ordenaíto y tengo dudas sobre Calcula tu Precio.">Escríbenos</a>.</p>
+
+
+<section class="bloque fondo-suave" id="video"><div class="wrap">
+  <div class="video-fila">
+    <div class="rev">
+      <div class="cab" style="margin-bottom:22px">
+        <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> En un celular real</span>
+        <h2>Mira cómo funciona</h2>
+        <p>Un recorrido de 30 segundos por Calcula tu Precio. Así de simple.</p>
+      </div>
+      <ol class="pasitos">
+        <li>Anotas lo que cuesta<span>Insumos, envase, tu tiempo y gastos fijos.</span></li>
+        <li>Ves tu precio justo<span>La app te dice a cuánto vender y cuánto te queda.</span></li>
+        <li>Se lo mandas a tu cliente<span>Por WhatsApp, sin mostrar tus costos.</span></li>
+      </ol>
+      <a class="btn wa" href="#" data-wa="Hola, vi el video de Calcula tu Precio y tengo dudas.">Preguntar por WhatsApp</a>
+    </div>
+    <div class="rev">
+      <div class="tel"><div class="pantalla">
+        <video controls playsinline preload="metadata" poster="video/portada.jpg"><source src="video/calcula-tu-precio.mp4" type="video/mp4"></video>
+      </div></div>
+    </div>
   </div>
 </div></section>
-<section class="bloque" style="padding-top:8px"><div class="wrap">
-  <h2>Próximamente</h2>
-  <p class="bajada">Más apps con la misma idea: simples y hechas para tu celular. Las que funcionan sin internet son de pago único; si alguna necesita internet (por ejemplo, para que tus clientes reserven), te lo diremos claro antes de comprar.</p>
+
+
+<section class="bloque" id="agenda"><div class="wrap">
+  <div class="app inv">
+    <div class="carr rev" data-carr>
+      <div class="tel"><div class="pantalla">
+        <picture class="on" data-t="Día" data-d="Citas, plata del día y la siguiente cita a la vista."><source media="(prefers-color-scheme: dark)" srcset="img/ag-dia-osc.webp"><img src="img/ag-dia.webp" alt="Agenda de Horas: las citas del día con el resumen de plata esperada y cobrada" width="1170" height="2532" decoding="async"></picture>
+        <picture data-t="Horas libres" data-d="Arma tus horas disponibles y compártelas por WhatsApp."><source media="(prefers-color-scheme: dark)" srcset="img/ag-libres-osc.webp"><img src="img/ag-libres.webp" alt="Agenda de Horas: horas libres para compartir por WhatsApp" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+        <picture data-t="Cita" data-d="Recuerda por WhatsApp, edita, mueve o cancela con un toque."><source media="(prefers-color-scheme: dark)" srcset="img/ag-cita-osc.webp"><img src="img/ag-cita.webp" alt="Agenda de Horas: detalle de una cita con recordatorio por WhatsApp" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+        <picture data-t="Clientes" data-d="Tu lista de clientes con su historial."><source media="(prefers-color-scheme: dark)" srcset="img/ag-clientes-osc.webp"><img src="img/ag-clientes.webp" alt="Agenda de Horas: lista de clientes" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+      </div></div>
+      <div class="pie"><b>Tu día, ordenaíto</b><span>Citas, plata del día y la siguiente cita a la vista.</span></div>
+      <div class="puntos"></div>
+    </div>
+    <div class="rev">
+      <div class="cab" style="margin-bottom:24px">
+        <span class="etiqueta"><svg class="ic"><use href="#i-cal"/></svg> Nueva · Con demo gratis</span>
+        <h2>Agenda de Horas</h2>
+        <p>Ordena tus citas, recuerda a tus clientes y sabe cuánta plata llevas en el día. Ideal para barberías, peluquerías, manicure, masajes y todo negocio con horas.</p>
+      </div>
+      <ul class="lista">
+        <li><svg class="ic"><use href="#i-clock"/></svg><div><b>Citas sin cruces</b><span>La app avisa si una hora ya está ocupada. Bloquea horarios cuando no atiendes.</span></div></li>
+        <li><svg class="ic"><use href="#i-bell"/></svg><div><b>Recordatorios por WhatsApp</b><span>Un toque y el mensaje sale listo para tu cliente. Menos plantones.</span></div></li>
+        <li><svg class="ic"><use href="#i-send"/></svg><div><b>Comparte tus horas libres</b><span>Arma un mensaje con tus horarios disponibles y envíalo a quien pregunta.</span></div></li>
+        <li><svg class="ic"><use href="#i-cash"/></svg><div><b>Cobros y plata del día</b><span>Registra el pago, descuentos y propina. Mira lo esperado y lo cobrado.</span></div></li>
+        <li><svg class="ic"><use href="#i-repeat"/></svg><div><b>Citas que se repiten</b><span>Cada semana o cada 2 o 4 semanas, para tus clientes fijos.</span></div></li>
+        <li><svg class="ic"><use href="#i-brush"/></svg><div><b>Con el color de tu negocio</b><span>Elige tu color y tu nombre. Funciona sin internet y tus datos quedan en tu celular.</span></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="demo rev" id="demo-agenda">
+    <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> Demo gratis</span>
+    <h3>Pruébala tú mismo antes de decidir</h3>
+    <p>Abre la demo y juega con la Agenda: crea citas, mira las horas libres y prueba los cobros. Es la app de verdad, con límites para que veas cómo funciona.</p>
+    <div class="botones">
+      <a class="btn acento" href="demo/agenda-de-horas-demo.html" target="_blank" rel="noopener"><svg class="ic"><use href="#i-play"/></svg> Probar la demo ahora</a>
+      <a class="btn vidrio" href="demo/agenda-de-horas-demo.html" download="Agenda-de-Horas-DEMO.html"><svg class="ic"><use href="#i-down"/></svg> Descargar la demo</a>
+    </div>
+    <small>La demo permite hasta 12 citas al mes, 5 servicios y 10 clientes, y guarda lo que pruebes solo en tu aparato. Para trabajar de verdad necesitas la versión completa, que te activamos en tu celular. La descarga sirve en computador y Android; en iPhone usa "Probar la demo ahora".</small>
+  </div>
+
+  <div class="planes" id="planes-agenda">
+    <article class="plan rev">
+      <h3>Demo</h3>
+      <p class="lema">Para conocer la app</p>
+            <div class="precio-g"><span>$0</span></div>
+      <p class="unico">Sin costo, sin tarjeta.</p>
+      <ul>
+        <li>Toda la app para que la pruebes</li>
+        <li>Hasta 12 citas al mes, 5 servicios y 10 clientes</li>
+        <li>Sin logo propio ni horas libres para compartir</li>
+        <li>No es para usar en tu negocio</li>
+      </ul>
+      <a class="btn linea block" href="demo/agenda-de-horas-demo.html" target="_blank" rel="noopener">Probar la demo</a>
+    </article>
+    <article class="plan dest rev">
+      <span class="cinta">★ VERSIÓN COMPLETA</span>
+      <h3>Agenda de Horas completa</h3>
+      <p class="lema">Sin límites, para tu negocio de verdad</p>
+            <div class="precio-g"><span>$14.990</span></div>
+      <p class="unico">Pago único. Sin mensualidad.</p>
+      <ul>
+        <li>Citas, servicios y clientes sin límite</li>
+        <li>Logo, nombre y color de tu negocio</li>
+        <li>Horas libres para compartir por WhatsApp</li>
+        <li>Funciona sin internet</li>
+        <li>Activación en 1 celular y ayuda por WhatsApp</li>
+      </ul>
+      <a class="btn acento block" href="#" data-wa="Hola, quiero Agenda de Horas, versión completa ($14.990).">Quiero la versión completa</a>
+    </article>
+  </div>
+  <div class="medida rev">
+    <h3>¿Varios profesionales o algo a tu medida?</h3>
+    <p>Cuéntanos cómo trabaja tu negocio y te armamos una versión a tu gusto. Te cotizamos sin compromiso.</p>
+    <a class="btn linea" href="#" data-wa="Hola, quiero cotizar una versión a mi gusto de Agenda de Horas.">Quiero cotizar a mi gusto</a>
+  </div>
+</div></section>
+
+
+<section class="bloque fondo-suave"><div class="wrap">
+  <div class="cab centro">
+    <span class="etiqueta ambar">Próximamente</span>
+    <h2>Más apps con la misma idea</h2>
+    <p>Simples y hechas para tu celular. Si alguna necesita internet (por ejemplo, para que tus clientes reserven o compren), te lo diremos claro antes de comprar.</p>
+  </div>
   <div class="prox">
-    <div class="tj"><span class="chip">PRÓXIMAMENTE</span><h3>Agenda de Horas</h3><p>Para ordenar tus citas y que no se te crucen las horas.</p></div>
-    <div class="tj"><span class="chip">PRÓXIMAMENTE</span><h3>Catálogo con Carrito</h3><p>Tus productos en un catálogo para mostrar y vender.</p></div>
-    <div class="tj"><span class="chip">PRÓXIMAMENTE</span><h3>Mi Negocio al Día</h3><p>Tus ventas, gastos y pendientes en un solo lugar.</p></div>
+    <div class="tj rev"><svg class="ic"><use href="#i-cart"/></svg><span class="chip">PRÓXIMAMENTE</span><h3>Catálogo con Carrito</h3><p>Tus productos en un catálogo para mostrar y vender por WhatsApp.</p></div>
+    <div class="tj rev"><svg class="ic"><use href="#i-chart"/></svg><span class="chip">PRÓXIMAMENTE</span><h3>Mi Negocio al Día</h3><p>Tus ventas, gastos y pendientes en un solo lugar.</p></div>
   </div>
 </div></section>
-<section class="bloque"><div class="wrap">
-  <h2>Cómo funciona</h2>
+
+
+<section class="bloque" id="como"><div class="wrap">
+  <div class="cab centro">
+    <span class="etiqueta">Cómo funciona</span>
+    <h2>Tres pasos y listo</h2>
+  </div>
   <ol class="pasos">
-    <li><b>Mira el video o escríbenos tus dudas</b><span>Mira cómo funciona en el video o pregúntanos por WhatsApp.</span></li>
-    <li><b>Escríbenos y paga</b><span>Nos escribes por WhatsApp y pagas por transferencia.</span></li>
-    <li><b>Actívala en tu celular</b><span>Te enviamos tu código y la activas en tu celular. Listo.</span></li>
+    <li class="rev"><svg class="ic"><use href="#i-play"/></svg><b>Mira el video o prueba la demo</b><span>Conoce la app antes de pagar. Y si tienes dudas, escríbenos por WhatsApp.</span></li>
+    <li class="rev"><svg class="ic"><use href="#i-pago"/></svg><b>Escríbenos y paga</b><span>Nos escribes por WhatsApp y pagas por transferencia. Un solo pago.</span></li>
+    <li class="rev"><svg class="ic"><use href="#i-key"/></svg><b>Actívala en tu celular</b><span>Te enviamos tu código y la activas en tu celular. Listo para usar.</span></li>
   </ol>
 </div></section>
-<section class="bloque" style="padding-top:8px"><div class="wrap">
-  <h2 style="margin-bottom:18px">Preguntas frecuentes</h2>
-  <details><summary>¿Funciona sin internet?</summary><p>Sí. Después de instalarla, la usas sin internet. Tus datos quedan en tu celular.</p></details>
-  <details><summary>¿Sirve en iPhone y en Android?</summary><p>Sí, en los dos. Se instala en la pantalla de inicio de tu celular, como cualquier app.</p></details>
-  <details><summary>¿Hay mensualidad?</summary><p>En Calcula tu Precio, no: pagas una sola vez y nunca te cobraremos mensualidad por ella. Si más adelante sale una app que necesite internet y tenga un costo mensual, lo diremos claro antes de que compres.</p></details>
-  <details><summary>¿Emite boletas del SII?</summary><p>No. Es para tu control interno: calcular costos y precios. Para boletas y facturas sigues usando tu sistema de siempre.</p></details>
-  <details><summary>¿Puedo probarla antes de comprar?</summary><p>Te mostramos cómo funciona en el video y por WhatsApp resolvemos tus dudas. Antes de pagar puedes abrir el link en tu celular para confirmar que se ve bien.</p></details>
-  <details><summary>¿Y si cambio de celular?</summary><p>Escríbenos por WhatsApp y lo vemos. La versión básica incluye 1 activación y la personalizada, 2.</p></details>
+
+
+<section class="bloque fondo-suave" id="preguntas" style="padding-top:60px"><div class="wrap">
+  <div class="cab centro"><span class="etiqueta">Preguntas frecuentes</span><h2>¿Dudas? Aquí las resolvemos</h2></div>
+  <div class="faq">
+    <details><summary>¿Funciona sin internet?</summary><p>Sí. Después de instalarlas, las usas sin internet. Tus datos quedan en tu celular.</p></details>
+    <details><summary>¿Sirve en iPhone y en Android?</summary><p>Sí, en los dos. Se instalan en la pantalla de inicio de tu celular, como cualquier app. En ordenaito.cl/ayuda están los pasos con imágenes.</p></details>
+    <details><summary>¿Hay mensualidad?</summary><p>En Calcula tu Precio y en la Agenda de Horas, no: pagas una sola vez. Si más adelante sale una app que necesite internet y tenga un costo mensual, lo diremos claro antes de que compres.</p></details>
+    <details><summary>¿Puedo probarlas antes de comprar?</summary><p>La Agenda de Horas tiene demo gratis: la abres y la pruebas en el momento. De Calcula tu Precio tienes el video, y por WhatsApp te calculamos el precio de un producto tuyo para que veas el resultado antes de pagar.</p></details>
+    <details><summary>¿Qué incluye la demo de la Agenda?</summary><p>Toda la app, con límites: hasta 12 citas al mes, 5 servicios y 10 clientes. Lo que pruebes se guarda solo en tu aparato y no se mezcla con la versión completa.</p></details>
+    <details><summary>¿Emiten boletas del SII?</summary><p>No. Son para tu control interno: calcular costos y precios, y ordenar tus citas. Para boletas y facturas sigues usando tu sistema de siempre.</p></details>
+    <details><summary>¿Y si cambio de celular?</summary><p>Escríbenos por WhatsApp y lo vemos. Con un respaldo de tus datos no pierdes nada. La versión básica incluye 1 activación y la personalizada de Calcula tu Precio, 2.</p></details>
+  </div>
 </div></section>
+
 <section class="cierre"><div class="wrap">
   <h2>Tu negocio, ordenaíto.</h2>
-  <p>Mira cómo funciona o cuéntanos por WhatsApp qué vendes.</p>
+  <p>Prueba la demo de la Agenda o cuéntanos por WhatsApp qué vendes y te ayudamos a elegir.</p>
   <div class="botones">
-    <a class="btn acento" href="#video">Ver cómo funciona</a>
-    <a class="btn borde" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más.">Escríbenos por WhatsApp</a>
+    <a class="btn acento" href="#agenda"><svg class="ic"><use href="#i-play"/></svg> Probar la demo</a>
+    <a class="btn wa" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más."><svg class="ic"><use href="#i-chat"/></svg> Escríbenos por WhatsApp</a>
   </div>
 </div></section>
 </main>
@@ -300,7 +549,9 @@ footer .sep{margin:0 8px}
   <a href="ayuda/">Ayuda</a><span class="sep" aria-hidden="true">·</span><a href="privacidad/">Privacidad</a><span class="sep" aria-hidden="true">·</span><a href="condiciones/">Condiciones de uso</a><span class="sep" aria-hidden="true">·</span><a href="#" data-wa="Hola, quiero saber más sobre Ordenaíto.">WhatsApp</a>
   <p style="margin:10px 0 0">© 2026 Ordenaíto · Hecha en Chile, para emprendedores de verdad.</p>
 </div></footer>
+
 <script>
+
 (function () {
   var sec = document.getElementById("video"), v = sec && sec.querySelector("video");
   if (!v) return;
@@ -309,10 +560,42 @@ footer .sep{margin:0 8px}
   var src = v.querySelector("source");
   if (src) src.addEventListener("error", respaldo);
   v.addEventListener("loadedmetadata", function () { sec.classList.remove("sin-video"); });
-  window.addEventListener("load", function () { setTimeout(function () { if (v.networkState === 3 && v.readyState === 0) respaldo(); }, 4000); });
 })();
-</script>
-<script>
+
+(function () {
+  var reducido = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("[data-carr]").forEach(function (c) {
+    var fotos = c.querySelectorAll(".pantalla picture"), pts = c.querySelector(".puntos");
+    var titulos = (c.getAttribute("data-titulos") || "").split("|");
+    var i = 0, t = null;
+    var nombres = Array.prototype.map.call(fotos, function (f, k) { return f.getAttribute("data-t") || ("Pantalla " + (k + 1)); });
+    nombres.forEach(function (n, k) {
+      var b = document.createElement("button"); b.type = "button"; b.textContent = n; b.setAttribute("aria-pressed", k === 0 ? "true" : "false");
+      b.addEventListener("click", function () { ir(k); parar(); }); pts.appendChild(b);
+    });
+    var pie = c.querySelector(".pie");
+    function ir(k) {
+      i = k;
+      fotos.forEach(function (f, j) { f.classList.toggle("on", j === k); });
+      pts.querySelectorAll("button").forEach(function (b, j) { b.setAttribute("aria-pressed", j === k ? "true" : "false"); });
+      var d = fotos[k].getAttribute("data-d"), n = fotos[k].getAttribute("data-t");
+      if (pie && d) { pie.querySelector("b").textContent = n; pie.querySelector("span").textContent = d; }
+    }
+    function parar() { if (t) { clearInterval(t); t = null; } }
+    if (fotos.length > 1 && !reducido) t = setInterval(function () { ir((i + 1) % fotos.length); }, 3800);
+  });
+})();
+
+(function () {
+  if (!("IntersectionObserver" in window)) return;
+  document.documentElement.classList.add("js");
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("ver"); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll(".rev").forEach(function (el) { io.observe(el); });
+  setTimeout(function () { document.querySelectorAll(".rev").forEach(function (el) { el.classList.add("ver"); }); }, 4000);
+})();
+
 const WHATSAPP = "56937476833";
 document.querySelectorAll("[data-wa]").forEach(function (a) {
   a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.getAttribute("data-wa"));
