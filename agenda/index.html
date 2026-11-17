@@ -472,7 +472,7 @@ function extraerCodigo(texto){
   for (var m = 0; m < cand.length; m++) if (cand[m].marca) return cand[m].n;
   return cand.length ? cand[0].n : "";
 }
-var MODO_GRATIS = true, forzarPantalla = false;
+var MODO_GRATIS = false, forzarPantalla = false;
 var celular = "", activada = false, almacenOk = true, alActivar = null, yaArranco = false;
 var suspMarca = false, suspMostrada = false, bloqueoVerificado = false;
 function arrancar(){
