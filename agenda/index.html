@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Agenda de Horas</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#eef6f5">
 <meta name="description" content="Agenda de horas para peluquerías, barberías y manicure. Funciona sin internet.">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -74,7 +74,7 @@
   --malla2:rgba(251,146,60,.10);
   --malla3:color-mix(in srgb,var(--p2) 12%,transparent);
 }
-html{color-scheme:light dark}
+html{color-scheme:light dark;touch-action:pan-x pan-y;-webkit-text-size-adjust:100%}
 :root[data-tema="claro"]{color-scheme:light}
 :root[data-tema="oscuro"]{color-scheme:dark}
 *{box-sizing:border-box}
@@ -690,7 +690,7 @@ return {
 var VERSION = "1.0";
 var CLAVE = "ord_agenda_datos";
 var LIM = {prof: 1, citasMes: 30, servicios: 5, clientes: 15};
-var PALETA = ["#0f766e", "#2563eb", "#7c3aed", "#db2777", "#ea580c", "#ca8a04", "#16a34a", "#0e7490"];
+var PALETA = ["#0f766e", "#2563eb", "#7c3aed", "#db2777", "#dc2626", "#ea580c", "#ca8a04", "#475569"];
 var DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
 var MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 var PX = 1.5;
@@ -785,6 +785,13 @@ function migrar(d){
   if (!o.prof.length) o.prof = b.prof;
   if (!o.paso) o.paso = 15;
   if (!o.dias) o.dias = 30;
+  if (!o.est2){
+    var VIEJOS_C = ["#f0b429", "#ffb020"], TEAL = PALETA[0];
+    if (VIEJOS_C.indexOf(String(o.negocio.color).toLowerCase()) >= 0) o.negocio.color = TEAL;
+    o.prof.forEach(function(p, i){ if (VIEJOS_C.indexOf(String(p.color).toLowerCase()) >= 0) p.color = PALETA[i % PALETA.length]; });
+    if (o.negocio.tema === "oscuro") o.negocio.tema = "auto";
+    o.est2 = 1;
+  }
   o.app = "AGENDA"; o.v = 1;
   o.respaldo = +o.respaldo || 0;
   return o;
@@ -1656,6 +1663,7 @@ function arrancarApp(){
   if (!E.negocio.intro) hojaBienvenida();
   if (!localStorage.getItem(CLAVE)) { try { guardar(); } catch (e){} }
 }
+["gesturestart", "gesturechange", "gestureend"].forEach(function(n){ document.addEventListener(n, function(e){ e.preventDefault(); }); });
 Activacion.iniciar(arrancarApp);
 window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); promptInstalar = e; if (E && UI.vista === "ajustes") dibujar(); });
 window.addEventListener("appinstalled", function(){ promptInstalar = null; if (E && UI.vista === "ajustes") dibujar(); });
