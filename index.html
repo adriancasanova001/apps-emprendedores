@@ -65,7 +65,7 @@ img,svg{max-width:100%}
 .cabecera{position:sticky;top:0;z-index:50;background:var(--vidrio);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--borde)}
 .cabecera .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
 .cabecera a.logo{display:block;line-height:0}
-.cabecera svg{height:38px;width:auto;max-width:100%}
+.cabecera .logo svg{height:38px;width:auto;max-width:100%}
 .logo-oscuro{display:none}
 @media (prefers-color-scheme: dark){ .logo-claro{display:none} .logo-oscuro{display:block} }
 .menu{display:none;gap:6px;align-items:center}
@@ -149,7 +149,7 @@ section.bloque{padding:68px 0;position:relative}
 .pasitos li{counter-increment:p;position:relative;padding-left:54px;min-height:40px;font-weight:700}
 .pasitos li::before{content:counter(p);position:absolute;left:0;top:-2px;width:40px;height:40px;border-radius:50%;background:var(--grad);color:#fff;font:800 18px/40px var(--titulo);text-align:center}
 .pasitos span{display:block;font-weight:400;color:var(--suave);font-size:16px}
-#video.sin-video .video-fila .pantalla{background:var(--grad)}
+.sin-video .video-fila .pantalla{background:var(--grad)}
 
 
 .demo{margin-top:30px;border-radius:28px;padding:26px 22px;color:#fff;background:linear-gradient(150deg,#0f766e,#0b4f4a);box-shadow:var(--sombra-g);position:relative;overflow:hidden}
@@ -248,6 +248,52 @@ footer .sep{margin:0 8px}
   .carr .tel{max-width:310px}
   section.bloque{padding:96px 0}
 }
+
+
+.cabecera .wrap{flex-wrap:wrap;row-gap:0;min-height:0;padding-top:8px;padding-bottom:8px}
+.cabecera a.logo{order:1}
+.cabecera .escribe{order:2;min-height:40px;padding:6px 14px;font-size:15px;border-radius:12px}
+.tabs{order:3;width:100%;display:flex;gap:8px;overflow-x:auto;padding:6px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:99px;border:1.5px solid var(--borde);background:var(--tarjeta);color:var(--texto);text-decoration:none;font:800 15.5px var(--cuerpo);white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.tabs a .ic{width:1.1em;height:1.1em}
+.tabs a:hover{border-color:var(--verde-texto)}
+.tabs a.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 8px 20px -8px rgba(15,118,110,.8)}
+.js-vistas .vista{display:none}
+.js-vistas .vista.on{display:block;animation:entra .35s ease}
+@keyframes entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cabapp{background:linear-gradient(160deg,#0f766e,#0b4f4a);color:#fff;padding:20px 0 18px;position:relative;overflow:hidden}
+.cabapp::after{content:"";position:absolute;width:340px;height:340px;right:-80px;top:-200px;border-radius:50%;background:#2dd4bf;opacity:.35;filter:blur(60px)}
+.cabapp .wrap{position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.cabapp .insignia{font-size:15px}
+.cabapp .sub{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.cabapp .sub a{flex:none;display:inline-flex;align-items:center;min-height:40px;padding:0 15px;border-radius:99px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;text-decoration:none;font-weight:800;font-size:14.5px}
+.cabapp .sub a:hover{background:rgba(255,255,255,.26)}
+.cabapp+section.bloque{padding-top:44px}
+.tarjetas-app{display:grid;gap:20px}
+.app-card{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;background:var(--tarjeta);border:1px solid var(--borde);border-radius:28px;padding:20px 18px;box-shadow:var(--sombra);text-decoration:none;color:var(--texto);transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden}
+.app-card:hover{transform:translateY(-4px);box-shadow:var(--sombra-g);border-color:var(--verde-texto)}
+.app-card .tel{max-width:150px;border-radius:26px;padding:5px}
+.app-card .tel::before{display:none}
+.app-card .tel .pantalla{border-radius:21px}
+.app-card h3{font-size:clamp(22px,5vw,28px);margin:2px 0 6px}
+.app-card p{color:var(--suave);margin:0 0 10px;font-size:16px}
+.app-card .desde{display:block;margin-bottom:12px;font-weight:700;color:var(--suave);font-size:15px}
+.app-card .desde b{color:var(--verde-texto);font:800 20px var(--titulo)}
+.app-card .btn{min-height:46px;padding:8px 18px;font-size:15.5px}
+.app-card .etiqueta{margin-bottom:8px}
+@media (min-width:720px){
+  .tarjetas-app{grid-template-columns:1fr 1fr}
+  .app-card{grid-template-columns:190px 1fr;padding:26px 24px}
+  .app-card .tel{max-width:190px}
+}
+@media (min-width:980px){
+  .cabecera .wrap{flex-wrap:nowrap;gap:18px;padding-top:0;padding-bottom:0;min-height:68px}
+  .tabs{order:2;width:auto;padding:0;margin-left:auto;overflow:visible}
+  .cabecera .escribe{order:3}
+  html{scroll-padding-top:90px}
+}
+@media (max-width:979px){ html{scroll-padding-top:112px} .cabapp .wrap{justify-content:flex-start} }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .flota{animation:none!important}
@@ -279,22 +325,25 @@ footer .sep{margin:0 8px}
 <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
 <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></symbol>
 <symbol id="i-brush" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.2"/><circle cx="12" cy="7" r="1.2"/><circle cx="16" cy="10" r="1.2"/><path d="M12 21c-2 0-2-2 0-3s3-2 1-4"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17h.01"/></symbol>
 </defs></svg>
 
 <header class="cabecera"><div class="wrap">
-  <a class="logo" href="./" aria-label="Ordenaíto, inicio">
+  <a class="logo" href="#inicio" aria-label="Ordenaíto, inicio">
     <span class="logo-claro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 136" role="img" aria-label="ordenaíto"><g transform="translate(6 8) scale(1.2)"><path d="M40 8 H60 A32 32 0 0 1 92 40 V50 C92 64 93 78 91 90 C90 94.5 86 95 82 91.5 C76 86 69 80 60 80 H40 A32 32 0 0 1 8 48 V40 A32 32 0 0 1 40 8 Z" fill="#0f766e"/><rect x="27.8" y="31.8" width="12.4" height="12.4" rx="3.8" fill="#ffffff"/><path d="M61.69 43.3 L68.31 32.7" fill="none" stroke="#f59e0b" stroke-width="10.5" stroke-linecap="round"/><path d="M31 54 Q50 73 69 54" fill="none" stroke="#f59e0b" stroke-width="8.5" stroke-linecap="round"/></g><path transform="translate(150 104)" d="M2.21 -25.85Q2.21 -33.86 5.75 -39.84Q9.29 -45.82 15.41 -49.04Q21.53 -52.26 29.26 -52.26Q36.98 -52.26 43.1 -49.04Q49.22 -45.82 52.76 -39.84Q56.3 -33.86 56.3 -25.85Q56.3 -17.85 52.76 -11.82Q49.22 -5.8 43.06 -2.58Q36.89 0.64 29.16 0.64Q21.44 0.64 15.32 -2.58Q9.2 -5.8 5.7 -11.78Q2.21 -17.76 2.21 -25.85ZM38 -25.85Q38 -31.1 35.47 -33.86Q32.94 -36.62 29.26 -36.62Q25.58 -36.62 23.09 -33.86Q20.61 -31.1 20.61 -25.85Q20.61 -20.52 23 -17.76Q25.39 -15 29.16 -15Q32.94 -15 35.47 -17.8Q38 -20.61 38 -25.85ZM96.35 -52.07V-32.84H91.29Q85.4 -32.84 82.55 -30.54Q79.7 -28.24 79.7 -22.54V0H61.66V-51.61H79.7V-42.5Q82.73 -46.92 87.06 -49.5Q91.38 -52.07 96.35 -52.07ZM119.92 -52.26Q124.89 -52.26 128.8 -50.19Q132.71 -48.12 134.92 -44.53V-68.08H153.04V0H134.92V-7.18Q132.8 -3.59 128.94 -1.47Q125.08 0.64 119.83 0.64Q113.67 0.64 108.65 -2.58Q103.64 -5.8 100.74 -11.82Q97.84 -17.85 97.84 -25.85Q97.84 -33.86 100.74 -39.84Q103.64 -45.82 108.7 -49.04Q113.76 -52.26 119.92 -52.26ZM125.63 -36.52Q121.58 -36.52 118.91 -33.72Q116.24 -30.91 116.24 -25.85Q116.24 -20.88 118.91 -17.99Q121.58 -15.09 125.63 -15.09Q129.58 -15.09 132.3 -17.94Q135.01 -20.79 135.01 -25.85Q135.01 -30.82 132.3 -33.67Q129.58 -36.52 125.63 -36.52ZM210.38 -22.17H176.25Q176.53 -17.94 178.6 -15.87Q180.67 -13.8 183.89 -13.8Q188.4 -13.8 190.33 -17.85H209.56Q208.36 -12.51 204.91 -8.33Q201.46 -4.14 196.22 -1.75Q190.97 0.64 184.62 0.64Q176.99 0.64 171.05 -2.58Q165.12 -5.8 161.76 -11.78Q158.4 -17.76 158.4 -25.85Q158.4 -33.95 161.72 -39.88Q165.03 -45.82 170.96 -49.04Q176.9 -52.26 184.62 -52.26Q192.26 -52.26 198.15 -49.13Q204.04 -46 207.35 -40.16Q210.66 -34.32 210.66 -26.4Q210.66 -24.29 210.38 -22.17ZM192.26 -30.91Q192.26 -34.22 190.05 -36.11Q187.84 -38 184.53 -38Q181.22 -38 179.1 -36.2Q176.99 -34.41 176.34 -30.91ZM269.2 -30.08V0H251.16V-27.69Q251.16 -32.11 248.86 -34.64Q246.56 -37.17 242.7 -37.17Q238.65 -37.17 236.35 -34.64Q234.05 -32.11 234.05 -27.69V0H216.02V-51.61H234.05V-44.25Q236.44 -47.75 240.49 -49.91Q244.54 -52.07 249.78 -52.07Q258.71 -52.07 263.95 -46.14Q269.2 -40.2 269.2 -30.08ZM296.18 -52.26Q301.51 -52.26 305.38 -50.14Q309.24 -48.02 311.36 -44.44V-51.61H329.39V0H311.36V-7.18Q309.24 -3.59 305.33 -1.47Q301.42 0.64 296.18 0.64Q290.01 0.64 285 -2.58Q279.98 -5.8 277.09 -11.82Q274.19 -17.85 274.19 -25.85Q274.19 -33.86 277.09 -39.84Q279.98 -45.82 285 -49.04Q290.01 -52.26 296.18 -52.26ZM301.97 -36.52Q297.92 -36.52 295.26 -33.72Q292.59 -30.91 292.59 -25.85Q292.59 -20.88 295.26 -17.99Q297.92 -15.09 301.97 -15.09Q305.93 -15.09 308.64 -17.94Q311.36 -20.79 311.36 -25.85Q311.36 -30.82 308.64 -33.67Q305.93 -36.52 301.97 -36.52ZM357.56 -51.61V0H339.44V-51.61ZM398.07 -15.36V0H390.25Q370.47 0 370.47 -19.6V-36.62H364.12V-51.61H370.47V-64.12H388.59V-51.61H397.98V-36.62H388.59V-19.32Q388.59 -17.2 389.56 -16.28Q390.52 -15.36 392.82 -15.36ZM401.4 -25.85Q401.4 -33.86 404.95 -39.84Q408.49 -45.82 414.61 -49.04Q420.72 -52.26 428.45 -52.26Q436.18 -52.26 442.3 -49.04Q448.42 -45.82 451.96 -39.84Q455.5 -33.86 455.5 -25.85Q455.5 -17.85 451.96 -11.82Q448.42 -5.8 442.25 -2.58Q436.09 0.64 428.36 0.64Q420.63 0.64 414.51 -2.58Q408.4 -5.8 404.9 -11.78Q401.4 -17.76 401.4 -25.85ZM437.19 -25.85Q437.19 -31.1 434.66 -33.86Q432.13 -36.62 428.45 -36.62Q424.77 -36.62 422.29 -33.86Q419.8 -31.1 419.8 -25.85Q419.8 -20.52 422.2 -17.76Q424.59 -15 428.36 -15Q432.13 -15 434.66 -17.8Q437.19 -20.61 437.19 -25.85Z" fill="#0f766e"/><path d="M495.69 40.1 L503.31 27.9" fill="none" stroke="#f59e0b" stroke-width="12.07" stroke-linecap="round"/></svg></span><span class="logo-oscuro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 136" role="img" aria-label="ordenaíto"><g transform="translate(6 8) scale(1.2)"><path d="M40 8 H60 A32 32 0 0 1 92 40 V50 C92 64 93 78 91 90 C90 94.5 86 95 82 91.5 C76 86 69 80 60 80 H40 A32 32 0 0 1 8 48 V40 A32 32 0 0 1 40 8 Z" fill="#ffffff"/><rect x="27.8" y="31.8" width="12.4" height="12.4" rx="3.8" fill="#0b4f4a"/><path d="M61.69 43.3 L68.31 32.7" fill="none" stroke="#f59e0b" stroke-width="10.5" stroke-linecap="round"/><path d="M31 54 Q50 73 69 54" fill="none" stroke="#f59e0b" stroke-width="8.5" stroke-linecap="round"/></g><path transform="translate(150 104)" d="M2.21 -25.85Q2.21 -33.86 5.75 -39.84Q9.29 -45.82 15.41 -49.04Q21.53 -52.26 29.26 -52.26Q36.98 -52.26 43.1 -49.04Q49.22 -45.82 52.76 -39.84Q56.3 -33.86 56.3 -25.85Q56.3 -17.85 52.76 -11.82Q49.22 -5.8 43.06 -2.58Q36.89 0.64 29.16 0.64Q21.44 0.64 15.32 -2.58Q9.2 -5.8 5.7 -11.78Q2.21 -17.76 2.21 -25.85ZM38 -25.85Q38 -31.1 35.47 -33.86Q32.94 -36.62 29.26 -36.62Q25.58 -36.62 23.09 -33.86Q20.61 -31.1 20.61 -25.85Q20.61 -20.52 23 -17.76Q25.39 -15 29.16 -15Q32.94 -15 35.47 -17.8Q38 -20.61 38 -25.85ZM96.35 -52.07V-32.84H91.29Q85.4 -32.84 82.55 -30.54Q79.7 -28.24 79.7 -22.54V0H61.66V-51.61H79.7V-42.5Q82.73 -46.92 87.06 -49.5Q91.38 -52.07 96.35 -52.07ZM119.92 -52.26Q124.89 -52.26 128.8 -50.19Q132.71 -48.12 134.92 -44.53V-68.08H153.04V0H134.92V-7.18Q132.8 -3.59 128.94 -1.47Q125.08 0.64 119.83 0.64Q113.67 0.64 108.65 -2.58Q103.64 -5.8 100.74 -11.82Q97.84 -17.85 97.84 -25.85Q97.84 -33.86 100.74 -39.84Q103.64 -45.82 108.7 -49.04Q113.76 -52.26 119.92 -52.26ZM125.63 -36.52Q121.58 -36.52 118.91 -33.72Q116.24 -30.91 116.24 -25.85Q116.24 -20.88 118.91 -17.99Q121.58 -15.09 125.63 -15.09Q129.58 -15.09 132.3 -17.94Q135.01 -20.79 135.01 -25.85Q135.01 -30.82 132.3 -33.67Q129.58 -36.52 125.63 -36.52ZM210.38 -22.17H176.25Q176.53 -17.94 178.6 -15.87Q180.67 -13.8 183.89 -13.8Q188.4 -13.8 190.33 -17.85H209.56Q208.36 -12.51 204.91 -8.33Q201.46 -4.14 196.22 -1.75Q190.97 0.64 184.62 0.64Q176.99 0.64 171.05 -2.58Q165.12 -5.8 161.76 -11.78Q158.4 -17.76 158.4 -25.85Q158.4 -33.95 161.72 -39.88Q165.03 -45.82 170.96 -49.04Q176.9 -52.26 184.62 -52.26Q192.26 -52.26 198.15 -49.13Q204.04 -46 207.35 -40.16Q210.66 -34.32 210.66 -26.4Q210.66 -24.29 210.38 -22.17ZM192.26 -30.91Q192.26 -34.22 190.05 -36.11Q187.84 -38 184.53 -38Q181.22 -38 179.1 -36.2Q176.99 -34.41 176.34 -30.91ZM269.2 -30.08V0H251.16V-27.69Q251.16 -32.11 248.86 -34.64Q246.56 -37.17 242.7 -37.17Q238.65 -37.17 236.35 -34.64Q234.05 -32.11 234.05 -27.69V0H216.02V-51.61H234.05V-44.25Q236.44 -47.75 240.49 -49.91Q244.54 -52.07 249.78 -52.07Q258.71 -52.07 263.95 -46.14Q269.2 -40.2 269.2 -30.08ZM296.18 -52.26Q301.51 -52.26 305.38 -50.14Q309.24 -48.02 311.36 -44.44V-51.61H329.39V0H311.36V-7.18Q309.24 -3.59 305.33 -1.47Q301.42 0.64 296.18 0.64Q290.01 0.64 285 -2.58Q279.98 -5.8 277.09 -11.82Q274.19 -17.85 274.19 -25.85Q274.19 -33.86 277.09 -39.84Q279.98 -45.82 285 -49.04Q290.01 -52.26 296.18 -52.26ZM301.97 -36.52Q297.92 -36.52 295.26 -33.72Q292.59 -30.91 292.59 -25.85Q292.59 -20.88 295.26 -17.99Q297.92 -15.09 301.97 -15.09Q305.93 -15.09 308.64 -17.94Q311.36 -20.79 311.36 -25.85Q311.36 -30.82 308.64 -33.67Q305.93 -36.52 301.97 -36.52ZM357.56 -51.61V0H339.44V-51.61ZM398.07 -15.36V0H390.25Q370.47 0 370.47 -19.6V-36.62H364.12V-51.61H370.47V-64.12H388.59V-51.61H397.98V-36.62H388.59V-19.32Q388.59 -17.2 389.56 -16.28Q390.52 -15.36 392.82 -15.36ZM401.4 -25.85Q401.4 -33.86 404.95 -39.84Q408.49 -45.82 414.61 -49.04Q420.72 -52.26 428.45 -52.26Q436.18 -52.26 442.3 -49.04Q448.42 -45.82 451.96 -39.84Q455.5 -33.86 455.5 -25.85Q455.5 -17.85 451.96 -11.82Q448.42 -5.8 442.25 -2.58Q436.09 0.64 428.36 0.64Q420.63 0.64 414.51 -2.58Q408.4 -5.8 404.9 -11.78Q401.4 -17.76 401.4 -25.85ZM437.19 -25.85Q437.19 -31.1 434.66 -33.86Q432.13 -36.62 428.45 -36.62Q424.77 -36.62 422.29 -33.86Q419.8 -31.1 419.8 -25.85Q419.8 -20.52 422.2 -17.76Q424.59 -15 428.36 -15Q432.13 -15 434.66 -17.8Q437.19 -20.61 437.19 -25.85Z" fill="#ffffff"/><path d="M495.69 40.1 L503.31 27.9" fill="none" stroke="#f59e0b" stroke-width="12.07" stroke-linecap="round"/></svg></span>
   </a>
-  <nav class="menu" aria-label="Principal">
-    <a href="#calcula">Calcula tu Precio</a>
-    <a href="#agenda">Agenda de Horas</a>
-    <a href="#como">Cómo funciona</a>
-    <a href="ayuda/">Ayuda</a>
-    <a class="btn wa chico" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más.">Escríbenos</a>
+  <nav class="tabs" aria-label="Apps">
+    <a href="#inicio" data-tab="inicio"><svg class="ic"><use href="#i-home"/></svg>Inicio</a>
+    <a href="#calcula" data-tab="calcula"><svg class="ic"><use href="#i-calc"/></svg>Calcula tu Precio</a>
+    <a href="#agenda" data-tab="agenda"><svg class="ic"><use href="#i-cal"/></svg>Agenda de Horas</a>
+    <a href="ayuda/"><svg class="ic"><use href="#i-help"/></svg>Ayuda</a>
   </nav>
+  <a class="btn wa chico escribe" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más."><svg class="ic"><use href="#i-chat"/></svg><span>Escríbenos</span></a>
 </div></header>
 
 <main>
+<div class="vista" data-vista="inicio">
 
 <section class="portada"><div class="wrap">
   <div>
@@ -302,8 +351,8 @@ footer .sep{margin:0 8px}
     <h1>Ordena tu negocio <em>desde tu celular</em></h1>
     <p class="sub">Apps simples y bonitas para emprendedores de Chile. Las pagas una vez, son tuyas y funcionan sin internet.</p>
     <div class="botones">
-      <a class="btn acento" href="#calcula"><svg class="ic"><use href="#i-calc"/></svg> Ver las apps</a>
-      <a class="btn vidrio" href="#agenda"><svg class="ic"><use href="#i-play"/></svg> Probar la demo de Agenda</a>
+      <a class="btn acento" href="#apps"><svg class="ic"><use href="#i-calc"/></svg> Ver las apps</a>
+      <a class="btn vidrio" href="#demo-agenda"><svg class="ic"><use href="#i-play"/></svg> Probar la demo de Agenda</a>
     </div>
     <ul class="confianza">
       <li><svg class="ic"><use href="#i-wifi"/></svg> Funciona sin internet</li>
@@ -327,7 +376,80 @@ footer .sep{margin:0 8px}
 </div></div>
 
 
-<section class="bloque" id="calcula"><div class="wrap">
+<section class="bloque" id="apps"><div class="wrap">
+  <div class="cab centro"><span class="etiqueta">Nuestras apps</span><h2>Elige la que necesitas</h2><p>Cada app tiene su propia página: entra y mira cómo funciona, su video, su demo y sus precios.</p></div>
+  <div class="tarjetas-app">
+    <a class="app-card rev" href="#calcula">
+      <div class="app-card-img"><div class="tel"><div class="pantalla"><picture data-t="Ficha" data-d="Costo, ganancia y margen real de cada producto."><source media="(prefers-color-scheme: dark)" srcset="img/ca-ficha-osc.webp"><img src="img/ca-ficha.webp" alt="Calcula tu Precio: ficha de producto" width="1170" height="2532" decoding="async" loading="lazy"></picture></div></div></div>
+      <div class="app-card-txt">
+        <span class="etiqueta"><svg class="ic"><use href="#i-calc"/></svg> Ya disponible</span>
+        <h3>Calcula tu Precio</h3>
+        <p>Sabe cuánto te cuesta de verdad cada producto y a qué precio venderlo para ganar.</p>
+        <span class="desde">Desde <b>$9.990</b> · pago único</span>
+        <span class="btn verde">Ver Calcula tu Precio</span>
+      </div>
+    </a>
+    <a class="app-card rev" href="#agenda">
+      <div class="app-card-img"><div class="tel"><div class="pantalla"><picture data-t="Día" data-d="Citas, plata del día y la siguiente cita a la vista."><source media="(prefers-color-scheme: dark)" srcset="img/ag-dia-osc.webp"><img src="img/ag-dia.webp" alt="Agenda de Horas: citas del día" width="1170" height="2532" decoding="async" loading="lazy"></picture></div></div></div>
+      <div class="app-card-txt">
+        <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> Nueva · Demo gratis</span>
+        <h3>Agenda de Horas</h3>
+        <p>Ordena tus citas, recuerda a tus clientes por WhatsApp y mira la plata del día.</p>
+        <span class="desde">Completa <b>$14.990</b> · pago único</span>
+        <span class="btn verde">Ver Agenda de Horas</span>
+      </div>
+    </a>
+  </div>
+</div></section>
+
+
+<section class="bloque fondo-suave"><div class="wrap">
+  <div class="cab centro">
+    <span class="etiqueta ambar">Próximamente</span>
+    <h2>Más apps con la misma idea</h2>
+    <p>Simples y hechas para tu celular. Si alguna necesita internet (por ejemplo, para que tus clientes reserven o compren), te lo diremos claro antes de comprar.</p>
+  </div>
+  <div class="prox">
+    <div class="tj rev"><svg class="ic"><use href="#i-cart"/></svg><span class="chip">PRÓXIMAMENTE</span><h3>Catálogo con Carrito</h3><p>Tus productos en un catálogo para mostrar y vender por WhatsApp.</p></div>
+    <div class="tj rev"><svg class="ic"><use href="#i-chart"/></svg><span class="chip">PRÓXIMAMENTE</span><h3>Mi Negocio al Día</h3><p>Tus ventas, gastos y pendientes en un solo lugar.</p></div>
+  </div>
+</div></section>
+
+
+<section class="bloque" id="como"><div class="wrap">
+  <div class="cab centro">
+    <span class="etiqueta">Cómo funciona</span>
+    <h2>Tres pasos y listo</h2>
+  </div>
+  <ol class="pasos">
+    <li class="rev"><svg class="ic"><use href="#i-play"/></svg><b>Mira el video o prueba la demo</b><span>Conoce la app antes de pagar. Y si tienes dudas, escríbenos por WhatsApp.</span></li>
+    <li class="rev"><svg class="ic"><use href="#i-pago"/></svg><b>Escríbenos y paga</b><span>Nos escribes por WhatsApp y pagas por transferencia. Un solo pago.</span></li>
+    <li class="rev"><svg class="ic"><use href="#i-key"/></svg><b>Actívala en tu celular</b><span>Te enviamos tu código y la activas en tu celular. Listo para usar.</span></li>
+  </ol>
+</div></section>
+
+
+<section class="bloque fondo-suave" id="preguntas" style="padding-top:60px"><div class="wrap">
+  <div class="cab centro"><span class="etiqueta">Preguntas frecuentes</span><h2>¿Dudas? Aquí las resolvemos</h2></div>
+  <div class="faq">
+    <details><summary>¿Funciona sin internet?</summary><p>Sí. Después de instalarlas, las usas sin internet. Tus datos quedan en tu celular.</p></details>
+    <details><summary>¿Sirve en iPhone y en Android?</summary><p>Sí, en los dos. Se instalan en la pantalla de inicio de tu celular, como cualquier app. En ordenaito.cl/ayuda están los pasos con imágenes.</p></details>
+    <details><summary>¿Hay mensualidad?</summary><p>En Calcula tu Precio y en la Agenda de Horas, no: pagas una sola vez. Si más adelante sale una app que necesite internet y tenga un costo mensual, lo diremos claro antes de que compres.</p></details>
+    <details><summary>¿Puedo probarlas antes de comprar?</summary><p>La Agenda de Horas tiene demo gratis: la abres y la pruebas en el momento. De Calcula tu Precio tienes el video, y por WhatsApp te calculamos el precio de un producto tuyo para que veas el resultado antes de pagar.</p></details>
+    <details><summary>¿Qué incluye la demo de la Agenda?</summary><p>Toda la app, con límites: hasta 12 citas al mes, 5 servicios y 10 clientes. Lo que pruebes se guarda solo en tu aparato y no se mezcla con la versión completa.</p></details>
+    <details><summary>¿Emiten boletas del SII?</summary><p>No. Son para tu control interno: calcular costos y precios, y ordenar tus citas. Para boletas y facturas sigues usando tu sistema de siempre.</p></details>
+    <details><summary>¿Y si cambio de celular?</summary><p>Escríbenos por WhatsApp y lo vemos. Con un respaldo de tus datos no pierdes nada. La versión básica incluye 1 activación y la personalizada de Calcula tu Precio, 2.</p></details>
+  </div>
+</div></section>
+</div>
+
+<div class="vista" data-vista="calcula">
+<div class="cabapp"><div class="wrap">
+  <span class="insignia"><svg class="ic"><use href="#i-calc"/></svg> Calcula tu Precio</span>
+  <nav class="sub" aria-label="En esta app"><a href="#calcula">Qué hace</a><a href="#video-calcula">Video</a><a href="#planes-calcula">Precios</a></nav>
+</div></div>
+
+<section class="bloque"><div class="wrap">
   <div class="app">
     <div class="rev">
       <div class="cab" style="margin-bottom:24px">
@@ -341,7 +463,7 @@ footer .sep{margin:0 8px}
         <li><svg class="ic"><use href="#i-alerta"/></svg><div><b>Te avisa si vendes a pérdida</b><span>Anota el precio al que vendes hoy y mira cuánto ganas, o cuánto pierdes, por cada unidad.</span></div></li>
         <li><svg class="ic"><use href="#i-send"/></svg><div><b>Envía tus precios por WhatsApp</b><span>Mandas a tu cliente solo el nombre y el precio, nunca tus costos.</span></div></li>
       </ul>
-      <p style="margin-top:20px"><a class="btn verde" href="#planes-calcula">Ver precios</a> &nbsp;<a class="btn linea" href="#video">Ver el video</a></p>
+      <p style="margin-top:20px"><a class="btn verde" href="#planes-calcula">Ver precios</a> &nbsp;<a class="btn linea" href="#video-calcula">Ver el video</a></p>
     </div>
     <div class="carr rev" data-carr>
       <div class="tel"><div class="pantalla">
@@ -395,7 +517,7 @@ footer .sep{margin:0 8px}
 </div></section>
 
 
-<section class="bloque fondo-suave" id="video"><div class="wrap">
+<section class="bloque fondo-suave" id="video-calcula"><div class="wrap">
   <div class="video-fila">
     <div class="rev">
       <div class="cab" style="margin-bottom:22px">
@@ -417,9 +539,15 @@ footer .sep{margin:0 8px}
     </div>
   </div>
 </div></section>
+</div>
 
+<div class="vista" data-vista="agenda">
+<div class="cabapp"><div class="wrap">
+  <span class="insignia"><svg class="ic"><use href="#i-cal"/></svg> Agenda de Horas</span>
+  <nav class="sub" aria-label="En esta app"><a href="#agenda">Qué hace</a><a href="#video-agenda">Video</a><a href="#demo-agenda">Demo gratis</a><a href="#planes-agenda">Precios</a></nav>
+</div></div>
 
-<section class="bloque" id="agenda"><div class="wrap">
+<section class="bloque"><div class="wrap">
   <div class="app inv">
     <div class="carr rev" data-carr>
       <div class="tel"><div class="pantalla">
@@ -445,6 +573,27 @@ footer .sep{margin:0 8px}
         <li><svg class="ic"><use href="#i-repeat"/></svg><div><b>Citas que se repiten</b><span>Cada semana o cada 2 o 4 semanas, para tus clientes fijos.</span></div></li>
         <li><svg class="ic"><use href="#i-brush"/></svg><div><b>Con el color de tu negocio</b><span>Elige tu color y tu nombre. Funciona sin internet y tus datos quedan en tu celular.</span></div></li>
       </ul>
+    </div>
+  </div>
+
+  <div class="video-fila video-ag" id="video-agenda" style="margin:70px 0 10px">
+    <div class="rev">
+      <div class="cab" style="margin-bottom:22px">
+        <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> En un celular real</span>
+        <h2>Mira la Agenda en acción</h2>
+        <p>Un recorrido corto: agendar, recordar por WhatsApp y cobrar.</p>
+      </div>
+      <ol class="pasitos">
+        <li>Agendas en segundos<span>La app avisa si la hora ya está ocupada.</span></li>
+        <li>Recuerdas por WhatsApp<span>El mensaje sale listo para tu cliente.</span></li>
+        <li>Cobras y cierras el día<span>Ves lo esperado y lo cobrado.</span></li>
+      </ol>
+      <a class="btn acento" href="#demo-agenda">Probar la demo gratis</a>
+    </div>
+    <div class="rev">
+      <div class="tel"><div class="pantalla">
+        <video controls playsinline preload="metadata" poster="video/agenda-portada.jpg"><source src="video/agenda-de-horas.mp4" type="video/mp4"></video>
+      </div></div>
     </div>
   </div>
 
@@ -495,52 +644,13 @@ footer .sep{margin:0 8px}
     <a class="btn linea" href="#" data-wa="Hola, quiero cotizar una versión a mi gusto de Agenda de Horas.">Quiero cotizar a mi gusto</a>
   </div>
 </div></section>
-
-
-<section class="bloque fondo-suave"><div class="wrap">
-  <div class="cab centro">
-    <span class="etiqueta ambar">Próximamente</span>
-    <h2>Más apps con la misma idea</h2>
-    <p>Simples y hechas para tu celular. Si alguna necesita internet (por ejemplo, para que tus clientes reserven o compren), te lo diremos claro antes de comprar.</p>
-  </div>
-  <div class="prox">
-    <div class="tj rev"><svg class="ic"><use href="#i-cart"/></svg><span class="chip">PRÓXIMAMENTE</span><h3>Catálogo con Carrito</h3><p>Tus productos en un catálogo para mostrar y vender por WhatsApp.</p></div>
-    <div class="tj rev"><svg class="ic"><use href="#i-chart"/></svg><span class="chip">PRÓXIMAMENTE</span><h3>Mi Negocio al Día</h3><p>Tus ventas, gastos y pendientes en un solo lugar.</p></div>
-  </div>
-</div></section>
-
-
-<section class="bloque" id="como"><div class="wrap">
-  <div class="cab centro">
-    <span class="etiqueta">Cómo funciona</span>
-    <h2>Tres pasos y listo</h2>
-  </div>
-  <ol class="pasos">
-    <li class="rev"><svg class="ic"><use href="#i-play"/></svg><b>Mira el video o prueba la demo</b><span>Conoce la app antes de pagar. Y si tienes dudas, escríbenos por WhatsApp.</span></li>
-    <li class="rev"><svg class="ic"><use href="#i-pago"/></svg><b>Escríbenos y paga</b><span>Nos escribes por WhatsApp y pagas por transferencia. Un solo pago.</span></li>
-    <li class="rev"><svg class="ic"><use href="#i-key"/></svg><b>Actívala en tu celular</b><span>Te enviamos tu código y la activas en tu celular. Listo para usar.</span></li>
-  </ol>
-</div></section>
-
-
-<section class="bloque fondo-suave" id="preguntas" style="padding-top:60px"><div class="wrap">
-  <div class="cab centro"><span class="etiqueta">Preguntas frecuentes</span><h2>¿Dudas? Aquí las resolvemos</h2></div>
-  <div class="faq">
-    <details><summary>¿Funciona sin internet?</summary><p>Sí. Después de instalarlas, las usas sin internet. Tus datos quedan en tu celular.</p></details>
-    <details><summary>¿Sirve en iPhone y en Android?</summary><p>Sí, en los dos. Se instalan en la pantalla de inicio de tu celular, como cualquier app. En ordenaito.cl/ayuda están los pasos con imágenes.</p></details>
-    <details><summary>¿Hay mensualidad?</summary><p>En Calcula tu Precio y en la Agenda de Horas, no: pagas una sola vez. Si más adelante sale una app que necesite internet y tenga un costo mensual, lo diremos claro antes de que compres.</p></details>
-    <details><summary>¿Puedo probarlas antes de comprar?</summary><p>La Agenda de Horas tiene demo gratis: la abres y la pruebas en el momento. De Calcula tu Precio tienes el video, y por WhatsApp te calculamos el precio de un producto tuyo para que veas el resultado antes de pagar.</p></details>
-    <details><summary>¿Qué incluye la demo de la Agenda?</summary><p>Toda la app, con límites: hasta 12 citas al mes, 5 servicios y 10 clientes. Lo que pruebes se guarda solo en tu aparato y no se mezcla con la versión completa.</p></details>
-    <details><summary>¿Emiten boletas del SII?</summary><p>No. Son para tu control interno: calcular costos y precios, y ordenar tus citas. Para boletas y facturas sigues usando tu sistema de siempre.</p></details>
-    <details><summary>¿Y si cambio de celular?</summary><p>Escríbenos por WhatsApp y lo vemos. Con un respaldo de tus datos no pierdes nada. La versión básica incluye 1 activación y la personalizada de Calcula tu Precio, 2.</p></details>
-  </div>
-</div></section>
+</div>
 
 <section class="cierre"><div class="wrap">
   <h2>Tu negocio, ordenaíto.</h2>
   <p>Prueba la demo de la Agenda o cuéntanos por WhatsApp qué vendes y te ayudamos a elegir.</p>
   <div class="botones">
-    <a class="btn acento" href="#agenda"><svg class="ic"><use href="#i-play"/></svg> Probar la demo</a>
+    <a class="btn acento" href="#demo-agenda"><svg class="ic"><use href="#i-play"/></svg> Probar la demo</a>
     <a class="btn wa" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más."><svg class="ic"><use href="#i-chat"/></svg> Escríbenos por WhatsApp</a>
   </div>
 </div></section>
@@ -553,13 +663,37 @@ footer .sep{margin:0 8px}
 <script>
 
 (function () {
-  var sec = document.getElementById("video"), v = sec && sec.querySelector("video");
-  if (!v) return;
-  function respaldo() { sec.classList.add("sin-video"); }
-  v.addEventListener("error", respaldo);
-  var src = v.querySelector("source");
-  if (src) src.addEventListener("error", respaldo);
-  v.addEventListener("loadedmetadata", function () { sec.classList.remove("sin-video"); });
+  ["video-calcula", "video-agenda"].forEach(function (id) {
+    var sec = document.getElementById(id), v = sec && sec.querySelector("video");
+    if (!v) return;
+    function respaldo() { sec.classList.add("sin-video"); }
+    v.addEventListener("error", respaldo);
+    var src = v.querySelector("source");
+    if (src) src.addEventListener("error", respaldo);
+    v.addEventListener("loadedmetadata", function () { sec.classList.remove("sin-video"); });
+  });
+})();
+
+(function () {
+  var vistas = document.querySelectorAll(".vista"), tabs = document.querySelectorAll(".tabs a[data-tab]");
+  if (!vistas.length) return;
+  document.documentElement.classList.add("js-vistas");
+  function mostrar(nombre) {
+    vistas.forEach(function (v) { v.classList.toggle("on", v.getAttribute("data-vista") === nombre); });
+    tabs.forEach(function (t) { t.classList.toggle("on", t.getAttribute("data-tab") === nombre); });
+    var a = document.querySelector(".tabs a.on"); if (a && a.scrollIntoView) { try { a.scrollIntoView({ inline: "center", block: "nearest" }); } catch (e) {} }
+    var nombres = { inicio: "Ordenaíto · Apps simples para ordenar tu negocio", calcula: "Calcula tu Precio · Ordenaíto", agenda: "Agenda de Horas · Ordenaíto" };
+    document.title = nombres[nombre] || document.title;
+  }
+  function ruta() {
+    var id = decodeURIComponent((location.hash || "#inicio").slice(1)) || "inicio";
+    if (id === "inicio" || id === "calcula" || id === "agenda") { mostrar(id); window.scrollTo(0, 0); return; }
+    var el = document.getElementById(id), v = el && el.closest(".vista");
+    mostrar(v ? v.getAttribute("data-vista") : "inicio");
+    if (el) setTimeout(function () { el.scrollIntoView(); }, 40);
+  }
+  window.addEventListener("hashchange", ruta);
+  ruta();
 })();
 
 (function () {
