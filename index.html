@@ -295,6 +295,15 @@ footer .sep{margin:0 8px}
   html{scroll-padding-top:90px}
 }
 @media (max-width:979px){ html{scroll-padding-top:112px} .cabapp .wrap{justify-content:flex-start} }
+
+
+.wa-flota{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:70;display:flex;align-items:center;gap:10px;height:58px;padding:0 18px 0 14px;border-radius:99px;background:linear-gradient(135deg,#25d366,#0f9d58);color:#052e1b;text-decoration:none;font:800 16px/1 var(--cuerpo);box-shadow:0 14px 30px -8px rgba(15,157,88,.75),0 2px 6px rgba(0,0,0,.2);transition:padding .3s,gap .3s,transform .2s}
+.wa-flota:hover{transform:translateY(-2px)}
+.wa-flota .ic-wa{width:32px;height:32px;color:#fff}
+.wa-flota .wa-txt{overflow:hidden;white-space:nowrap;max-width:140px;transition:max-width .3s,opacity .3s}
+.wa-flota.corto{padding:0;gap:0;width:58px;justify-content:center}
+.wa-flota.corto .wa-txt{max-width:0;opacity:0}
+@media (min-width:980px){ .wa-flota{right:28px;bottom:28px} }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .flota{animation:none!important}
@@ -341,7 +350,6 @@ footer .sep{margin:0 8px}
     <a href="#agenda" data-tab="agenda"><svg class="ic"><use href="#i-cal"/></svg>Agenda de Horas</a>
     <a href="ayuda/"><svg class="ic"><use href="#i-help"/></svg>Ayuda</a>
   </nav>
-  <a class="btn wa chico escribe" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más."><svg class="ic ic-wa"><use href="#i-wa"/></svg><span>Escríbenos</span></a>
 </div></header>
 
 <main>
@@ -662,6 +670,8 @@ footer .sep{margin:0 8px}
   <p style="margin:10px 0 0">© 2026 Ordenaíto · Hecha en Chile, para emprendedores de verdad.</p>
 </div></footer>
 
+<a class="wa-flota" id="waF" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más." aria-label="Escríbenos por WhatsApp"><svg class="ic ic-wa"><use href="#i-wa"/></svg><span class="wa-txt">Escríbenos</span></a>
+
 <script>
 
 (function () {
@@ -696,6 +706,12 @@ footer .sep{margin:0 8px}
   }
   window.addEventListener("hashchange", ruta);
   ruta();
+})();
+
+(function () {
+  var b = document.getElementById("waF"); if (!b) return;
+  function pos() { b.classList.toggle("corto", window.scrollY > 140); }
+  window.addEventListener("scroll", pos, { passive: true }); pos();
 })();
 
 (function () {
