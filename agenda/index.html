@@ -316,6 +316,15 @@ nav.tabs .mas{background:var(--grad);color:var(--sobre-primario);box-shadow:var(
 .etq{border-radius:999px}
 #toast{background:var(--texto);color:var(--fondo);border-radius:14px;box-shadow:var(--sombra)}
 .meter,.barra{background:var(--tarjeta2)}
+.hero{position:relative;overflow:hidden;border-radius:32px;padding:22px 20px 58px;color:#fff;background:var(--grad-hero);box-shadow:0 24px 50px -22px color-mix(in srgb,var(--primario) 80%,#000),inset 0 1px 0 rgba(255,255,255,.25)}
+.hero::before{content:"";position:absolute;right:-60px;top:-70px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.38),rgba(255,255,255,0) 68%)}
+.hero::after{content:"";position:absolute;left:-40px;bottom:-90px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.55),rgba(251,191,36,0) 66%)}
+.hero>*{position:relative;z-index:1}
+.hero .ey{display:inline-flex;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 12px;border-radius:999px}
+.hero h1{font-size:27px;line-height:1.12;font-weight:800;margin:12px 0 6px;max-width:15em}
+.hero p{font-size:15px;opacity:.92;margin:0 0 16px}
+.btn.cal{background:var(--grad-calido);color:#2b1700;border-color:transparent;box-shadow:var(--brillo-c),inset 0 1px 0 rgba(255,255,255,.45)}
+.hero + .fecha-barra{margin-top:12px}
 </style>
 </head>
 <body>
@@ -959,6 +968,13 @@ function vAgenda(){
   } else {
     var ini = pISO(inicioSemana(f)), fin = pISO(sumaDias(inicioSemana(f), 6));
     titulo = "Semana"; sub = ini.getDate() + (ini.getMonth() !== fin.getMonth() ? " " + MESES[ini.getMonth()].slice(0, 3) : "") + " – " + fin.getDate() + " " + MESES[fin.getMonth()].slice(0, 3);
+  }
+  if (UI.modo === "dia"){
+    var hc = citasDelDia(f, UI.prof).filter(function(c){ return activa(c) && !c.b && c.est !== "cancelada"; });
+    var hesp = hc.reduce(function(t, c){ return t + c.t; }, 0);
+    var cuando = f === hoy ? "hoy" : f === sumaDias(hoy, 1) ? "mañana" : "este día";
+    h += '<div class="hero"><span class="ey">Tu agenda</span><h1>' + (hc.length ? (f === hoy ? "Hoy" : cap(cuando)) + " tienes " + hc.length + (hc.length > 1 ? " citas" : " cita") : "Tu día está libre") + '</h1><p>' +
+      (hc.length ? "Esperas cobrar " + plata(hesp) + " " + cuando + "." : "Agenda una hora y aparece aquí al tiro.") + '</p><button type="button" class="btn cal" data-a="nuevaCita">+ Nueva cita</button></div>';
   }
   var paso = UI.modo === "dia" ? 1 : 7;
   h += '<div class="fecha-barra"><button type="button" class="flecha" data-a="mover" data-n="' + (-paso) + '" aria-label="Anterior">‹</button>' +
