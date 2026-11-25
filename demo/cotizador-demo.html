@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<title>Cotizador</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#eef6f5">
+<meta name="description" content="Arma cotizaciones en segundos desde el celular y envíalas por WhatsApp o PDF. Funciona sin internet.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cotizador">
+<link rel="apple-touch-icon" href="icono-192.png">
+<style>
+:root{
+  --primario:#0f766e; --sobre-primario:#ffffff;
+  --p0:color-mix(in srgb,var(--primario) 78%,#000);
+  --p1:color-mix(in srgb,var(--primario) 88%,#4ade80);
+  --p2:color-mix(in srgb,var(--primario) 60%,#5eead4);
+  --acento2:var(--p1);
+  --ambar:#f59e0b; --coral:#fb7185;
+  --fondo:#eef6f5; --tarjeta:#ffffff; --tarjeta2:#f1f7f6; --texto:#0e2220; --suave:#4b605d;
+  --borde:#d3e3e0; --campo:#ffffff;
+  --ok:#0b7a43; --ok-fondo:#d9f5e5; --aviso:#8a5200; --aviso-fondo:#fdeec6; --mal:#b42318; --mal-fondo:#fde2df;
+  --sombra:0 1px 2px rgba(14,34,32,.06),0 8px 18px -6px rgba(14,34,32,.12),0 26px 48px -20px rgba(15,118,110,.26);
+  --sombra-s:0 1px 2px rgba(14,34,32,.08),0 8px 16px -8px rgba(14,34,32,.20);
+  --brillo-i:inset 0 1px 0 rgba(255,255,255,.85);
+  --radio:26px;
+  --primario-texto:var(--primario);
+  --grad:linear-gradient(135deg,var(--primario),var(--p1));
+  --grad-t:var(--grad);
+  --grad-hero:linear-gradient(135deg,var(--p0) 0%,var(--primario) 52%,var(--p2) 130%);
+  --grad-calido:linear-gradient(135deg,#fbbf24,#f59e0b 45%,#fb7185);
+  --brillo:0 10px 24px -8px color-mix(in srgb,var(--primario) 70%,transparent);
+  --brillo-c:0 10px 24px -8px rgba(245,158,11,.75);
+  --vidrio:color-mix(in srgb,var(--tarjeta) 78%,transparent);
+  --malla1:color-mix(in srgb,var(--p2) 34%,transparent);
+  --malla2:rgba(251,191,36,.20);
+  --malla3:color-mix(in srgb,var(--primario) 16%,transparent);
+}
+@supports (color:hsl(from red h s l)){
+  :root{
+    --p0:hsl(from var(--primario) h s calc(l - 9));
+    --p1:hsl(from var(--primario) calc(h - 12) s calc(l + 2));
+    --p2:hsl(from var(--primario) calc(h - 16) s calc(l + 14));
+  }
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema="claro"]){
+    --fondo:#061211; --tarjeta:#0e1f1e; --tarjeta2:#142a28; --texto:#e8f5f2; --suave:#9db7b3;
+    --borde:#21403d; --campo:#091615;
+    --ok:#5ee9a0; --ok-fondo:#0f3a27; --aviso:#fcd34d; --aviso-fondo:#3d2f08; --mal:#ff9a92; --mal-fondo:#46171a;
+    --sombra:0 0 0 1px rgba(255,255,255,.03),0 10px 22px -8px rgba(0,0,0,.65),0 28px 52px -22px rgba(0,0,0,.8);
+    --sombra-s:0 0 0 1px rgba(255,255,255,.03),0 8px 16px -8px rgba(0,0,0,.7);
+    --brillo-i:inset 0 1px 0 rgba(255,255,255,.07);
+    --primario-texto:color-mix(in srgb,var(--primario) 52%,#fff);
+    --grad-t:linear-gradient(135deg,color-mix(in srgb,var(--primario) 45%,#fff),color-mix(in srgb,var(--p2) 55%,#fde68a));
+    --malla1:color-mix(in srgb,var(--primario) 38%,transparent);
+    --malla2:rgba(251,146,60,.10);
+    --malla3:color-mix(in srgb,var(--p2) 12%,transparent);
+  }
+}
+:root[data-tema="oscuro"]{
+  --fondo:#061211; --tarjeta:#0e1f1e; --tarjeta2:#142a28; --texto:#e8f5f2; --suave:#9db7b3;
+  --borde:#21403d; --campo:#091615;
+  --ok:#5ee9a0; --ok-fondo:#0f3a27; --aviso:#fcd34d; --aviso-fondo:#3d2f08; --mal:#ff9a92; --mal-fondo:#46171a;
+  --sombra:0 0 0 1px rgba(255,255,255,.03),0 10px 22px -8px rgba(0,0,0,.65),0 28px 52px -22px rgba(0,0,0,.8);
+  --sombra-s:0 0 0 1px rgba(255,255,255,.03),0 8px 16px -8px rgba(0,0,0,.7);
+  --brillo-i:inset 0 1px 0 rgba(255,255,255,.07);
+  --primario-texto:color-mix(in srgb,var(--primario) 52%,#fff);
+  --grad-t:linear-gradient(135deg,color-mix(in srgb,var(--primario) 45%,#fff),color-mix(in srgb,var(--p2) 55%,#fde68a));
+  --malla1:color-mix(in srgb,var(--primario) 38%,transparent);
+  --malla2:rgba(251,146,60,.10);
+  --malla3:color-mix(in srgb,var(--p2) 12%,transparent);
+}
+html{color-scheme:light dark;-webkit-text-size-adjust:100%}
+:root[data-tema="claro"]{color-scheme:light}
+:root[data-tema="oscuro"]{color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--fondo);color:var(--texto);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 38% at 104% -4%,var(--malla1),transparent 72%),radial-gradient(52% 34% at -8% 30%,var(--malla2),transparent 72%),radial-gradient(70% 40% at 60% 108%,var(--malla3),transparent 72%)}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{letter-spacing:-.015em}
+a{color:inherit}
+input,select,textarea{width:100%;min-height:48px;background:var(--campo);border:1.5px solid var(--borde);border-radius:14px;padding:8px 14px;transition:border-color .15s,box-shadow .15s}
+textarea{min-height:84px;resize:vertical}
+input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--suave) 80%,transparent)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primario);box-shadow:0 0 0 4px color-mix(in srgb,var(--primario) 24%,transparent)}
+.grad{background:var(--grad);box-shadow:var(--brillo),inset 0 1px 0 rgba(255,255,255,.35)}
+html{touch-action:pan-x pan-y}
+body{padding-bottom:96px}
+.wrap{max-width:720px;margin:0 auto;padding:0 14px}
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--fondo) 70%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border-bottom:1px solid color-mix(in srgb,var(--primario) 18%,var(--borde));padding-top:env(safe-area-inset-top)}
+header.top .wrap{display:flex;align-items:center;gap:10px;min-height:60px}
+.marca-ic{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;background:var(--grad);box-shadow:var(--brillo),inset 0 1px 0 rgba(255,255,255,.35)}
+.marca-ic svg,.tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.marca{font-weight:800;font-size:18px;letter-spacing:-.02em;background:var(--grad-t);-webkit-background-clip:text;background-clip:text;color:transparent}
+main{max-width:720px;margin:0 auto;padding:16px 14px}
+h1{font-size:25px;font-weight:800}
+h2{font-size:18px;font-weight:800;margin-bottom:6px}
+.cab{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cnt{color:var(--suave);font-weight:700;font-size:14px}
+.card{background:var(--tarjeta);border:1px solid color-mix(in srgb,var(--primario) 12%,var(--borde));border-radius:var(--radio);padding:18px;margin-bottom:16px;box-shadow:var(--sombra),inset 0 1px 0 rgba(255,255,255,.5)}
+.hero{position:relative;overflow:hidden;background:var(--grad-hero);color:#fff;border-color:transparent}
+.hero::after{content:"";position:absolute;right:-60px;top:-80px;width:220px;height:220px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.32),transparent);pointer-events:none}
+.hero h1{margin-bottom:4px}
+.hero .btn{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);color:#fff;box-shadow:none}
+.hero .btn.pri{background:#fff;color:var(--p0);border-color:transparent;box-shadow:0 10px 24px -10px rgba(0,0,0,.45)}
+.nota{color:var(--suave);font-size:14px;margin:4px 0 12px}
+.nota.c{text-align:center}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:10px;padding:0 16px;border-radius:15px;border:1.5px solid var(--borde);background:var(--tarjeta);color:var(--texto);font-weight:700;cursor:pointer;text-decoration:none;box-shadow:var(--sombra-s);transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:var(--grad);color:var(--sobre-primario);border-color:transparent;box-shadow:var(--brillo),var(--brillo-i)}
+.btn.wa{background:linear-gradient(135deg,#25d366,#0e9f6e);border-color:transparent;color:#052e16;box-shadow:0 10px 22px -8px rgba(37,211,102,.7),inset 0 1px 0 rgba(255,255,255,.4)}
+.btn.mal{background:transparent;box-shadow:none;color:var(--mal);border-color:color-mix(in srgb,var(--mal) 55%,transparent)}
+.lnk{background:none;border:0;color:var(--primario-texto);font-weight:700;text-decoration:underline;cursor:pointer;padding:6px 0;min-height:44px}
+.pasos{margin:10px 0 16px;padding-left:22px}
+.pasos li{margin:8px 0}
+label.l{display:block;font-weight:700;margin:14px 0 5px}
+.fila{display:flex;align-items:center;gap:12px;width:100%;margin-bottom:10px;padding:10px;min-height:72px;border-radius:20px;border:1px solid color-mix(in srgb,var(--primario) 12%,var(--borde));background:var(--tarjeta);color:var(--texto);text-align:left;cursor:pointer;box-shadow:var(--sombra-s),inset 0 1px 0 rgba(255,255,255,.5)}
+.fila:active{transform:scale(.99)}
+.th{flex:none;width:52px;height:52px;border-radius:15px;overflow:hidden;display:grid;place-items:center;background:var(--grad);color:#fff;font-weight:800;font-size:20px;box-shadow:var(--brillo)}
+.th img{width:100%;height:100%;object-fit:cover}
+.th i{font-style:normal}
+.tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.tx b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tx small{color:var(--suave)}
+.pr{flex:none;font-weight:800;background:var(--grad-t);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fab{position:fixed;right:16px;bottom:84px;z-index:3;min-height:52px;padding:0 24px;border:0;border-radius:999px;background:var(--grad);color:var(--sobre-primario);font-weight:800;font-size:16px;cursor:pointer;box-shadow:var(--brillo),inset 0 1px 0 rgba(255,255,255,.35)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);background:color-mix(in srgb,var(--tarjeta) 78%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border-top:1px solid color-mix(in srgb,var(--primario) 18%,var(--borde))}
+.tab{flex:1;max-width:240px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:0;background:none;color:var(--suave);font-size:12px;font-weight:700;cursor:pointer}
+.tab.on{color:var(--primario-texto)}
+.movil{margin:0 auto 16px;max-width:360px;border-radius:36px;border:8px solid #17202b;background:#17202b;box-shadow:var(--sombra),0 0 0 1px rgba(255,255,255,.06);overflow:hidden}
+.movil iframe{display:block;width:100%;height:540px;border:0;background:var(--fondo)}
+.alerta{background:var(--aviso-fondo);color:var(--aviso);border:1px solid color-mix(in srgb,var(--aviso) 25%,transparent);border-radius:18px;padding:12px 14px;margin-bottom:14px;font-size:14px}
+.colores{display:flex;flex-wrap:wrap;gap:10px}
+.col{width:44px;height:44px;border-radius:50%;border:3px solid var(--tarjeta);cursor:pointer;box-shadow:var(--sombra-s)}
+.col.on{box-shadow:0 0 0 3px var(--texto)}
+#hoja{position:fixed;inset:0;z-index:30;display:none}
+#hoja.on{display:block}
+.vel{position:absolute;inset:0;background:rgba(2,12,11,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.caja{position:absolute;left:0;right:0;bottom:0;max-height:94vh;overflow-y:auto;max-width:720px;margin:0 auto;padding:18px 16px calc(22px + env(safe-area-inset-bottom));background:linear-gradient(180deg,color-mix(in srgb,var(--primario) 8%,var(--tarjeta)),var(--tarjeta) 42%);border-radius:28px 28px 0 0;border:1px solid color-mix(in srgb,var(--primario) 14%,var(--borde));box-shadow:var(--sombra)}
+.fotoed{display:flex;align-items:center;gap:14px}
+.fotoed .th{width:84px;height:84px;border-radius:22px}
+.fotoed div{flex:1}
+.chk{display:flex;align-items:center;gap:10px;min-height:48px;margin-top:10px;font-weight:700}
+.chk input{width:24px;height:24px;min-height:0;flex:none;accent-color:var(--primario)}
+#toast{position:fixed;left:16px;right:16px;bottom:90px;z-index:40;max-width:560px;margin:0 auto;background:var(--texto);color:var(--fondo);border-radius:14px;box-shadow:var(--sombra);padding:12px 16px;font-size:15px;display:none;text-align:center}
+#toast.on{display:block}
+.pie{text-align:center;color:var(--suave);font-size:13px;margin:24px 0 8px}
+.sii{font-size:13px;color:var(--suave);margin-top:10px}
+body{padding-bottom:28px}
+header.top .wrap{justify-content:space-between;gap:8px;min-height:64px}
+.marca{font-size:17px;line-height:1.15;max-width:130px}
+.seg{display:flex;gap:4px;padding:4px;border-radius:999px;background:color-mix(in srgb,var(--tarjeta) 70%,transparent);border:1px solid var(--borde);box-shadow:var(--sombra-s)}
+.seg button{min-height:44px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:var(--suave);font-weight:700;font-size:14px;cursor:pointer}
+.seg button.sel{background:var(--grad);color:var(--sobre-primario);box-shadow:var(--brillo),inset 0 1px 0 rgba(255,255,255,.3)}
+.hero{border-radius:34px;padding:22px 20px 40px;border:1px solid rgba(255,255,255,.22);background:radial-gradient(120% 90% at 100% 0%,color-mix(in srgb,var(--p2) 55%,transparent),transparent 60%),var(--grad-hero);box-shadow:var(--sombra),inset 0 1px 0 rgba(255,255,255,.3)}
+.hero::after{right:-70px;top:-90px;width:260px;height:260px;background:radial-gradient(closest-side,rgba(255,255,255,.28),transparent)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);color:#fff;font-size:12px;font-weight:800;letter-spacing:.12em;margin-bottom:12px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.eyebrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hero h1{font-size:28px;line-height:1.12;margin-bottom:8px}
+.hero .sub{color:rgba(255,255,255,.9);margin-bottom:6px}
+.hero .pasos{color:rgba(255,255,255,.92)}
+.btn.cal{background:var(--grad-calido);color:#2b1700;border-color:rgba(255,255,255,.35);box-shadow:var(--brillo-c),inset 0 1px 0 rgba(255,255,255,.45);width:auto;display:inline-flex;padding:0 22px;font-weight:800;font-size:17px;min-height:52px;border-radius:999px}
+.hero .btn.vid{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);color:#fff;box-shadow:none;border-radius:999px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:-28px 8px 18px;position:relative;z-index:1}
+.stat{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:14px 6px;border-radius:22px;text-align:center;background:var(--tarjeta);border:1px solid color-mix(in srgb,var(--primario) 14%,var(--borde));box-shadow:var(--sombra-s),inset 0 1px 0 rgba(255,255,255,.5)}
+.stat b{font-size:26px;font-weight:800;background:var(--grad-t);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat b.av{background:var(--grad-calido);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:13px;color:var(--suave)}
+.pr{background:var(--grad-calido);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:17px}
+.fila{border-radius:24px}
+.th{border-radius:18px}
+.marca{font-size:16px;max-width:112px}
+.seg button{padding:0 9px;font-size:13.5px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.paso{font-weight:800;font-size:17px;margin-bottom:10px;letter-spacing:-.01em}
+.paso .sub{font-weight:600;font-size:13px;color:var(--suave)}
+.chip{display:inline-block;padding:1px 9px;border-radius:999px;font-size:12px;font-weight:700;background:var(--tarjeta2);color:var(--suave)}
+.chip.enviada{background:var(--aviso-fondo);color:var(--aviso)}
+.chip.aceptada{background:var(--ok-fondo);color:var(--ok)}
+.chip.rechazada,.chip.vencida{background:var(--mal-fondo);color:var(--mal)}
+#ed{display:none;position:fixed;inset:0;z-index:25;background:var(--fondo);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#ed.on{display:block}
+#ed::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 38% at 104% -4%,var(--malla1),transparent 72%),radial-gradient(52% 34% at -8% 30%,var(--malla2),transparent 72%)}
+.edtop{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:calc(6px + env(safe-area-inset-top)) 14px 6px;background:color-mix(in srgb,var(--fondo) 70%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border-bottom:1px solid color-mix(in srgb,var(--primario) 18%,var(--borde))}
+.edtop b{font-size:17px}
+.edcuerpo{max-width:720px;margin:0 auto;padding:14px 14px 150px}
+.it{padding:10px 0;border-bottom:1px dashed var(--borde)}
+.it:last-child{border-bottom:0}
+.it1{display:flex;gap:8px;align-items:center}
+.x{flex:none;width:44px;height:44px;border-radius:12px;border:1.5px solid var(--borde);background:var(--tarjeta);color:var(--mal);font-size:22px;font-weight:700;cursor:pointer}
+.it2{display:flex;align-items:flex-end;gap:8px;margin-top:8px;flex-wrap:wrap}
+.step{display:flex;align-items:center;border:1.5px solid var(--borde);border-radius:14px;overflow:hidden;background:var(--campo)}
+.step button{flex:none;width:44px;height:46px;border:0;background:var(--tarjeta2);color:var(--primario-texto);font-size:22px;font-weight:800;cursor:pointer}
+.step input{width:58px;min-height:46px;border:0;border-radius:0;text-align:center;padding:0 4px;box-shadow:none}
+.step input:focus{box-shadow:none}
+label.mini{display:flex;flex-direction:column;font-size:12px;font-weight:700;color:var(--suave);flex:1;min-width:92px}
+label.mini input{min-height:46px;margin-top:2px;color:var(--texto);font-size:16px}
+.itt{margin-left:auto;font-size:17px;font-weight:800;min-width:84px;text-align:right;padding-bottom:10px;background:var(--grad-t);-webkit-background-clip:text;background-clip:text;color:transparent}
+.res{margin:6px 0 4px}
+.rs{display:flex;justify-content:space-between;gap:10px;width:100%;min-height:48px;align-items:center;margin-bottom:6px;padding:0 14px;border-radius:14px;border:1px solid var(--borde);background:var(--tarjeta2);color:var(--texto);cursor:pointer;text-align:left}
+.rs b{flex:none}
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:4;display:flex;align-items:center;gap:14px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--tarjeta) 82%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border-top:1px solid color-mix(in srgb,var(--primario) 18%,var(--borde))}
+.barra div{display:flex;flex-direction:column;line-height:1.15}
+.barra small{color:var(--suave);font-size:12px;font-weight:700}
+.barra b{font-size:20px}
+.barra .btn{margin:0 0 0 auto;width:auto;flex:none;min-width:130px}
+.sem{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;background:#9aa8a5;vertical-align:baseline}
+.sem.verde{background:#16a34a}.sem.amarillo{background:#f59e0b}.sem.rojo{background:#dc2626}
+table.tab-r{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:8px}
+.tab-r th{text-align:left;font-size:12px;color:var(--suave);padding:4px 0}
+.tab-r td{padding:6px 0;border-top:1px solid var(--borde)}
+.tab-r .n{text-align:right;font-variant-numeric:tabular-nums}
+.tab-r.tot td{border-top:0;padding:3px 0}
+.tab-r.tot tr.g td{font-weight:800;font-size:17px;border-top:2px solid var(--borde);padding-top:8px}
+.plant{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.plant .btn{margin-top:0;font-size:14px}
+@media(min-width:1000px){
+  .edcuerpo{max-width:1080px}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  .colx:last-child{position:sticky;top:60px}
+}
+header.top .wrap{padding:0 10px}
+.seg{min-width:0}
+@media(max-width:420px){.marca{max-width:68px;font-size:13px}.seg{gap:0}.seg button{padding:0 7px;font-size:12.5px}}
+header.top .wrap{flex-wrap:wrap;gap:6px;padding:6px 10px 8px;min-height:0}
+header.top .marca{max-width:none;font-size:17px;display:flex;align-items:center;gap:8px;width:100%}
+.marca span{background:var(--grad-t);-webkit-background-clip:text;background-clip:text;color:transparent;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mlogo{height:32px;max-width:90px;object-fit:contain;border-radius:6px;background:#fff;padding:2px;flex:none}
+header.top .seg{width:100%}
+header.top .seg button{flex:1;padding:0 4px;font-size:12.5px;min-width:0}
+.ayuda details{border-bottom:1px solid var(--borde);padding:4px 0}
+.ayuda details:last-child{border-bottom:0}
+.ayuda summary{min-height:48px;display:flex;align-items:center;font-weight:700;cursor:pointer}
+.ayuda details>div{padding:0 2px 12px;color:var(--suave)}
+.ayuda p{margin:0 0 8px}.ayuda ol{margin:0 0 8px;padding-left:20px}.ayuda li{margin:4px 0}
+#tbl{display:none;position:fixed;inset:0;z-index:70}
+#tbl.on{display:block}#tbl.osc{background:rgba(2,12,11,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+#tspot{display:none;position:fixed;z-index:71;border-radius:16px;box-shadow:0 0 0 9999px rgba(2,12,11,.72);pointer-events:none;outline:3px solid #fbbf24;animation:tpulso 1.6s ease-in-out infinite}
+@keyframes tpulso{50%{outline-color:rgba(251,191,36,.35)}}
+#tut{display:none;position:fixed;z-index:72;left:12px;right:12px;max-width:440px;margin:0 auto;background:var(--tarjeta);border-radius:22px;padding:14px 18px 10px;box-shadow:var(--sombra);border:1px solid color-mix(in srgb,var(--primario) 18%,var(--borde))}
+#tut.on{display:block}
+#tut.centro{top:50%!important;bottom:auto!important;transform:translateY(-50%)}
+#tut h2{font-size:19px;margin:2px 36px 6px 0}
+#tut p{margin:0;color:var(--suave)}
+.tx-sal{position:absolute;right:4px;top:4px;width:44px;height:44px;border:0;background:none;font-size:18px;color:var(--suave);cursor:pointer}
+.tpaso{color:var(--primario-texto);font-weight:800;font-size:12px}
+.tbtn{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.tbtn .btn{width:auto;margin:0;padding:0 26px;min-height:46px}
+.oculto{display:none!important}
+.res3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;padding:12px 8px}
+.res3 b{display:block;font-size:20px}.res3 small{font-size:13px;color:var(--suave)}.res3 span{font-size:12px;color:var(--suave)}
+.seg-fila{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--borde)}
+.seg-fila .btn{width:auto;margin:0;padding:0 18px;min-height:44px}
+label.mini.un{flex:0 0 96px;min-width:96px}
+:root{--primario:#0f766e;--grad:var(--primario);--brillo:none;--brillo-c:none;--grad-calido:#f59e0b}
+.btn.cal{color:#1b2430;box-shadow:none}
+.btn.pri,.seg button.sel{box-shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-tema="claro"]){--malla1:rgba(15,118,110,.14);--malla2:transparent;--malla3:transparent}}
+:root[data-tema="oscuro"]{--malla1:rgba(15,118,110,.14);--malla2:transparent;--malla3:transparent}
+@media (prefers-color-scheme:light){
+:root:not([data-tema="oscuro"]){--fondo:#edf6f3;--tarjeta2:#f4faf8;--borde:#d4e6e0;--malla1:transparent;--malla2:transparent;--malla3:transparent}
+:root:not([data-tema="oscuro"]) .hero{background:#fff;border:1.5px solid #bfe0d6;box-shadow:0 10px 30px -14px rgba(15,118,110,.35);color:#0b3b36}
+:root:not([data-tema="oscuro"]) .hero::after,:root:not([data-tema="oscuro"]) .hero::before{display:none}
+:root:not([data-tema="oscuro"]) .hero h1,:root:not([data-tema="oscuro"]) .hero .sub,:root:not([data-tema="oscuro"]) .hero p{color:#0b3b36}
+:root:not([data-tema="oscuro"]) .hero .eyebrow{background:#d6efe7;color:#0f766e;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+:root:not([data-tema="oscuro"]) .btn.wa{background:#25d366;color:#052e16;box-shadow:none}
+:root:not([data-tema="oscuro"]) .pr,:root:not([data-tema="oscuro"]) .stat b.av{background:none;color:#b45309;-webkit-text-fill-color:currentColor}
+:root:not([data-tema="oscuro"]) .card{box-shadow:0 6px 20px -12px rgba(15,118,110,.30)}
+}
+:root[data-tema="claro"]{--fondo:#edf6f3;--tarjeta2:#f4faf8;--borde:#d4e6e0;--malla1:transparent;--malla2:transparent;--malla3:transparent}
+:root[data-tema="claro"] .hero{background:#fff;border:1.5px solid #bfe0d6;box-shadow:0 10px 30px -14px rgba(15,118,110,.35);color:#0b3b36}
+:root[data-tema="claro"] .hero::after,:root[data-tema="claro"] .hero::before{display:none}
+:root[data-tema="claro"] .hero h1,:root[data-tema="claro"] .hero .sub,:root[data-tema="claro"] .hero p{color:#0b3b36}
+:root[data-tema="claro"] .hero .eyebrow{background:#d6efe7;color:#0f766e;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+:root[data-tema="claro"] .btn.wa{background:#25d366;color:#052e16;box-shadow:none}
+:root[data-tema="claro"] .pr,:root[data-tema="claro"] .stat b.av{background:none;color:#b45309;-webkit-text-fill-color:currentColor}
+:root[data-tema="claro"] .card{box-shadow:0 6px 20px -12px rgba(15,118,110,.30)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><span class="marca" id="marca"></span><div class="seg" id="tabs"></div></div></header>
+<main id="app"></main>
+<div id="ed"></div>
+<div id="hoja"><div class="vel" data-a="cerrar"></div><div class="caja" id="caja"></div></div>
+<div id="toast" role="status"></div>
+<input type="file" id="f-logo" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+<input type="file" id="f-resp" accept=".json,application/json" hidden>
+<input type="file" id="f-xls" accept=".xlsx,.csv,.txt,text/csv" hidden>
+<script>
+var Activacion={APP_ID:"COTIZADOR",whatsapp:"56937476833",iniciar:function(f){f();var d=document.createElement("div");d.textContent="DEMO · hasta 3 cotizaciones · para trabajar de verdad pide la versión completa en ordenaito.cl";d.style.cssText="position:relative;z-index:99;background:#f59e0b;color:#1b2430;font:800 12.5px system-ui;text-align:center;padding:5px 8px";document.body.insertBefore(d,document.body.firstChild);},estaActivada:function(){return true;},codigoCelular:function(){return "PREVIA";}};
+var CotPDF = (function () {
+  var W0 = [278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584];
+  function base(ch) { var c = ch.charCodeAt(0); if (c >= 32 && c <= 126) return ch; var n = ch.normalize("NFD").charAt(0); return n.charCodeAt(0) < 127 ? n : "n"; }
+  function cw(ch, bold) { var b = base(ch), w = W0[b.charCodeAt(0) - 32] || 556; return bold && !/[0-9$.,\-%]/.test(b) ? w * 1.07 : w; }
+  function medir(s, sz, bold) { var t = 0; for (var i = 0; i < s.length; i++) t += cw(s.charAt(i), bold); return t * sz / 1000; }
+  function envolver(s, ancho, sz, bold) {
+    var out = [];
+    String(s == null ? "" : s).split(/\r?\n/).forEach(function (par) {
+      var pal = par.split(/\s+/).filter(Boolean), lin = "";
+      if (!pal.length) { out.push(""); return; }
+      pal.forEach(function (p) {
+        while (medir(p, sz, bold) > ancho) { var k = p.length; while (k > 1 && medir(p.slice(0, k), sz, bold) > ancho) k--; if (lin) { out.push(lin); lin = ""; } out.push(p.slice(0, k)); p = p.slice(k); }
+        var t = lin ? lin + " " + p : p;
+        if (medir(t, sz, bold) <= ancho) lin = t; else { out.push(lin); lin = p; }
+      });
+      out.push(lin);
+    });
+    return out;
+  }
+  function rgb(hex) { var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex || ""); if (!m) return [0.06, 0.46, 0.43]; return [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255]; }
+  function f(n) { return (Math.round(n * 100) / 100).toString(); }
+  function esc(s) { var o = ""; for (var i = 0; i < s.length; i++) { var c = s.charCodeAt(i); if (c === 40 || c === 41 || c === 92) o += "\\" + s.charAt(i); else if (c >= 32 && c < 256) o += s.charAt(i); else if (c === 8211 || c === 8212) o += "-"; else if (c === 8226) o += "\x95"; else if (c === 8364) o += "\x80"; else if (c === 8216 || c === 8217) o += "'"; else if (c === 8220 || c === 8221) o += '"'; else if (c === 8230) o += "..."; else if ((c >= 0xD800 && c <= 0xDFFF) || c >= 0x2190 || c === 0xFE0F || c === 0x200D) o += ""; else o += "?"; } return o; }
+  function crear(d) {
+    var PW = 595, PH = 842, M = 40, CW = PW - 2 * M, col = rgb(d.neg.color), pro = !!d.pro, $ = d.money;
+    var pags = [], anots = [], c, y;
+    var campos = [];
+    function campo(x, yTop, w, h, nombre) { campos.push({ p: pags.length - 1, r: [x, PH - yTop - h, x + w, PH - yTop], n: nombre }); }
+    function enlace(x, yTop, w, h, url) { anots.push({ p: pags.length - 1, r: [x, PH - yTop - h, x + w, PH - yTop], u: url }); }
+    function nueva() { c = []; pags.push(c); y = M; }
+    function color(a, tipo) { c.push(f(a[0]) + " " + f(a[1]) + " " + f(a[2]) + (tipo === "f" ? " rg" : " RG")); }
+    function txt(x, yy, s, sz, bold, cl, alin) {
+      s = String(s); var w = medir(s, sz, bold);
+      if (alin === "r") x = x - w; else if (alin === "c") x = x - w / 2;
+      color(cl || [0.07, 0.13, 0.12], "f");
+      c.push("BT /" + (bold ? "F2" : "F1") + " " + sz + " Tf " + f(x) + " " + f(PH - yy) + " Td (" + esc(s) + ") Tj ET");
+    }
+    function rect(x, yy, w, h, cl) { color(cl, "f"); c.push(f(x) + " " + f(PH - yy - h) + " " + f(w) + " " + f(h) + " re f"); }
+    function linea(x1, y1, x2, cl, gr) { color(cl, "s"); c.push(f(gr || 0.6) + " w " + f(x1) + " " + f(PH - y1) + " m " + f(x2) + " " + f(PH - y1) + " l S"); }
+    function bloque(s, x, ancho, sz, bold, cl, inter) { envolver(s, ancho, sz, bold).forEach(function (l) { if (y > PH - 70) { nueva(); } txt(x, y + sz, l, sz, bold, cl); y += inter || sz + 3; }); }
+    var gris = [0.36, 0.42, 0.41], claro = [0.85, 0.89, 0.88], oscuro = [0.07, 0.13, 0.12], blanco = [1, 1, 1];
+    nueva();
+    if (pro) rect(0, 0, PW, 10, col);
+    y = pro ? 34 : M;
+    var xi = M, hLogo = 0;
+    if (d.logo) { var k = Math.min(70 / d.logo.w, 70 / d.logo.h), lw = d.logo.w * k, lh = d.logo.h * k; c.push("q " + f(lw) + " 0 0 " + f(lh) + " " + f(M) + " " + f(PH - y - lh) + " cm /Im1 Do Q"); xi = M + lw + 12; hLogo = lh; }
+    var yy0 = y;
+    txt(xi, y + 15, d.neg.nombre || "Mi negocio", 15, true, oscuro); y += 20;
+    [d.neg.rut ? "RUT " + d.neg.rut : "", d.neg.dir, d.neg.tel ? "Tel. " + d.neg.tel : "", d.neg.mail].forEach(function (l) { if (l) { txt(xi, y + 9, l, 9, false, gris); y += 12; } });
+    var yFin = Math.max(y, yy0 + hLogo);
+    txt(PW - M, yy0 + 20, "COTIZACIÓN", 20, true, pro ? col : oscuro, "r");
+    txt(PW - M, yy0 + 36, d.cot.num, 11, true, oscuro, "r");
+    txt(PW - M, yy0 + 49, "Fecha: " + d.cot.fecha, 9, false, gris, "r");
+    txt(PW - M, yy0 + 61, "Válida hasta: " + d.cot.hasta, 9, false, gris, "r");
+    y = Math.max(yFin, yy0 + 66) + 14;
+    var cli = d.cot.cli || {}, lc = [cli.n || "Sin nombre", cli.rut ? "RUT " + cli.rut : "", cli.tel ? "Tel. " + cli.tel : "", cli.mail || ""].filter(Boolean);
+    var tr = [d.cot.proyecto ? "Proyecto: " + d.cot.proyecto : "", d.cot.lugar ? "Lugar: " + d.cot.lugar : ""].filter(Boolean);
+    var hc = 22 + Math.max(lc.length, tr.length) * 12;
+    rect(M, y, CW, hc, pro ? [0.94, 0.97, 0.96] : [0.95, 0.96, 0.96]);
+    if (pro) rect(M, y, 4, hc, col);
+    txt(M + 14, y + 14, "CLIENTE", 8, true, pro ? col : gris);
+    lc.forEach(function (l, i) { txt(M + 14, y + 27 + i * 12, l, i ? 9 : 11, !i, i ? gris : oscuro); });
+    if (tr.length) { txt(M + CW / 2, y + 14, "TRABAJO", 8, true, pro ? col : gris); tr.forEach(function (l, i) { bloque0(l, M + CW / 2, y + 27 + i * 12); }); }
+    function bloque0(l, x, yy) { txt(x, yy, envolver(l, CW / 2 - 14, 9, false)[0], 9, false, oscuro); }
+    y += hc + 16;
+    var xD = M + 8, xC = M + CW - 175, xP = M + CW - 85, xT = M + CW - 8, wD = xC - 62 - xD;
+    function cabTabla() {
+      rect(M, y, CW, 22, pro ? col : [0.9, 0.93, 0.92]);
+      var cb = pro ? blanco : oscuro;
+      txt(xD, y + 15, "Descripción", 9, true, cb); txt(xC, y + 15, "Cant.", 9, true, cb, "r"); txt(xP, y + 15, "Precio", 9, true, cb, "r"); txt(xT, y + 15, "Total", 9, true, cb, "r");
+      y += 22;
+    }
+    cabTabla();
+    var n = 0;
+    d.grupos.forEach(function (g) {
+      if (!g.items.length) return;
+      if (g.t) {
+        if (y + 40 > PH - 150) { nueva(); cabTabla(); }
+        rect(M, y, CW, 20, pro ? [0.88, 0.94, 0.93] : [0.95, 0.96, 0.96]);
+        txt(xD, y + 14, g.t.toUpperCase(), 8.5, true, pro ? col : gris);
+        var st = 0; g.items.forEach(function (it) { st += it.c * it.p; });
+        txt(xT, y + 14, $(st), 9, true, oscuro, "r");
+        y += 20;
+      }
+      g.items.forEach(function (it) {
+        var ls = envolver(it.n, wD, 10, false), h = Math.max(24, ls.length * 13 + 10);
+        if (y + h > PH - 150) { nueva(); cabTabla(); }
+        if (pro && n % 2) rect(M, y, CW, h, [0.97, 0.985, 0.98]);
+        n++;
+        ls.forEach(function (l, j) { txt(xD, y + 16 + j * 13, l, 10, false, oscuro); });
+        txt(xC, y + 16, it.cu != null ? it.cu : String(it.c).replace(".", ","), 10, false, oscuro, "r"); txt(xP, y + 16, $(it.p), 10, false, oscuro, "r"); txt(xT, y + 16, $(it.c * it.p), 10, true, oscuro, "r");
+        y += h; linea(M, y, M + CW, claro, 0.5);
+      });
+    });
+    y += 12;
+    var cal = d.calc, filas = [["Subtotal", $(cal.sub)]];
+    if (cal.desc > 0) filas.push(["Descuento", "-" + $(cal.desc)]);
+    if (cal.modo === "exento") filas.push(["Exento de IVA", ""]); else if (cal.modo !== "hon") { filas.push(["Neto", $(cal.neto)]); filas.push(["IVA 19 %", $(cal.iva)]); }
+    var xl = M + CW - 230, nT = filas.length * 15 + 30 + (pro && cal.anticipo > 0 ? 34 : 0);
+    if (y + nT > PH - 90) { nueva(); }
+    filas.forEach(function (r) { txt(xl, y + 11, r[0], 10, false, gris); if (r[1]) txt(xT, y + 11, r[1], 10, false, oscuro, "r"); y += 15; });
+    y += 4; rect(xl - 8, y, 238, 26, pro ? col : [0.9, 0.93, 0.92]);
+    var ct = pro ? blanco : oscuro;
+    txt(xl, y + 18, cal.modo === "hon" ? "TOTAL BOLETA (bruto)" : "TOTAL", cal.modo === "hon" ? 10 : 12, true, ct); txt(xT, y + 18, $(cal.total), 13, true, ct, "r"); y += 34;
+    if (pro && cal.anticipo > 0) {
+      txt(xl, y + 9, "Anticipo a la aceptación", 9.5, false, gris); txt(xT, y + 9, $(cal.anticipo), 9.5, true, oscuro, "r"); y += 14;
+      txt(xl, y + 9, "Saldo a la entrega", 9.5, false, gris); txt(xT, y + 9, $(cal.saldo), 9.5, true, oscuro, "r"); y += 20;
+    }
+    if (cal.modo === "hon") {
+      if (cal.retiene) {
+        txt(xl, y + 9, "Retención de honorarios " + String(cal.tasa).replace(".", ",") + " %", 9.5, false, gris); txt(xT, y + 9, "-" + $(cal.ret), 9.5, true, oscuro, "r"); y += 14;
+        txt(xl, y + 9, "Líquido a pagar al prestador", 9.5, false, gris); txt(xT, y + 9, $(cal.liq), 9.5, true, oscuro, "r"); y += 18;
+      }
+      bloque("Servicio a emitir con boleta de honorarios. Montos referenciales: la retención y el documento definitivo los determina el SII al emitir la boleta.", xl - 8, 238, 8, false, gris, 10); y += 8;
+    }
+    y += 4;
+    function seccion(t, s) { if (!s) return; if (y > PH - 120) nueva(); if (t) { txt(M, y + 9, t, 8.5, true, pro ? col : gris); y += 14; } bloque(s, M, CW, 9.5, false, oscuro, 12.5); y += 8; }
+    if (d.linkPago) {
+      if (y > PH - 130) nueva();
+      var bw = 170, bh = 28;
+      rect(M, y, bw, bh, pro ? col : [0.15, 0.15, 0.15]);
+      txt(M + bw / 2, y + 18, "PAGAR EN LÍNEA", 10.5, true, blanco, "c");
+      enlace(M, y, bw, bh, d.linkPago); y += bh + 6;
+      envolver(d.linkPago, CW, 8, false).forEach(function (l) { txt(M, y + 8, l, 8, false, [0.1, 0.3, 0.7]); enlace(M, y, medir(l, 8, false), 10, d.linkPago); y += 11; });
+      y += 8;
+    }
+    seccion("NOTAS", d.cot.notas);
+    if (pro) { seccion("CONDICIONES", d.neg.terminos); seccion("DATOS PARA TRANSFERENCIA", d.neg.pago); }
+    seccion("VALIDEZ", "Esta cotización es válida hasta el " + d.cot.hasta + ". Pasada esa fecha, los precios pueden cambiar.");
+    if (d.neg.pie) seccion("", d.neg.pie);
+    pags.forEach(function (p, i) {
+      c = p;
+      linea(M, PH - 38, PW - M, claro, 0.5);
+      txt(M, PH - 26, "DEMO de Ordenaíto. Esta cotización no es una boleta ni factura del SII.", 8, false, gris);
+      txt(PW - M, PH - 26, "Página " + (i + 1) + " de " + pags.length, 8, false, gris, "r");
+    });
+    var partes = [], len = 0, offs = [];
+    function bytes(s) { var u = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) u[i] = s.charCodeAt(i) & 255; return u; }
+    function poner(x) { if (typeof x === "string") x = bytes(x); partes.push(x); len += x.length; }
+    function obj(nn, cuerpo) { offs[nn] = len; poner(nn + " 0 obj\n" + cuerpo + "\nendobj\n"); }
+    poner("%PDF-1.4\n%\xE2\xE3\xCF\xD3\n");
+    var nP = pags.length, base0 = 6, i;
+    var kids = []; for (i = 0; i < nP; i++) kids.push((base0 + i * 2) + " 0 R");
+    obj(1, "<< /Type /Catalog /Pages 2 0 R" + (campos.length ? " /AcroForm << /Fields [" + campos.map(function (a, k) { return (base0 + nP * 2 + anots.length + k) + " 0 R"; }).join(" ") + "] /NeedAppearances true /DA (/Helv 10 Tf 0 g) /DR << /Font << /Helv 3 0 R >> >> >>" : "") + " >>");
+    obj(2, "<< /Type /Pages /Count " + nP + " /Kids [" + kids.join(" ") + "] >>");
+    obj(3, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
+    obj(4, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
+    if (d.logo) { offs[5] = len; poner("5 0 obj\n<< /Type /XObject /Subtype /Image /Width " + d.logo.w + " /Height " + d.logo.h + " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + d.logo.bytes.length + " >>\nstream\n"); poner(d.logo.bytes); poner("\nendstream\nendobj\n"); }
+    else obj(5, "<< >>");
+    for (i = 0; i < nP; i++) {
+      var idP = base0 + i * 2, idC = idP + 1, cont = pags[i].join("\n"), an = [];
+      anots.forEach(function (a, k) { if (a.p === i) an.push((base0 + nP * 2 + k) + " 0 R"); });
+      campos.forEach(function (a, k) { if (a.p === i) an.push((base0 + nP * 2 + anots.length + k) + " 0 R"); });
+      obj(idP, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + PW + " " + PH + "] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> /XObject << /Im1 5 0 R >> >> /Contents " + idC + " 0 R" + (an.length ? " /Annots [" + an.join(" ") + "]" : "") + " >>");
+      offs[idC] = len; poner(idC + " 0 obj\n<< /Length " + cont.length + " >>\nstream\n"); poner(cont); poner("\nendstream\nendobj\n");
+    }
+    anots.forEach(function (a, k) { obj(base0 + nP * 2 + k, "<< /Type /Annot /Subtype /Link /Rect [" + a.r.map(f).join(" ") + "] /Border [0 0 0] /A << /S /URI /URI (" + esc(a.u) + ") >> >>"); });
+    campos.forEach(function (a, k) { obj(base0 + nP * 2 + anots.length + k, "<< /Type /Annot /Subtype /Widget /FT /Tx /T (" + a.n + ") /Rect [" + a.r.map(f).join(" ") + "] /F 4 /DA (/Helv 10 Tf 0 g) /MaxLen 60 /Border [0 0 0] >>"); });
+    var total = base0 + nP * 2 + anots.length + campos.length, xref = len, s = "xref\n0 " + total + "\n0000000000 65535 f \n";
+    for (i = 1; i < total; i++) s += ("0000000000" + offs[i]).slice(-10) + " 00000 n \n";
+    poner(s + "trailer\n<< /Size " + total + " /Root 1 0 R >>\nstartxref\n" + xref + "\n%%EOF");
+    var out = new Uint8Array(len), p = 0; partes.forEach(function (x) { out.set(x, p); p += x.length; });
+    return out;
+  }
+  return { crear: crear, medir: medir };
+})();
+var PRO = true;
+var NOMBRE = "Cotizador";
+var VERSION = "1.0", KEY = "ord_cot_demo", APPKEY = "COTIZADOR";
+var COLORES = ["#0f766e", "#2563eb", "#7c3aed", "#db2777", "#dc2626", "#ea580c", "#ca8a04", "#475569"];
+var RUBROS = PRO ? [["mat", "Materiales o productos", "Buscar en mi catálogo…"], ["mo", "Mano de obra o servicios", "Buscar servicio…"], ["gg", "Gastos y traslados", "Buscar gasto…"]] : [["mat", "Ítems", ""]];
+var PLANTILLAS = {
+  tec: "Anticipo del 50 % para iniciar el trabajo y saldo contra entrega.\nMateriales y mano de obra según detalle. Cualquier trabajo adicional se cotiza aparte.\nGarantía de 6 meses por la mano de obra.",
+  con: "Anticipo del 40 % al comenzar, avances por etapas y saldo al término.\nNo incluye permisos ni trabajos no indicados en el detalle.\nPlazo de ejecución a coordinar según disponibilidad de materiales.",
+  eve: "Anticipo del 50 % para reservar la fecha; el saldo se paga antes del evento.\nSi se cancela con menos de 7 días, el anticipo no se devuelve.\nSe confirma la cantidad final de personas 3 días antes.",
+  gen: "Pago: 50 % de anticipo y 50 % contra entrega.\nPrecios sujetos a cambio pasada la fecha de validez.\nEntrega según plazo acordado con el cliente."
+};
+function $(i) { return document.getElementById(i); }
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+var fmt = new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP", maximumFractionDigits: 0 });
+function clp(n) { n = Math.round(Number(n) || 0); return (n < 0 ? "-" : "") + fmt.format(Math.abs(n)); }
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function digitos(s) { return String(s || "").replace(/\D/g, ""); }
+function num(s) { var n = parseFloat(String(s).replace(",", ".")); return isFinite(n) && n > 0 ? n : 0; }
+function pad(n, k) { return ("0000" + n).slice(-k); }
+function hoyISO() { var d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1, 2) + "-" + pad(d.getDate(), 2); }
+function mas(iso, dias) { var p = iso.split("-"), d = new Date(+p[0], +p[1] - 1, +p[2] + dias); return d.getFullYear() + "-" + pad(d.getMonth() + 1, 2) + "-" + pad(d.getDate(), 2); }
+function urlPago(s) {
+  s = String(s == null ? "" : s).trim().slice(0, 500);
+  if (!s) return "";
+  if (!/^[a-z][a-z0-9+.-]*:/i.test(s)) s = "https://" + s;
+  if (!/^https?:\/\/[^\s"'<>]+\.[^\s"'<>]+$/i.test(s)) return "";
+  try { return encodeURI(decodeURI(s)); } catch (e) { return ""; }
+}
+function pagoTexto() {
+  var n = E.neg, l = [];
+  if (n.banco) l.push("Banco: " + n.banco + (n.tcuenta ? " - " + n.tcuenta : "")); else if (n.tcuenta) l.push("Tipo de cuenta: " + n.tcuenta);
+  if (n.ncuenta) l.push("N° de cuenta: " + n.ncuenta);
+  if (n.titular) l.push("Titular: " + n.titular);
+  if (n.rutT) l.push("RUT: " + n.rutT);
+  if (n.mailT) l.push("Correo para el comprobante: " + n.mailT);
+  if (n.pago) l.push(n.pago);
+  return l.join("\n");
+}
+function revisarLink(t) {
+  var v = t.value.trim(); if (!v) return;
+  var u = urlPago(v);
+  if (!u) return aviso("Ese link no parece válido. Debe ser una dirección web, por ejemplo https://...");
+  t.value = u;
+  if (t.getAttribute("data-f") === "linkPago" && ed) ed.linkPago = u; else if (t.getAttribute("data-n") === "linkPago") { E.neg.linkPago = u; guardar(); }
+}
+function cantTxt(it) { return String(it.c).replace(".", ",") + (it.u ? " " + it.u : ""); }
+function tasaTxt(t) { return String(t).replace(".", ","); }
+function hoyDias() { return Math.floor(Date.now() / 86400000); }
+function diasDesde(iso) { return Math.max(0, Math.floor((Date.now() - new Date(iso + "T12:00:00").getTime()) / 86400000)); }
+function rutFmt(s) {
+  var c = String(s).replace(/[^0-9kK]/g, "").toUpperCase();
+  if (c.length < 2 || c.length > 9) return "";
+  var body = c.slice(0, -1), dv = c.slice(-1);
+  if (!/^\d+$/.test(body)) return "";
+  var sum = 0, m = 2;
+  for (var i = body.length - 1; i >= 0; i--) { sum += +body.charAt(i) * m; m = m === 7 ? 2 : m + 1; }
+  var r = 11 - (sum % 11), dc = r === 11 ? "0" : r === 10 ? "K" : String(r);
+  return dc === dv ? body.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "-" + dv : "";
+}
+function revisarRut(t) {
+  var v = t.value.trim(); if (!v) return;
+  var f = rutFmt(v);
+  if (!f) return aviso("El RUT no parece válido: revisa el número y el dígito verificador.");
+  t.value = f;
+  if (t.getAttribute("data-f") === "cli.rut" && ed) { ed.cli.rut = f; }
+  else if (t.getAttribute("data-n") === "rut") { E.neg.rut = f; guardar(); }
+}
+function fecha(iso) { var p = String(iso).split("-"); return p.length === 3 ? p[2] + "-" + p[1] + "-" + p[0] : ""; }
+function aviso(t) { var el = $("toast"); el.textContent = t; el.className = "on"; clearTimeout(aviso.t); aviso.t = setTimeout(function () { el.className = ""; }, 4200); }
+function nuevoE() {
+  return { v: 1, app: APPKEY, neg: { nombre: "", rut: "", dir: "", tel: "", mail: "", color: "#0f766e", logo: "", logoW: 0, logoH: 0, pie: "", terminos: "", pago: "", linkPago: "", banco: "", tcuenta: "", ncuenta: "", titular: "", rutT: "", mailT: "" },
+    cfg: { validez: 15, modo: "mas", anticipo: 50, mmin: 15, mobj: 30, correl: 1, aceptacion: 1, honTasa: 15.25, ultResp: 0 }, clientes: [], cat: [], cots: [] };
+}
+function migrar(d) {
+  var b = nuevoE();
+  if (!d || typeof d !== "object") return b;
+  Object.keys(b.neg).forEach(function (k) { if (d.neg && typeof d.neg[k] === typeof b.neg[k]) b.neg[k] = d.neg[k]; });
+  Object.keys(b.cfg).forEach(function (k) { if (d.cfg && typeof d.cfg[k] === "number" && isFinite(d.cfg[k])) b.cfg[k] = d.cfg[k]; });
+  if (d.cfg && /^(mas|con|exento|hon)$/.test(d.cfg.modo)) b.cfg.modo = d.cfg.modo;
+  function st(s, n) { return String(s == null ? "" : s).slice(0, n); }
+  if (Array.isArray(d.clientes)) b.clientes = d.clientes.filter(function (x) { return x && typeof x === "object" && x.n; }).map(function (x) { return { id: st(x.id || uid(), 40), n: st(x.n, 80), rut: st(x.rut, 20), tel: st(x.tel, 30), mail: st(x.mail, 80) }; });
+  if (Array.isArray(d.cat)) b.cat = d.cat.filter(function (x) { return x && typeof x === "object" && x.n; }).map(function (x) { return { id: st(x.id || uid(), 40), n: st(x.n, 120), p: Math.round(num(x.p)), k: Math.round(num(x.k)), r: /^(mat|mo|gg)$/.test(x.r) ? x.r : "mat", u: st(x.u, 10) }; });
+  if (Array.isArray(d.cots)) b.cots = d.cots.filter(function (x) { return x && typeof x === "object" && Array.isArray(x.items) && x.cli && typeof x.cli === "object" && /^\d{4}-\d{2}-\d{2}$/.test(String(x.fecha)); }).map(limpiarCot);
+  return b;
+}
+function limpiarCot(x) {
+  function st(s, n) { return String(s == null ? "" : s).slice(0, n); }
+  var cli = x.cli || {};
+  return { retiene: x.retiene === 0 ? 0 : 1, linkPago: urlPago(x.linkPago), transf: x.transf === 0 ? 0 : 1, id: st(x.id || uid(), 40), num: st(x.num || "COT-0000", 20), fecha: st(x.fecha, 10), validez: Math.max(1, Math.round(num(x.validez)) || 15), enviada: /^\d{4}-\d{2}-\d{2}$/.test(String(x.enviada)) ? x.enviada : "",
+    cli: { n: st(cli.n, 80), rut: st(cli.rut, 20), tel: st(cli.tel, 30), mail: st(cli.mail, 80) }, proyecto: st(x.proyecto, 90), lugar: st(x.lugar, 90),
+    items: x.items.filter(function (it) { return it && typeof it === "object"; }).map(function (it) { return { id: st(it.id || uid(), 40), n: st(it.n, 120), c: num(it.c), p: Math.round(num(it.p)), k: Math.round(num(it.k)), r: /^(mat|mo|gg)$/.test(it.r) ? it.r : "mat", u: st(it.u, 10) }; }),
+    dv: { t: x.dv && x.dv.t === "monto" ? "monto" : "pct", v: num(x.dv && x.dv.v) }, modo: /^(mas|con|exento|hon)$/.test(x.modo) ? x.modo : "mas", tasa: x.tasa != null && isFinite(+x.tasa) ? +x.tasa : 15.25, anticipo: Math.min(100, Math.round(num(x.anticipo))), notas: st(x.notas, 600), estado: /^(borrador|enviada|aceptada|rechazada|vencida)$/.test(x.estado) ? x.estado : "borrador" };
+}
+function cargar() { try { var s = localStorage.getItem(KEY); if (s) return migrar(JSON.parse(s)); } catch (e) {} return nuevoE(); }
+var E = cargar(), tab = "cots", ed = null, edNuevo = false, busq = "";
+function guardar() {
+  try { localStorage.setItem(KEY, JSON.stringify(E)); return true; }
+  catch (e) { aviso("No se pudo guardar: el celular no tiene espacio. Descarga tu respaldo."); return false; }
+}
+function tema() { var c = E.neg.color; if (/^#[0-9a-fA-F]{6}$/.test(c)) document.documentElement.style.setProperty("--primario", c); }
+function calc(c) {
+  var sub = 0, g = { mat: [0, 0, 0], mo: [0, 0, 0], gg: [0, 0, 0] };
+  (c.items || []).forEach(function (it) {
+    var v = Math.round(it.c * it.p); sub += v;
+    var r = g[it.r] ? it.r : "mat";
+    g[r][0] += v;
+    if (it.k > 0) { g[r][1] += v; g[r][2] += Math.round(it.c * it.k); }
+  });
+  var dsc = c.dv && c.dv.t === "monto" ? Math.round(c.dv.v || 0) : Math.round(sub * (c.dv ? c.dv.v || 0 : 0) / 100);
+  dsc = Math.max(0, Math.min(dsc, sub));
+  var base = sub - dsc, neto, iva, total;
+  if (c.modo === "con") { total = base; neto = Math.round(total / 1.19); iva = total - neto; }
+  else if (c.modo === "exento" || c.modo === "hon") { neto = base; iva = 0; total = base; }
+  else { neto = base; iva = Math.round(neto * 0.19); total = neto + iva; }
+  var f = sub > 0 ? neto / sub : 1;
+  var ant = Math.round(total * Math.min(100, Math.max(0, c.anticipo || 0)) / 100);
+  var mg = {};
+  Object.keys(g).forEach(function (r) { var vn = g[r][1] * f; mg[r] = g[r][1] > 0 ? { cobrado: Math.round(g[r][0] * f), costo: g[r][2], m: (vn - g[r][2]) / vn } : { cobrado: Math.round(g[r][0] * f), costo: 0, m: null }; });
+  var tv = g.mat[1] + g.mo[1] + g.gg[1], tc = g.mat[2] + g.mo[2] + g.gg[2], mt = tv > 0 ? (tv * f - tc) / (tv * f) : null;
+  var tasa = c.tasa != null ? c.tasa : E.cfg.honTasa, ret = c.modo === "hon" && c.retiene !== 0 ? Math.round(total * tasa / 100) : 0;
+  return { sub: sub, desc: dsc, neto: neto, iva: iva, total: total, modo: c.modo, anticipo: ant, saldo: total - ant, retiene: c.retiene !== 0, tasa: tasa, ret: ret, liq: total - ret, mg: mg, mt: mt, costoTot: tc };
+}
+function semaf(m) { if (m == null) return "gris"; var p = m * 100; return p < E.cfg.mmin ? "rojo" : p < E.cfg.mobj ? "amarillo" : "verde"; }
+function pct(m) { return m == null ? "—" : (Math.round(m * 1000) / 10).toString().replace(".", ",") + " %"; }
+function estadoDe(c) {
+  if (!PRO) return "";
+  if ((c.estado === "enviada" || !c.estado) && mas(c.fecha, c.validez) < hoyISO() && c.estado === "enviada") return "vencida";
+  return c.estado || "borrador";
+}
+var ESTADOS = { borrador: "Borrador", enviada: "Enviada", aceptada: "Aceptada", rechazada: "Rechazada", vencida: "Vencida" };
+function listaCots(q) {
+  q = (q || "").toLowerCase().trim();
+  var l = E.cots.slice().sort(function (a, b) { return (b.fecha + b.num) < (a.fecha + a.num) ? -1 : 1; });
+  if (q) l = l.filter(function (c) { return ((c.cli && c.cli.n || "") + " " + c.num + " " + (c.proyecto || "")).toLowerCase().indexOf(q) >= 0; });
+  if (!l.length) return '<p class="nota c">' + (q ? "No hay cotizaciones con ese nombre." : "Aún no tienes cotizaciones. Toca «Nueva cotización».") + "</p>";
+  return l.map(function (c) {
+    var t = calc(c).total, st = estadoDe(c);
+    return '<button class="fila" data-a="abrir" data-id="' + esc(c.id) + '"><span class="th"><i>' + esc((c.cli && c.cli.n || "?").trim().charAt(0).toUpperCase() || "?") + '</i></span><span class="tx"><b>' + esc(c.cli && c.cli.n || "Sin cliente") + "</b><small>" + esc(c.num) + " · " + fecha(c.fecha) + (PRO ? ' · <span class="chip ' + st + '">' + ESTADOS[st] + "</span>" : "") + '</small></span><span class="pr">' + clp(t) + "</span></button>";
+  }).join("");
+}
+function avisoRespaldo() {
+  if (E.cots.length < 2 && E.clientes.length < 3) return "";
+  var d = hoyDias() - (E.cfg.ultResp || 0);
+  if (E.cfg.ultResp && d < 15) return "";
+  return '<div class="alerta">' + (E.cfg.ultResp ? "Hace " + d + " días que no descargas tu respaldo." : "Aún no descargas un respaldo.") + " Tus datos están solo en este celular: si lo pierdes, se pierden.<button class=\"btn\" data-a=\"exportar\" style=\"margin-top:8px\">Descargar respaldo ahora</button></div>";
+}
+function resumenCierre() {
+  var env = E.cots.filter(function (c) { return /^(enviada|aceptada|rechazada|vencida)$/.test(estadoDe(c)); }), ac = env.filter(function (c) { return c.estado === "aceptada"; });
+  if (!env.length) return "";
+  var monto = ac.reduce(function (s, c) { return s + calc(c).total; }, 0);
+  return '<div class="card res3"><div><b>' + env.length + "</b><span>enviadas</span></div><div><b>" + ac.length + " <small>(" + Math.round(ac.length * 100 / env.length) + " %)</small></b><span>aceptadas</span></div><div><b>" + clp(monto) + "</b><span>aceptado</span></div></div>";
+}
+function seguimiento() {
+  var l = E.cots.filter(function (c) { return estadoDe(c) === "enviada" || estadoDe(c) === "vencida" ? c.estado === "enviada" && diasDesde(c.enviada || c.fecha) >= 3 : false; }).sort(function (a, b) { return (a.enviada || a.fecha) < (b.enviada || b.fecha) ? -1 : 1; }).slice(0, 3);
+  if (!l.length) return "";
+  var h = '<div class="card"><h2>Para dar seguimiento</h2><p class="nota">Estas cotizaciones llevan días sin respuesta.</p>';
+  l.forEach(function (c) {
+    var nom = c.cli.n || "", msg = "Hola" + (nom ? " " + nom : "") + ", ¿pudiste revisar la cotización " + c.num + " por " + clp(calc(c).total) + "? Quedo atento a tus comentarios. Saludos" + (E.neg.nombre ? ", " + E.neg.nombre : "") + ".";
+    h += '<div class="seg-fila"><span class="tx"><b>' + esc(nom || c.num) + "</b><small>" + esc(c.num) + " · hace " + diasDesde(c.enviada || c.fecha) + ' días</small></span><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/' + telWA(c.cli.tel) + "?text=" + encodeURIComponent(msg) + '">Recordar</a></div>';
+  });
+  return h + "</div>";
+}
+function vistaCots() {
+  var mes = hoyISO().slice(0, 7), delMes = E.cots.filter(function (c) { return c.fecha.slice(0, 7) === mes; });
+  var monto = delMes.reduce(function (s, c) { return s + calc(c).total; }, 0);
+  var h = '<section class="card hero"><span class="eyebrow">COTIZACIONES</span><h1>' + esc(E.neg.nombre || "Tu negocio") + '</h1><p class="sub">Arma una cotización en segundos y envíala por WhatsApp o PDF.</p><button class="btn cal" data-a="nueva">+ Nueva cotización</button></section>';
+  h += '<div class="stats"><div class="stat"><b>' + E.cots.length + "</b><span>cotizaciones</span></div><div class=\"stat\"><b>" + delMes.length + "</b><span>este mes</span></div><div class=\"stat\"><b class=\"av\" style=\"font-size:20px\">" + clp(monto) + "</b><span>cotizado en el mes</span></div></div>";
+  h += avisoRespaldo() + resumenCierre() + seguimiento();
+  if (!E.neg.nombre || !E.neg.logo) h += '<div class="alerta">Para que tus cotizaciones se vean profesionales, ' + (!E.neg.nombre ? "pon el nombre de tu negocio y " : "") + 'sube tu <b>logo</b>.<button class="btn" data-a="logo" style="margin-top:8px">Subir mi logo ahora</button></div>';
+  h += '<input type="search" id="bus" placeholder="Buscar por cliente o número…" value="' + esc(busq) + '" style="margin-bottom:12px"><div id="lc">' + listaCots(busq) + "</div>";
+  h += '<p class="sii">⚠ ' + NOMBRE + " no emite boletas ni facturas del SII. Una cotización es solo una oferta de precio.</p>";
+  return h;
+}
+function nuevaCot() {
+  var h = hoyISO(), n = E.cfg.correl;
+  return { retiene: 1, transf: 1, linkPago: E.neg.linkPago || "", id: uid(), num: "COT-" + pad(n, 4), fecha: h, validez: E.cfg.validez, cli: { n: "", rut: "", tel: "", mail: "" }, proyecto: "", lugar: "", items: [], dv: { t: "pct", v: 0 }, modo: E.cfg.modo, tasa: E.cfg.honTasa, enviada: "", anticipo: PRO ? E.cfg.anticipo : 0, notas: "", estado: "borrador" };
+}
+function abrirEd(id) {
+  if (id) { var c = E.cots.filter(function (x) { return x.id === id; })[0]; if (!c) return; ed = JSON.parse(JSON.stringify(c)); edNuevo = false; }
+  else { ed = nuevaCot(); edNuevo = true; if (!PRO) ed.items.push({ id: uid(), n: "", c: 1, p: 0, k: 0, r: "mat" }); }
+  pintarEd();
+}
+function filaItem(it, ix) {
+  var h = '<div class="it" data-ix="' + ix + '"><div class="it1"><input data-it="n" data-ix="' + ix + '" maxlength="120" placeholder="Descripción" value="' + esc(it.n) + '"><button class="x" data-a="quitarIt" data-ix="' + ix + '" aria-label="Quitar">×</button></div><div class="it2">';
+  h += '<div class="step"><button data-a="menos" data-ix="' + ix + '" aria-label="Menos">−</button><input data-it="c" data-ix="' + ix + '" inputmode="decimal" aria-label="Cantidad" value="' + esc(String(it.c).replace(".", ",")) + '"><button data-a="mas" data-ix="' + ix + '" aria-label="Más">+</button></div>';
+  h += '<label class="mini un">Unidad<input data-it="u" data-ix="' + ix + '" list="lun" maxlength="10" placeholder="un" value="' + esc(it.u || "") + '"></label>';
+  h += '<label class="mini">Precio<input data-it="p" data-ix="' + ix + '" inputmode="numeric" placeholder="0" value="' + (it.p ? it.p : "") + '"></label>';
+  if (PRO) h += '<label class="mini">Costo<input data-it="k" data-ix="' + ix + '" inputmode="numeric" placeholder="opcional" value="' + (it.k ? it.k : "") + '"></label>';
+  return h + '<b class="itt" id="itt' + ix + '">' + clp(it.c * it.p) + "</b></div></div>";
+}
+function tarjetaRubro(r, tit, ph, n) {
+  var h = '<div class="card"><div class="paso">' + n + " · " + tit + "</div>";
+  if (PRO) h += '<input type="search" data-bus="' + r + '" placeholder="' + esc(ph) + '" autocomplete="off"><div class="res" id="res-' + r + '"></div>';
+  h += '<div id="lin-' + r + '">';
+  ed.items.forEach(function (it, ix) { if ((it.r || "mat") === r) h += filaItem(it, ix); });
+  h += '</div><button class="btn" data-a="linea" data-r="' + r + '">+ Agregar ' + (PRO ? "línea en blanco" : "ítem") + "</button></div>";
+  return h;
+}
+function pintarEd() {
+  var c = ed, cn = 1, h = '<div class="edtop"><button class="lnk" data-a="volver">‹ Volver</button><b>' + esc(c.num) + '</b><button class="lnk" data-a="guardarEd">Guardar</button></div><div class="edcuerpo"><div class="cols2"><div class="colx">';
+  h += '<div class="card"><div class="paso">' + cn++ + " · Cliente" + (PRO ? " y trabajo" : "") + "</div>";
+  h += '<label class="l" for="c-n">Nombre</label><input id="c-n" data-f="cli.n" list="lcli" maxlength="80" autocomplete="off" placeholder="Ej.: Ana Pérez" value="' + esc(c.cli.n) + '"><datalist id="lcli">' + E.clientes.map(function (x) { return '<option value="' + esc(x.n) + '">'; }).join("") + "</datalist>";
+  h += '<div class="dos"><div><label class="l" for="c-t">Teléfono</label><input id="c-t" data-f="cli.tel" inputmode="tel" placeholder="+56 9…" value="' + esc(c.cli.tel) + '"></div><div><label class="l" for="c-r">RUT (opcional)</label><input id="c-r" data-f="cli.rut" placeholder="12.345.678-9" value="' + esc(c.cli.rut) + '"></div></div>';
+  h += '<label class="l" for="c-m">Correo (opcional)</label><input id="c-m" data-f="cli.mail" type="email" value="' + esc(c.cli.mail) + '">';
+  if (PRO) h += '<label class="l" for="c-p">Proyecto u obra</label><input id="c-p" data-f="proyecto" maxlength="90" placeholder="Ej.: Instalación eléctrica local 2" value="' + esc(c.proyecto) + '"><label class="l" for="c-l">Lugar</label><input id="c-l" data-f="lugar" maxlength="90" placeholder="Ej.: Temuco" value="' + esc(c.lugar) + '"><button class="btn" data-a="ultima">Cargar la última cotización de este cliente</button>';
+  h += "</div>";
+  RUBROS.forEach(function (r) { h += tarjetaRubro(r[0], r[1], r[2], cn++); });
+  h += '</div><div class="colx"><div class="card"><div class="paso">' + cn++ + " · Descuento, IVA y validez</div>";
+  h += '<div class="dos"><div><label class="l" for="d-t">Descuento</label><select id="d-t" data-f="dv.t"><option value="pct"' + (c.dv.t === "pct" ? " selected" : "") + '>En %</option><option value="monto"' + (c.dv.t === "monto" ? " selected" : "") + '>En $</option></select></div><div><label class="l" for="d-v">Valor</label><input id="d-v" data-f="dv.v" inputmode="decimal" placeholder="0" value="' + (c.dv.v ? String(c.dv.v).replace(".", ",") : "") + '"></div></div>';
+  h += '<label class="l" for="c-i">Los precios que escribí…</label><select id="c-i" data-f="modo"><option value="mas"' + (c.modo === "mas" ? " selected" : "") + '>no incluyen IVA (se suma 19 %)</option><option value="con"' + (c.modo === "con" ? " selected" : "") + '>ya incluyen IVA</option><option value="exento"' + (c.modo === "exento" ? " selected" : "") + '>son exentos de IVA</option><option value="hon"' + (c.modo === "hon" ? " selected" : "") + '>son el valor bruto de una boleta de honorarios</option></select>';
+  h += '<div id="rowTasa" class="' + (c.modo === "hon" ? "" : "oculto") + '"><label class="l" for="c-tasa">Retención de honorarios (%)</label><input id="c-tasa" data-f="tasa" inputmode="decimal" value="' + esc(tasaTxt(c.tasa != null ? c.tasa : E.cfg.honTasa)) + '"><p class="nota">Tasa oficial del SII: 2026 15,25 %, 2027 16 %, 2028 17 %. Lo que escribas arriba es el valor bruto de la boleta.</p><label class="l" for="c-ret">¿El cliente es empresa y retiene?</label><select id="c-ret" data-f="retiene"><option value="1"' + (c.retiene !== 0 ? " selected" : "") + '>Sí: mostrar retención y líquido</option><option value="0"' + (c.retiene === 0 ? " selected" : "") + '>No: solo el valor de la boleta</option></select><p class="nota">Confirma en sii.cl quién retiene en tu caso. La cotización es referencial.</p></div>';
+  h += '<datalist id="lun">' + ["un", "hora", "día", "mes", "m²", "m", "global", "kg", "litro", "servicio"].map(function (x) { return '<option value="' + x + '">'; }).join("") + "</datalist>";
+  h += '<div class="dos"><div><label class="l" for="c-v">Validez (días)</label><input id="c-v" data-f="validez" inputmode="numeric" value="' + c.validez + '"></div>';
+  if (PRO) h += '<div><label class="l" for="c-a">Anticipo (%)</label><input id="c-a" data-f="anticipo" inputmode="numeric" value="' + (c.anticipo || "") + '" placeholder="0"></div>';
+  h += '</div><label class="l" for="c-no">Notas para el cliente</label><textarea id="c-no" data-f="notas" maxlength="600" placeholder="Ej.: Incluye traslado. Fecha de entrega a convenir.">' + esc(c.notas) + '</textarea><label class="l" for="c-tf">Datos de transferencia en el PDF</label><select id="c-tf" data-f="transf"><option value="1"' + (c.transf !== 0 ? " selected" : "") + '>Sí, incluirlos</option><option value="0"' + (c.transf === 0 ? " selected" : "") + '>No incluirlos</option></select><p class="nota">' + (pagoTexto() ? "Se toman de Ajustes → Condiciones y pago." : "Aún no los cargas: ve a Ajustes → Condiciones y pago.") + '</p><label class="l" for="c-lp">Link de pago (opcional)</label><input id="c-lp" data-f="linkPago" inputmode="url" maxlength="500" placeholder="https://…" value="' + esc(c.linkPago || "") + '"><p class="nota">Pega el link de Mercado Pago, Flow, Webpay u otro. Tu cliente verá un botón «Pagar en línea» en el PDF y el link en el WhatsApp. La app no procesa pagos.</p></div>';
+  if (PRO) h += '<div class="card"><div class="paso">' + cn++ + ' · Resumen y margen <span class="sub">(interno, no sale en el PDF)</span></div><div id="resumen"></div></div>';
+  if (!edNuevo) h += '<button class="btn" data-a="duplicar">Duplicar cotización</button><button class="btn mal" data-a="eliminar">Eliminar cotización</button>';
+  h += '</div></div></div><div class="barra"><div><small>Total</small><b id="b-total"></b></div>' + (PRO ? '<div><small>Margen</small><b id="b-m"></b></div>' : "") + '<button class="btn cal" data-a="enviar">Enviar ›</button></div>';
+  $("ed").innerHTML = h; $("ed").className = "on"; document.body.style.overflow = "hidden";
+  recalc();
+}
+function setPath(o, p, v) { var a = p.split("."); while (a.length > 1) o = o[a.shift()]; o[a[0]] = v; }
+function recalc() {
+  var r = calc(ed);
+  $("b-total").textContent = clp(r.total);
+  ed.items.forEach(function (it, ix) { var e = $("itt" + ix); if (e) e.textContent = clp(it.c * it.p); });
+  if (PRO) {
+    $("b-m").innerHTML = '<span class="sem ' + semaf(r.mt) + '"></span>' + pct(r.mt);
+    var fl = RUBROS.map(function (x) { var m = r.mg[x[0]]; return '<tr><td>' + x[1].split(" ")[0] + '</td><td class="n">' + clp(m.cobrado) + '</td><td class="n">' + (m.costo ? clp(m.costo) : "—") + '</td><td class="n"><span class="sem ' + semaf(m.m) + '"></span>' + pct(m.m) + "</td></tr>"; }).join("");
+    var h = '<table class="tab-r"><thead><tr><th>Rubro</th><th class="n">Cobrado</th><th class="n">Costo</th><th class="n">Margen</th></tr></thead><tbody>' + fl + "</tbody></table>";
+    h += '<table class="tab-r tot"><tr><td>Subtotal</td><td class="n">' + clp(r.sub) + "</td></tr>" + (r.desc ? "<tr><td>Descuento</td><td class=\"n\">-" + clp(r.desc) + "</td></tr>" : "") + (r.modo === "exento" ? "<tr><td>Exento de IVA</td><td></td></tr>" : "<tr><td>Neto</td><td class=\"n\">" + clp(r.neto) + "</td></tr><tr><td>IVA 19 %</td><td class=\"n\">" + clp(r.iva) + "</td></tr>") + '<tr class="g"><td>TOTAL</td><td class="n">' + clp(r.total) + "</td></tr>" + (r.anticipo ? '<tr><td>Anticipo</td><td class="n">' + clp(r.anticipo) + '</td></tr><tr><td>Saldo</td><td class="n">' + clp(r.saldo) + "</td></tr>" : "") + "</table>";
+    var av = "";
+    if (r.mt != null && r.mt * 100 < E.cfg.mmin) av += '<div class="alerta">El margen está bajo el mínimo (' + E.cfg.mmin + " %). Revisa precios o descuento.</div>";
+    if (r.mt == null) av += '<p class="nota">Escribe el <b>costo</b> de tus ítems para ver el margen.</p>'; else av += '<p class="nota">El margen se calcula solo con los ítems que tienen costo.</p>';
+    $("resumen").innerHTML = h + av;
+  }
+}
+function guardarEd(silencio) {
+  var c = ed;
+  c.items = c.items.filter(function (it) { return it.n.trim() || it.p > 0; });
+  if (!c.items.length && !c.cli.n.trim()) { return false; }
+  var i = -1; E.cots.forEach(function (x, k) { if (x.id === c.id) i = k; });
+  if (i >= 0) E.cots[i] = c;
+  else {
+    if (E.cots.length >= 3) { aviso("La demo guarda hasta 3 cotizaciones. Pide la versión completa en ordenaito.cl para usarla sin límites."); return false; }
+    var yaN = function (n) { return E.cots.some(function (x) { return x.num === n; }); };
+    while (yaN(c.num)) { E.cfg.correl++; c.num = "COT-" + pad(E.cfg.correl, 4); }
+    E.cots.push(c); E.cfg.correl = Math.max(E.cfg.correl, (parseInt(c.num.slice(4), 10) || 0) + 1);
+  }
+  var nom = c.cli.n.trim();
+  if (nom) {
+    var cl = E.clientes.filter(function (x) { return x.n.toLowerCase() === nom.toLowerCase(); })[0];
+    if (!cl) { cl = { id: uid(), n: nom, rut: "", tel: "", mail: "" }; E.clientes.push(cl); }
+    ["rut", "tel", "mail"].forEach(function (k) { if (c.cli[k]) cl[k] = c.cli[k]; });
+  }
+  if (PRO) c.items.forEach(function (it) {
+    if (!it.n.trim() || it.p <= 0) return;
+    var ya = E.cat.filter(function (x) { return x.r === it.r && x.n.toLowerCase() === it.n.trim().toLowerCase(); })[0];
+    if (!ya) E.cat.push({ id: uid(), n: it.n.trim(), p: it.p, k: it.k || 0, r: it.r, u: it.u || "" });
+    else { ya.p = it.p; if (it.k) ya.k = it.k; if (it.u) ya.u = it.u; }
+  });
+  edNuevo = false; guardar(); if (!silencio) aviso("Cotización guardada.");
+  return true;
+}
+function cerrarEd() { $("ed").className = ""; $("ed").innerHTML = ""; document.body.style.overflow = ""; ed = null; pintar(); }
+function autocompletarCliente() {
+  var nom = ed.cli.n.trim().toLowerCase(), cl = E.clientes.filter(function (x) { return x.n.toLowerCase() === nom; })[0];
+  if (!cl) return;
+  [["tel", "c-t"], ["rut", "c-r"], ["mail", "c-m"]].forEach(function (p) { if (!ed.cli[p[0]] && cl[p[0]]) { ed.cli[p[0]] = cl[p[0]]; $(p[1]).value = cl[p[0]]; } });
+}
+function buscarCat(r, q) {
+  var el = $("res-" + r); q = q.toLowerCase().trim();
+  var l = E.cat.filter(function (x) { return x.r === r && (!q || x.n.toLowerCase().indexOf(q) >= 0); }).slice(0, 8);
+  el.innerHTML = l.map(function (x) { return '<button class="rs" data-a="delCat" data-id="' + esc(x.id) + '"><span>' + esc(x.n) + "</span><b>" + clp(x.p) + "</b></button>"; }).join("") || (q ? '<p class="nota">No está en tu catálogo. Usa «Agregar línea en blanco»; se guardará solo.</p>' : "");
+}
+function repintarLineas(r) {
+  var h = ""; ed.items.forEach(function (it, ix) { if ((it.r || "mat") === r) h += filaItem(it, ix); });
+  $("lin-" + r).innerHTML = h; recalc();
+}
+function repintarTodasLineas() { RUBROS.forEach(function (x) { repintarLineas(x[0]); }); }
+function telWA(t) { var d = digitos(t); if (d.length === 9 && d.charAt(0) === "9") d = "56" + d; else if (d.length === 8) d = "569" + d; return d; }
+function textoWA(c) {
+  var r = calc(c), L = [];
+  L.push("*COTIZACIÓN " + c.num + "* - " + (E.neg.nombre || ""));
+  if (c.cli.n) L.push("Cliente: " + c.cli.n);
+  if (c.proyecto) L.push("Proyecto: " + c.proyecto);
+  L.push("Fecha: " + fecha(c.fecha) + " | Válida hasta: " + fecha(mas(c.fecha, c.validez)));
+  L.push("");
+  c.items.forEach(function (it) { L.push("• " + cantTxt(it) + " x " + it.n + " = " + clp(it.c * it.p)); });
+  L.push("");
+  L.push("Subtotal: " + clp(r.sub));
+  if (r.desc) L.push("Descuento: -" + clp(r.desc));
+  if (r.modo === "exento") L.push("Exento de IVA"); else if (r.modo !== "hon") { L.push("Neto: " + clp(r.neto)); L.push("IVA 19 %: " + clp(r.iva)); }
+  L.push("*TOTAL" + (r.modo === "hon" ? " BOLETA (bruto)" : "") + ": " + clp(r.total) + "*");
+  if (r.modo === "hon") { if (r.retiene) { L.push("Retención " + tasaTxt(r.tasa) + " %: -" + clp(r.ret)); L.push("Líquido a pagar al prestador: " + clp(r.liq)); } L.push("_Servicio a emitir con boleta de honorarios. Montos referenciales: la retención y el documento definitivo los determina el SII al emitir la boleta._"); }
+  if (PRO && r.anticipo) { L.push("Anticipo: " + clp(r.anticipo)); L.push("Saldo: " + clp(r.saldo)); }
+  if (c.notas) { L.push(""); L.push(c.notas); }
+  if (c.transf !== 0 && pagoTexto()) { L.push(""); L.push("Datos para transferencia:"); L.push(pagoTexto()); }
+  if (urlPago(c.linkPago)) { L.push(""); L.push("Paga en línea aquí: " + urlPago(c.linkPago)); }
+  L.push(""); L.push("_Esta cotización no es una boleta ni factura del SII._");
+  return L.join("\n");
+}
+function datosPDF(c) {
+  var logo = null;
+  if (E.neg.logo && E.neg.logoW) { try { var b = atob(E.neg.logo.split(",")[1]), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); logo = { bytes: u, w: E.neg.logoW, h: E.neg.logoH }; } catch (e) { logo = null; } }
+  var grupos = RUBROS.map(function (x) { return { t: PRO ? x[1] : "", items: c.items.filter(function (it) { return (it.r || "mat") === x[0]; }).map(function (it) { return { n: it.n, c: it.c, p: it.p, cu: cantTxt(it) }; }) }; });
+  return { neg: Object.assign({}, E.neg, { pago: c.transf === 0 ? "" : pagoTexto() }), cot: { num: c.num, fecha: fecha(c.fecha), hasta: fecha(mas(c.fecha, c.validez)), cli: c.cli, proyecto: c.proyecto, lugar: c.lugar, notas: c.notas }, grupos: grupos, calc: calc(c), pro: PRO, linkPago: urlPago(c.linkPago), logo: logo, money: clp };
+}
+function nombreArchivo(c) { return (c.num + "-" + (c.cli.n || "cliente")).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".pdf"; }
+function hacerPDF(c) { return new File([CotPDF.crear(datosPDF(c))], nombreArchivo(c), { type: "application/pdf" }); }
+function bajar(file) {
+  var u = URL.createObjectURL(file), a = document.createElement("a"); a.href = u; a.download = file.name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
+}
+function compartirPDF() {
+  var f; try { f = hacerPDF(ed); } catch (e) { return aviso("No pude armar el PDF. Revisa los datos."); }
+  if (navigator.canShare && navigator.canShare({ files: [f] })) navigator.share({ files: [f], title: ed.num }).catch(function () {});
+  else { bajar(f); aviso("PDF descargado. Compártelo desde tu carpeta de descargas."); }
+}
+function marcarEnviada() { if (PRO && (ed.estado === "borrador" || !ed.estado)) { ed.estado = "enviada"; ed.enviada = hoyISO(); guardarEd(true); } }
+function abrirEnviar() {
+  if (!ed.items.some(function (it) { return it.n.trim() && it.p > 0; })) return aviso("Agrega al menos un ítem con nombre y precio.");
+  ed.items = ed.items.filter(function (it) { return it.n.trim() || it.p > 0; });
+  guardarEd(true);
+  var r = calc(ed), h = "<h2>Enviar " + esc(ed.num) + "</h2><p class=\"nota\">" + esc(ed.cli.n || "Sin cliente") + " · <b>" + clp(r.total) + "</b></p>";
+  h += '<a class="btn wa" data-a="wa" target="_blank" rel="noopener" href="https://wa.me/' + telWA(ed.cli.tel) + "?text=" + encodeURIComponent(textoWA(ed)) + '">Enviar texto por WhatsApp</a>';
+  h += '<button class="btn pri" data-a="pdfCompartir">Compartir PDF</button><button class="btn" data-a="pdfBajar">Descargar PDF</button><button class="btn" data-a="copiarTxt">Copiar texto</button>';
+  if (PRO) {
+    h += '<label class="l" for="st">Estado</label><select id="st" data-f="estado">' + Object.keys(ESTADOS).filter(function (k) { return k !== "vencida"; }).map(function (k) { return '<option value="' + k + '"' + (ed.estado === k ? " selected" : "") + ">" + ESTADOS[k] + "</option>"; }).join("") + "</select>";
+  }
+  h += '<p class="sii">⚠ Esta cotización no es una boleta ni factura del SII. El PDF lo dice al pie.</p><button class="btn" data-a="cerrar">Cerrar</button>';
+  $("caja").innerHTML = h; $("hoja").className = "on";
+}
+function vistaClientes() {
+  var l = E.clientes.slice().sort(function (a, b) { return a.n.localeCompare(b.n, "es"); });
+  var h = '<div class="cab"><h1>Clientes</h1><span class="cnt">' + l.length + '</span></div><button class="btn pri" data-a="nuevoCli" style="margin:0 0 14px">+ Agregar cliente</button>';
+  h += l.map(function (c) { var n = E.cots.filter(function (x) { return x.cli && x.cli.n.toLowerCase() === c.n.toLowerCase(); }).length; return '<button class="fila" data-a="editCli" data-id="' + esc(c.id) + '"><span class="th"><i>' + esc(c.n.charAt(0).toUpperCase()) + '</i></span><span class="tx"><b>' + esc(c.n) + "</b><small>" + esc(c.tel || c.mail || "Sin contacto") + " · " + n + " cotiz.</small></span></button>"; }).join("");
+  if (!l.length) h += '<p class="nota c">Tus clientes se guardan solos al cotizar. También puedes agregarlos aquí.</p>';
+  return h;
+}
+var edCli = null;
+function abrirCli(id) {
+  edCli = id ? JSON.parse(JSON.stringify(E.clientes.filter(function (x) { return x.id === id; })[0])) : { id: uid(), n: "", rut: "", tel: "", mail: "", nuevo: 1 };
+  var c = edCli;
+  var h = "<h2>" + (c.nuevo ? "Nuevo cliente" : "Cliente") + '</h2><label class="l" for="k-n">Nombre</label><input id="k-n" maxlength="80" value="' + esc(c.n) + '"><label class="l" for="k-t">Teléfono</label><input id="k-t" inputmode="tel" value="' + esc(c.tel) + '"><label class="l" for="k-r">RUT</label><input id="k-r" value="' + esc(c.rut) + '"><label class="l" for="k-m">Correo</label><input id="k-m" type="email" value="' + esc(c.mail) + '">';
+  h += '<button class="btn pri" data-a="guardarCli">Guardar</button>' + (c.nuevo ? "" : '<button class="btn mal" data-a="borrarCli">Eliminar cliente</button>') + '<button class="btn" data-a="cerrar">Cancelar</button>';
+  $("caja").innerHTML = h; $("hoja").className = "on";
+}
+function guardarCli() {
+  var n = $("k-n").value.trim(); if (!n) return aviso("Escribe el nombre del cliente.");
+  var c = edCli; c.n = n; c.tel = $("k-t").value.trim(); c.rut = $("k-r").value.trim(); c.mail = $("k-m").value.trim();
+  var nuevo = c.nuevo; delete c.nuevo;
+  if (nuevo) E.clientes.push(c); else E.clientes = E.clientes.map(function (x) { return x.id === c.id ? c : x; });
+  guardar(); $("hoja").className = ""; pintar(); aviso("Cliente guardado.");
+}
+function vistaCat() {
+  var h = '<div class="cab"><h1>Mi catálogo</h1><span class="cnt">' + E.cat.length + '</span></div><p class="nota">Tus productos y servicios con precio y costo. Se llenan solos cuando cotizas, y desde aquí los buscas al armar una cotización. Puedes agregarlos de tres formas:</p><button class="btn pri" data-a="nuevoCat" style="margin:0 0 4px">✏️ Uno por uno</button>';
+  h += '<button class="btn" data-a="impXls">📊 Importar desde Excel o CSV</button><button class="btn" data-a="packs">📦 Usar un catálogo de ejemplo</button><button class="lnk" data-a="plantillaXls">Descargar plantilla para llenar en Excel</button><div style="height:12px"></div>';
+  RUBROS.forEach(function (x) {
+    var l = E.cat.filter(function (c) { return c.r === x[0]; }).sort(function (a, b) { return a.n.localeCompare(b.n, "es"); });
+    if (!l.length) return;
+    h += '<div class="paso" style="margin-top:14px">' + x[1] + "</div>";
+    h += l.map(function (c) { return '<button class="fila" data-a="editCat" data-id="' + esc(c.id) + '"><span class="tx"><b>' + esc(c.n) + "</b><small>" + (c.k ? "costo " + clp(c.k) : "sin costo") + '</small></span><span class="pr">' + clp(c.p) + "</span></button>"; }).join("");
+  });
+  return h;
+}
+var edCat = null;
+var PACKS = [
+  { id: "tec", t: "Electricidad y gasfitería (hogar)", i: [["Visita técnica y diagnóstico", "mo", 15000, 0], ["Cambio de enchufe o interruptor", "mo", 12000, 3000], ["Instalación de lámpara", "mo", 15000, 4000], ["Revisión de tablero eléctrico", "mo", 35000, 10000], ["Cambio de llave de agua", "mo", 18000, 5000], ["Destape de cañería", "mo", 30000, 8000], ["Instalación de calefón", "mo", 45000, 12000], ["Enchufe doble", "mat", 3500, 2000, ], ["Cable 2,5 mm (metro)", "mat", 900, 600], ["Traslado por visita", "gg", 8000, 4000]] },
+  { id: "con", t: "Construcción y maestros", i: [["Jornada de maestro", "mo", 45000, 30000], ["Pintura de muros (por m²)", "mo", 4500, 2500], ["Instalación de cerámica (por m²)", "mo", 9000, 5000], ["Tabiquería (por m²)", "mo", 12000, 7000], ["Radier (por m²)", "mo", 18000, 10000], ["Instalación de puerta", "mo", 40000, 20000], ["Cemento saco 25 kg", "mat", 6500, 5000], ["Pintura látex (galón)", "mat", 18000, 13000], ["Retiro de escombros", "gg", 60000, 35000], ["Flete de materiales", "gg", 25000, 15000]] },
+  { id: "eve", t: "Eventos y comida por encargo", i: [["Torta para 20 personas", "mat", 35000, 15000], ["Kuchen entero", "mat", 12000, 5000], ["Docena de empanadas", "mat", 14000, 7000], ["Bandeja de sándwiches (30)", "mat", 25000, 12000], ["Mesa de dulces (20 personas)", "mat", 50000, 25000], ["Cóctel por persona", "mat", 8000, 4000], ["Montaje del evento", "mo", 40000, 20000], ["Atención en el evento (por hora)", "mo", 12000, 7000], ["Arriendo de mesas y sillas (set)", "gg", 20000, 12000], ["Despacho", "gg", 5000, 3000]] },
+  { id: "bel", t: "Belleza y bienestar", i: [["Corte de pelo", "mo", 10000, 0], ["Tinte", "mo", 35000, 12000], ["Alisado", "mo", 60000, 25000], ["Manicure", "mo", 12000, 2000], ["Pedicure", "mo", 15000, 3000], ["Limpieza facial", "mo", 25000, 6000], ["Masaje relajante (1 hora)", "mo", 30000, 0], ["Maquillaje", "mo", 30000, 8000], ["Kit de productos", "mat", 15000, 9000], ["Servicio a domicilio", "gg", 5000, 2000]] }
+];
+function unirCat(lista) {
+  var nu = 0, ac = 0;
+  lista.forEach(function (x) {
+    var ya = E.cat.filter(function (c) { return c.r === x.r && c.n.toLowerCase() === x.n.toLowerCase(); })[0];
+    if (ya) { ya.p = x.p; if (x.k) ya.k = x.k; if (x.u) ya.u = x.u; ac++; } else { E.cat.push({ id: uid(), n: x.n, p: x.p, k: x.k || 0, r: x.r, u: x.u || "" }); nu++; }
+  });
+  guardar(); return { nuevos: nu, actualizados: ac };
+}
+function abrirPacks() {
+  var h = "<h2>Catálogos de ejemplo</h2><p class=\"nota\">Elige uno para partir rápido. Los precios son <b>solo de ejemplo</b>: después cámbialos por los tuyos en esta pestaña. Si un ítem ya existe, se actualiza.</p>";
+  h += PACKS.map(function (p) { return '<button class="fila" data-a="addPack" data-id="' + p.id + '"><span class="tx"><b>' + esc(p.t) + "</b><small>" + p.i.length + " ítems: " + esc(p.i.slice(0, 3).map(function (x) { return x[0]; }).join(", ")) + "…</small></span><span class=\"pr\">Agregar</span></button>"; }).join("");
+  h += '<button class="btn" data-a="cerrar">Cerrar</button>';
+  $("caja").innerHTML = h; $("hoja").className = "on";
+}
+function addPack(id) {
+  var p = PACKS.filter(function (x) { return x.id === id; })[0]; if (!p) return;
+  var r = unirCat(p.i.map(function (x) { return { n: x[0], r: x[1], p: x[2], k: x[3] }; }));
+  $("hoja").className = ""; pintar(); aviso("Listo: " + r.nuevos + " ítems agregados" + (r.actualizados ? " y " + r.actualizados + " actualizados" : "") + ". Ajusta los precios a los tuyos.");
+}
+function plantillaCSV() {
+  var f = ["Nombre;Tipo;Precio;Costo;Unidad", "Cambio de enchufe;Mano de obra;12000;3000;un", "Enchufe doble;Materiales;3500;2000;un", "Traslado por visita;Gastos;8000;4000;global", "Tipo puede ser: Materiales, Mano de obra o Gastos. Costo y Unidad son opcionales. Borra estas filas de ejemplo.;;;;"];
+  bajar(new File(["﻿" + f.join("\r\n")], "plantilla-catalogo.csv", { type: "text/csv" }));
+  aviso("Plantilla descargada. Ábrela en Excel, llénala y súbela con «Importar».");
+}
+function parseCSV(t) {
+  t = t.replace(/^﻿/, "");
+  var l1 = t.split(/\r?\n/)[0] || "", d = [";", "\t", ","].sort(function (a, b) { return l1.split(b).length - l1.split(a).length; })[0];
+  var rows = [], row = [], cur = "", q = false;
+  for (var i = 0; i < t.length; i++) {
+    var ch = t.charAt(i);
+    if (q) { if (ch === '"') { if (t.charAt(i + 1) === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === d) { row.push(cur); cur = ""; }
+    else if (ch === "\n") { row.push(cur); rows.push(row); row = []; cur = ""; }
+    else if (ch !== "\r") cur += ch;
+  }
+  row.push(cur); rows.push(row);
+  return rows;
+}
+function inflar(u8) {
+  var ds = new DecompressionStream("deflate-raw");
+  return new Response(new Blob([u8]).stream().pipeThrough(ds)).arrayBuffer().then(function (b) { return new Uint8Array(b); });
+}
+function leerXlsx(buf) {
+  var dv = new DataView(buf), u8 = new Uint8Array(buf), n = u8.length, e = -1, i;
+  for (i = n - 22; i >= Math.max(0, n - 70000); i--) if (dv.getUint32(i, true) === 0x06054b50) { e = i; break; }
+  if (e < 0) return Promise.reject(new Error("zip"));
+  var cnt = dv.getUint16(e + 10, true), p = dv.getUint32(e + 16, true), ent = {}, dec = new TextDecoder();
+  for (i = 0; i < cnt; i++) {
+    if (dv.getUint32(p, true) !== 0x02014b50) break;
+    var met = dv.getUint16(p + 10, true), cs = dv.getUint32(p + 20, true), nl = dv.getUint16(p + 28, true), el = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), lo = dv.getUint32(p + 42, true);
+    ent[dec.decode(u8.subarray(p + 46, p + 46 + nl))] = { m: met, cs: cs, lo: lo };
+    p += 46 + nl + el + cl;
+  }
+  function leer(nombre) {
+    var x = ent[nombre]; if (!x) return Promise.resolve(null);
+    var ds = x.lo + 30 + dv.getUint16(x.lo + 26, true) + dv.getUint16(x.lo + 28, true), datos = u8.subarray(ds, ds + x.cs);
+    return (x.m === 0 ? Promise.resolve(datos) : inflar(datos)).then(function (b) { return dec.decode(b); });
+  }
+  var hoja = Object.keys(ent).filter(function (k) { return /^xl\/worksheets\/sheet\d+\.xml$/.test(k); }).sort()[0];
+  if (!hoja) return Promise.reject(new Error("hoja"));
+  return Promise.all([leer("xl/sharedStrings.xml"), leer(hoja)]).then(function (r) {
+    var P = new DOMParser(), comp = [];
+    if (r[0]) { var s = P.parseFromString(r[0], "application/xml").getElementsByTagName("si"); for (var a = 0; a < s.length; a++) { var ts = s[a].getElementsByTagName("t"), tx = ""; for (var b = 0; b < ts.length; b++) tx += ts[b].textContent; comp.push(tx); } }
+    var filas = P.parseFromString(r[1], "application/xml").getElementsByTagName("row"), rows = [];
+    for (var f = 0; f < filas.length; f++) {
+      var cs = filas[f].getElementsByTagName("c"), fila = [];
+      for (var c = 0; c < cs.length; c++) {
+        var ref = cs[c].getAttribute("r") || "", m = /^([A-Z]+)/.exec(ref), col = 0;
+        if (m) for (var k = 0; k < m[1].length; k++) col = col * 26 + m[1].charCodeAt(k) - 64; col = col ? col - 1 : c;
+        var t = cs[c].getAttribute("t"), v = cs[c].getElementsByTagName("v")[0], val = v ? v.textContent : "";
+        if (t === "s") val = comp[+val] || ""; else if (t === "inlineStr") val = cs[c].textContent;
+        fila[col] = val;
+      }
+      rows.push(fila);
+    }
+    return rows;
+  });
+}
+function monto(s) {
+  s = String(s == null ? "" : s).replace(/[^\d,.\-]/g, "");
+  if (s.indexOf(",") >= 0 && s.indexOf(".") >= 0) s = s.replace(/\./g, "").replace(",", ".");
+  else if (s.indexOf(",") >= 0) s = s.replace(",", ".");
+  else if (/\.\d{3}$/.test(s)) s = s.replace(/\./g, "");
+  var n = parseFloat(s); return isFinite(n) && n > 0 ? Math.round(n) : 0;
+}
+function tablaACat(rows) {
+  var hi = -1, ix = { n: 0, t: -1, p: 1, k: 2, u: -1 };
+  rows.some(function (r, i) { var j = (r || []).map(function (x) { return String(x == null ? "" : x).toLowerCase(); }); if (j.some(function (x) { return /nombre|descrip|producto|servicio|ítem|item/.test(x); }) && j.some(function (x) { return /precio|valor/.test(x); })) { hi = i; ix = { n: -1, t: -1, p: -1, k: -1, u: -1 }; j.forEach(function (x, c) { if (ix.n < 0 && /nombre|descrip|producto|servicio|ítem|item/.test(x)) ix.n = c; else if (ix.t < 0 && /tipo|rubro|categor/.test(x)) ix.t = c; else if (ix.p < 0 && /precio|valor|venta/.test(x)) ix.p = c; else if (ix.k < 0 && /costo|compra/.test(x)) ix.k = c; else if (ix.u < 0 && /unidad|medida/.test(x)) ix.u = c; }); return true; } return false; });
+  var out = [];
+  rows.slice(hi + 1).forEach(function (r) {
+    r = r || []; var n = String(r[ix.n] == null ? "" : r[ix.n]).trim(), p = monto(r[ix.p]);
+    if (!n || !p) return;
+    var t = ix.t >= 0 ? String(r[ix.t] == null ? "" : r[ix.t]).toLowerCase() : "", rr = /mano|servic|trabajo|obra/.test(t) ? "mo" : /gasto|traslad|viaje|flete|despacho/.test(t) ? "gg" : "mat";
+    out.push({ n: n.slice(0, 120), r: rr, p: p, k: ix.k >= 0 ? monto(r[ix.k]) : 0, u: ix.u >= 0 ? String(r[ix.u] == null ? "" : r[ix.u]).trim().slice(0, 10) : "" });
+  });
+  return out;
+}
+function importarTabla(file) {
+  var nom = file.name.toLowerCase(), esX = /\.xlsx$/.test(nom);
+  if (/\.xls$/.test(nom)) return aviso("Ese es un Excel antiguo (.xls). Guárdalo como .xlsx o como CSV y vuelve a subirlo.");
+  var fin = function (rows) {
+    var l = tablaACat(rows);
+    if (!l.length) return aviso("No encontré ítems. Usa la plantilla: columnas Nombre, Tipo, Precio y Costo.");
+    var ya = l.filter(function (x) { return E.cat.some(function (c) { return c.r === x.r && c.n.toLowerCase() === x.n.toLowerCase(); }); }).length;
+    if (!confirm("Encontré " + l.length + " ítems (" + (l.length - ya) + " nuevos y " + ya + " que ya tenías y se actualizarán). ¿Importar?")) return;
+    var r = unirCat(l); pintar(); aviso("Importados: " + r.nuevos + " nuevos y " + r.actualizados + " actualizados.");
+  };
+  if (esX) {
+    if (typeof DecompressionStream === "undefined") return aviso("Tu navegador no puede leer .xlsx. Guarda el Excel como CSV y súbelo.");
+    file.arrayBuffer().then(leerXlsx).then(fin, function () { aviso("No pude leer ese Excel. Guárdalo como CSV y vuelve a intentar."); });
+  } else {
+    var r = new FileReader(); r.onload = function () { fin(parseCSV(String(r.result))); }; r.onerror = function () { aviso("No pude leer el archivo."); }; r.readAsText(file);
+  }
+}
+function abrirCat(id) {
+  edCat = id ? JSON.parse(JSON.stringify(E.cat.filter(function (x) { return x.id === id; })[0])) : { id: uid(), n: "", p: 0, k: 0, r: "mat", nuevo: 1 };
+  var c = edCat;
+  var h = "<h2>" + (c.nuevo ? "Nuevo ítem" : "Ítem del catálogo") + '</h2><label class="l" for="q-n">Nombre</label><input id="q-n" maxlength="120" value="' + esc(c.n) + '"><label class="l" for="q-r">Tipo</label><select id="q-r">' + RUBROS.map(function (x) { return '<option value="' + x[0] + '"' + (c.r === x[0] ? " selected" : "") + ">" + x[1] + "</option>"; }).join("") + '</select><div class="dos"><div><label class="l" for="q-p">Precio de venta</label><input id="q-p" inputmode="numeric" value="' + (c.p || "") + '"></div><div><label class="l" for="q-k">Costo (opcional)</label><input id="q-k" inputmode="numeric" value="' + (c.k || "") + '"></div></div>';
+  h += '<button class="btn pri" data-a="guardarCat">Guardar</button>' + (c.nuevo ? "" : '<button class="btn mal" data-a="borrarCat">Eliminar del catálogo</button>') + '<button class="btn" data-a="cerrar">Cancelar</button>';
+  $("caja").innerHTML = h; $("hoja").className = "on";
+}
+function guardarCat() {
+  var n = $("q-n").value.trim(); if (!n) return aviso("Escribe el nombre.");
+  var c = edCat; c.n = n; c.r = $("q-r").value; c.p = Math.round(num(digitos($("q-p").value))); c.k = Math.round(num(digitos($("q-k").value)));
+  var nuevo = c.nuevo; delete c.nuevo;
+  if (nuevo) E.cat.push(c); else E.cat = E.cat.map(function (x) { return x.id === c.id ? c : x; });
+  guardar(); $("hoja").className = ""; pintar(); aviso("Guardado en el catálogo.");
+}
+function vistaAj() {
+  var n = E.neg, f = E.cfg;
+  function inp(k, et, ph, tipo) { return '<label class="l" for="a-' + k + '">' + et + '</label><input id="a-' + k + '" data-n="' + k + '"' + (tipo ? ' type="' + tipo + '"' : "") + ' maxlength="120" placeholder="' + esc(ph || "") + '" value="' + esc(n[k]) + '">'; }
+  var h = '<div class="cab"><h1>Ajustes</h1></div><div class="card"><h2>Tu negocio</h2>' + inp("nombre", "Nombre del negocio", "Ej.: Eléctrica Soto") + inp("rut", "RUT (opcional)", "12.345.678-9") + inp("dir", "Dirección o ciudad", "") + inp("tel", "Teléfono", "+56 9…") + inp("mail", "Correo", "", "email");
+  h += '<label class="l">Color</label><div class="colores">' + COLORES.map(function (c) { return '<button class="col' + (c === n.color ? " on" : "") + '" style="background:' + c + '" data-a="color" data-c="' + c + '" aria-label="Color ' + c + '"></button>'; }).join("") + "</div>";
+  h += '<label class="l">Logo (sale en el PDF)</label><div class="fotoed"><span class="th">' + (n.logo ? '<img src="' + esc(n.logo) + '" alt="">' : "<i>" + esc((n.nombre || "?").charAt(0).toUpperCase()) + "</i>") + '</span><div><button class="btn" style="margin:0" data-a="logo">' + (n.logo ? "Cambiar logo" : "Subir logo") + "</button>" + (n.logo ? '<button class="lnk" data-a="quitarLogo">Quitar</button>' : "") + "</div></div></div>";
+  h += '<div class="card"><h2>Mis cotizaciones</h2><div class="dos"><div><label class="l" for="a-val">Validez (días)</label><input id="a-val" data-c="validez" inputmode="numeric" value="' + f.validez + '"></div><div><label class="l" for="a-cor">Próximo número</label><input id="a-cor" data-c="correl" inputmode="numeric" value="' + f.correl + '"></div></div>';
+  h += '<label class="l" for="a-modo">Mis precios normalmente…</label><select id="a-modo" data-c="modo"><option value="mas"' + (f.modo === "mas" ? " selected" : "") + '>no incluyen IVA</option><option value="con"' + (f.modo === "con" ? " selected" : "") + '>ya incluyen IVA</option><option value="exento"' + (f.modo === "exento" ? " selected" : "") + '>son exentos de IVA</option><option value="hon"' + (f.modo === "hon" ? " selected" : "") + '>son el valor bruto de una boleta de honorarios</option></select>';
+  h += '<label class="l" for="a-pie">Texto al pie (opcional)</label><textarea id="a-pie" data-n="pie" maxlength="300" placeholder="Ej.: Gracias por confiar en nosotros.">' + esc(n.pie) + '</textarea><label class="l" for="a-hon">Retención de honorarios (%)</label><input id="a-hon" data-c="honTasa" inputmode="decimal" value="' + esc(tasaTxt(f.honTasa)) + '"><p class="nota">Solo se usa si cotizas como boleta de honorarios. Tasa oficial del SII: 2026 15,25 %, 2027 16 %, 2028 17 %. Cambia cada año: actualízala en enero.</p></div>';
+  if (PRO) {
+    h += '<div class="card"><h2>Condiciones y pago</h2><p class="nota">Salen en tu PDF Pro. Parte de una plantilla y cámbiala a tu gusto.</p><div class="plant"><button class="btn" data-a="plant" data-p="tec">Servicios técnicos</button><button class="btn" data-a="plant" data-p="con">Construcción</button><button class="btn" data-a="plant" data-p="eve">Eventos y comida</button><button class="btn" data-a="plant" data-p="gen">General</button></div>';
+    h += '<label class="l" for="a-ter">Condiciones</label><textarea id="a-ter" data-n="terminos" maxlength="900">' + esc(n.terminos) + '</textarea><div class="paso" style="margin-top:16px">Datos para transferencia</div><p class="nota">Salen en el PDF y en el WhatsApp para que tu cliente te pague. Se guardan solo en tu celular.</p>' + inp("banco", "Banco", "Ej.: Banco Estado") + inp("tcuenta", "Tipo de cuenta", "Ej.: Cuenta Vista, Cuenta Corriente o Cuenta RUT") + inp("ncuenta", "N° de cuenta", "") + inp("titular", "Nombre del titular", "") + inp("rutT", "RUT del titular", "12.345.678-5") + inp("mailT", "Correo para el comprobante", "", "email") + '<label class="l" for="a-pag">Otras instrucciones de pago (opcional)</label><textarea id="a-pag" data-n="pago" maxlength="400" placeholder="Ej.: Envía el comprobante por WhatsApp">' + esc(n.pago) + '</textarea><label class="l" for="a-lp">Link de pago habitual (opcional)</label><input id="a-lp" data-n="linkPago" inputmode="url" maxlength="500" placeholder="https://…" value="' + esc(n.linkPago) + '"><p class="nota">Si usas Mercado Pago, Flow, Webpay u otro, pega aquí tu link. Se agrega solo a cada cotización nueva y tus clientes pueden pagar desde ahí. La app no procesa pagos.</p>';
+    h += '<div class="dos"><div><label class="l" for="a-ant">Anticipo (%)</label><input id="a-ant" data-c="anticipo" inputmode="numeric" value="' + f.anticipo + '"></div><div></div></div>';
+    h += '<div class="dos"><div><label class="l" for="a-mm">Margen mínimo (%)</label><input id="a-mm" data-c="mmin" inputmode="numeric" value="' + f.mmin + '"></div><div><label class="l" for="a-mo">Margen objetivo (%)</label><input id="a-mo" data-c="mobj" inputmode="numeric" value="' + f.mobj + '"></div></div></div>';
+  }
+  h += '<div class="card"><h2>Respaldo</h2><p class="nota">Descarga tus datos en un archivo. Guárdalo en tu correo o Drive.</p><button class="btn pri" data-a="exportar">Descargar respaldo</button><button class="btn" data-a="importar">Cargar un respaldo</button><button class="btn" data-a="csv">Exportar historial a Excel (CSV)</button></div>';
+  h += '<div class="card"><h2>Tu código de celular</h2><p class="nota">Lo usa tu vendedor para activar la app.</p><p style="font:700 22px ui-monospace,Consolas,monospace;letter-spacing:2px;margin:0">' + esc(Activacion.codigoCelular()) + '</p></div>';
+  h += '<div class="card"><h2>Borrar todo</h2><button class="btn mal" data-a="borrar">Borrar mis datos de este celular</button></div>';
+  h += '<p class="sii">⚠ ' + NOMBRE + " no emite boletas ni facturas del SII. Es una herramienta para preparar cotizaciones.</p>";
+  return h;
+}
+function exportar() {
+  E.cfg.ultResp = hoyDias(); guardar();
+  var o = JSON.parse(JSON.stringify(E)); o.exportado = new Date().toISOString();
+  var f = new File([JSON.stringify(o)], "respaldo-" + NOMBRE.toLowerCase().replace(/ /g, "-") + "-" + hoyISO() + ".json", { type: "application/json" });
+  bajar(f); aviso("Respaldo descargado.");
+}
+function exportarCSV() {
+  if (!E.cots.length) return aviso("Aún no tienes cotizaciones para exportar.");
+  var filas = [["N°", "Fecha", "Cliente", "RUT", "Proyecto", "Estado", "Subtotal", "Descuento", "Neto", "IVA", "Total", "Anticipo", "Válida hasta"]];
+  E.cots.slice().sort(function (a, b) { return a.fecha < b.fecha ? -1 : 1; }).forEach(function (c) {
+    var r = calc(c);
+    filas.push([c.num, fecha(c.fecha), c.cli.n, c.cli.rut, c.proyecto, ESTADOS[estadoDe(c) || "borrador"] || "", r.sub, r.desc, r.neto, r.iva, r.total, r.anticipo, fecha(mas(c.fecha, c.validez))]);
+  });
+  var t = filas.map(function (f) { return f.map(function (x) { var s = String(x == null ? "" : x); return /[;"\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }).join(";"); }).join("\r\n");
+  bajar(new File(["﻿" + t], "historial-cotizaciones-" + hoyISO() + ".csv", { type: "text/csv" })); aviso("Historial descargado. Ábrelo con Excel.");
+}
+function importar(file) {
+  var r = new FileReader();
+  r.onload = function () {
+    try {
+      var d = JSON.parse(r.result);
+      if (d.app && d.app !== APPKEY) return aviso("Ese respaldo es de otra app.");
+      if (!confirm("Se reemplazarán los datos de este celular con los del respaldo. ¿Seguro?")) return;
+      E = migrar(d); guardar(); tema(); pintar(); aviso("Respaldo cargado.");
+    } catch (e) { aviso("No pude leer ese archivo."); }
+  };
+  r.readAsText(file);
+}
+function achicar(file, max, cb) {
+  var r = new FileReader();
+  r.onload = function () {
+    var im = new Image();
+    im.onload = function () {
+      var s = Math.min(1, max / Math.max(im.width, im.height)), c = document.createElement("canvas");
+      c.width = Math.max(1, Math.round(im.width * s)); c.height = Math.max(1, Math.round(im.height * s));
+      var x = c.getContext("2d"); x.fillStyle = "#ffffff"; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height);
+      cb(c.toDataURL("image/jpeg", 0.85), c.width, c.height);
+    };
+    im.onerror = function () { cb(null); };
+    im.src = r.result;
+  };
+  r.onerror = function () { cb(null); };
+  r.readAsDataURL(file);
+}
+var KEYTUT = KEY + "_tut";
+function tutVisto() { try { return localStorage.getItem(KEYTUT) === "1"; } catch (e) { return false; } }
+function tutMarcar() { try { localStorage.setItem(KEYTUT, "1"); } catch (e) {} }
+var tour = null;
+function tarjetaEd(i) { return function () { return document.querySelectorAll("#ed .card")[i]; }; }
+function sel(q) { return function () { return document.querySelector(q); }; }
+function asegurarEd() {
+  if (ed && tour && tour.ed) return;
+  ed = nuevaCot(); edNuevo = true; tour.ed = true;
+  ed.cli.n = "Cliente de ejemplo"; ed.cli.tel = "+56 9 1234 5678";
+  if (PRO) { ed.proyecto = "Instalación eléctrica (ejemplo)"; ed.items = [{ id: uid(), n: "Tablero eléctrico 12 módulos", c: 1, p: 45000, k: 30000, r: "mat" }, { id: uid(), n: "Instalación y puesta en marcha", c: 1, p: 25000, k: 10000, r: "mo" }]; ed.anticipo = 50; }
+  else ed.items = [{ id: uid(), n: "Servicio de ejemplo", c: 2, p: 12000, k: 0, r: "mat" }];
+  pintarEd();
+}
+function salirEd() { if (tour && tour.ed) { ed = null; edNuevo = false; tour.ed = false; $("ed").className = ""; $("ed").innerHTML = ""; document.body.style.overflow = ""; } }
+function irTab(t) { salirEd(); tab = t; pintar(); }
+var PASOS = (function () {
+  var p = [{ t: "👋 Bienvenido a " + NOMBRE, x: "Te muestro cómo se usa <b>con la app de verdad</b>: te iré señalando cada parte. Dura 1 minuto y no se guarda nada de lo que veas.", pre: function () { irTab("cots"); } }];
+  p.push({ t: "Crea una cotización", x: "Para empezar, toca <b>«Nueva cotización»</b>. Pruébalo ahora 👆", el: sel(".hero .btn.cal"), click: 1, pre: function () { irTab("cots"); } });
+  p.push({ t: "Datos del cliente", x: "Aquí va el nombre y contacto de tu cliente. Si ya le cotizaste antes, se completa solo al escribir su nombre. <i>(Datos de ejemplo: no se guardan.)</i>", el: tarjetaEd(0), pre: asegurarEd });
+  if (PRO) {
+    p.push({ t: "Lo que vendes", x: "Escribe unas letras en el buscador y toca el resultado para traer un ítem de <b>tu catálogo</b>. O usa «Agregar línea en blanco» para escribirlo tú.", el: tarjetaEd(1), pre: asegurarEd });
+    p.push({ t: "Cada ítem", x: "Pon la <b>cantidad</b> con − y +, el <b>precio</b> y, si quieres, el <b>costo</b> (solo lo ves tú). El total de la línea se calcula solo.", el: sel("#lin-mat .it"), pre: asegurarEd });
+  } else {
+    p.push({ t: "Lo que vendes", x: "Escribe el nombre, la <b>cantidad</b> con − y + y el <b>precio</b>. El total de cada línea se calcula solo. Con «Agregar ítem» sumas más.", el: tarjetaEd(1), pre: asegurarEd });
+  }
+  p.push({ t: "Descuento, IVA y validez", x: "Elige un descuento, si tus precios <b>llevan IVA o no</b> (la app calcula neto, IVA y total) y por cuántos días vale la cotización." + (PRO ? " También el anticipo." : ""), el: tarjetaEd(PRO ? 4 : 2), pre: asegurarEd });
+  if (PRO) p.push({ t: "Tu margen, a la vista 🚦", x: "Con el <b>costo</b> de cada ítem, aquí ves cuánto ganas. Verde: bien. Amarillo: ojo. Rojo: ganas muy poco. Es solo para ti: <b>no sale en el PDF</b>.", el: tarjetaEd(5), pre: asegurarEd });
+  p.push({ t: "Total y envío", x: "Siempre ves el <b>total</b> abajo. Al terminar toca <b>«Enviar»</b>: mándalo por WhatsApp o como PDF" + (PRO ? " en tabla, con tu logo, anticipo y condiciones" : " con tu logo") + ". Siempre dice que no es boleta ni factura del SII.", el: sel(".barra"), pre: asegurarEd });
+  if (PRO) p.push({ t: "Tu catálogo", x: "Aquí cargas tus precios: <b>uno por uno</b>, <b>importando tu Excel</b> o con un <b>catálogo de ejemplo</b>. Se llena solo cada vez que cotizas.", el: sel('[data-a="impXls"]'), pre: function () { irTab("cat"); } });
+  p.push({ t: "Tu logo y tu negocio", x: "En Ajustes sube tu <b>logo</b>, pon tu nombre y tu color. Así tus cotizaciones se ven profesionales." + (PRO ? " Ahí también dejas tus condiciones y datos de pago." : ""), el: sel('[data-a="logo"]'), pre: function () { irTab("aj"); } });
+  p.push({ t: "Aquí está la ayuda", x: "En <b>Ayuda</b> hay respuestas a las dudas más comunes y puedes <b>repetir este tutorial</b> cuando quieras.", el: sel('#tabs [data-t="ayuda"]'), pre: function () { irTab("ayuda"); } });
+  p.push({ t: "¡Listo! 🎉", x: "Ya sabes lo básico. Toca <b>«Nueva cotización»</b> y haz la primera.", pre: function () { irTab("cots"); } });
+  return p;
+})();
+function tourEls() {
+  if (tour.els) return;
+  var b = document.createElement("div"); b.id = "tbl"; var s = document.createElement("div"); s.id = "tspot"; var t = document.createElement("div"); t.id = "tut";
+  document.body.appendChild(b); document.body.appendChild(s); document.body.appendChild(t); tour.els = [b, s, t];
+  b.addEventListener("click", function (e) {
+    var p = PASOS[tour.i]; if (!p || !p.click) return;
+    var el = p.el(); if (!el) return; var r = el.getBoundingClientRect();
+    if (e.clientX >= r.left - 6 && e.clientX <= r.right + 6 && e.clientY >= r.top - 6 && e.clientY <= r.bottom + 6) tourAvanzar(true);
+  });
+}
+function tourAvanzar(hacerClick) {
+  var p = PASOS[tour.i];
+  if (hacerClick && p.click) { var el = p.el(); if (el) el.click(); }
+  setTimeout(function () { tourIr(tour.i + 1); }, 120);
+}
+function tourIr(i) {
+  if (i >= PASOS.length) return cerrarTut();
+  if (i < 0) i = 0;
+  tour.i = i; var p = PASOS[i];
+  if (p.pre) { if (!(p.click)) p.pre(); else p.pre(); }
+  setTimeout(function () { tourMostrar(); }, 70);
+}
+function tourMostrar() {
+  if (!tour) return;
+  var p = PASOS[tour.i], el = p.el ? p.el() : null, sp = tour.els[1], tp = tour.els[2], ult = tour.i === PASOS.length - 1, n = PASOS.length;
+  if (el) {
+    var fijo = getComputedStyle(el).position === "fixed" || el.closest(".barra") || el.closest("header");
+    if (!fijo) { el.scrollIntoView({ block: "start" }); var sc = el.closest("#ed"); if (sc) sc.scrollTop -= 120; else window.scrollBy(0, -110); }
+  }
+  var h = '<button class="tx-sal" data-a="tourSalir" aria-label="Salir del tutorial">✕</button><small class="tpaso">' + (el || p.click ? "Paso " + tour.i + " de " + (n - 2) : "") + "</small><h2>" + p.t + "</h2><p>" + p.x + '</p><div class="tbtn">';
+  h += tour.i > 0 ? '<button class="lnk" data-a="tourAnt">‹ Atrás</button>' : "<span></span>";
+  if (p.click) h += '<button class="lnk" data-a="tourSaltar">Saltar paso</button>';
+  else h += '<button class="btn cal" data-a="tourSig">' + (tour.i === 0 ? "Empezar" : ult ? "Terminar" : "Siguiente") + "</button>";
+  h += "</div>" + (tour.i === 0 ? '<button class="lnk" data-a="tourSalir" style="display:block;margin:6px auto 0">Omitir tutorial</button>' : "");
+  tp.innerHTML = h; tp.className = "on" + (el ? "" : " centro");
+  tour.els[0].className = "on" + (el ? "" : " osc");
+  var vh = innerHeight, th = tp.offsetHeight;
+  if (el) {
+    var r = el.getBoundingClientRect(), t0 = Math.max(6, r.top - 6), b0 = Math.min(vh - 6, r.bottom + 6);
+    if (b0 - t0 < 20) { t0 = Math.max(6, r.top - 6); b0 = t0 + 40; }
+    sp.style.cssText = "display:block;left:" + Math.max(4, r.left - 6) + "px;top:" + t0 + "px;width:" + Math.min(innerWidth - 8, r.width + 12) + "px;height:" + (b0 - t0) + "px";
+    var arriba = t0 + Math.min(b0 - t0, 140) > vh - th - 16;
+    tp.style.top = arriba ? "10px" : "auto"; tp.style.bottom = arriba ? "auto" : "12px";
+    if (arriba && b0 > th + 20 && t0 < th + 20) { tp.style.top = "auto"; tp.style.bottom = "12px"; }
+  } else { sp.style.cssText = "display:none"; tp.style.top = ""; tp.style.bottom = ""; }
+}
+function abrirTut() { cerrarTut(true); tour = { i: 0, ed: false, els: null }; tourEls(); tourIr(0); }
+function cerrarTut(silencio) {
+  if (tour) { salirEd(); if (tour.els) tour.els.forEach(function (e) { e.remove(); }); tour = null; if (!silencio) { tab = "cots"; pintar(); } }
+  if (!silencio) tutMarcar();
+}
+window.addEventListener("resize", function () { if (tour) tourMostrar(); });
+var NOVEDADES = [{ v: "1.0", f: "24-11-2026", t: ["Primera versión del Cotizador: cotizaciones con PDF en tabla, catálogo, margen, clientes, estados y respaldo.", "Importar precios desde Excel o CSV y catálogos de ejemplo.", "Unidad por ítem, boleta de honorarios, validación de RUT, recordatorios de seguimiento, estadísticas, exportación a Excel y link de pago opcional y datos de transferencia en el PDF."] }];
+function novedades() {
+  return '<div class="card ayuda"><h2>Novedades</h2>' + NOVEDADES.map(function (n) { return "<details" + (n === NOVEDADES[0] ? " open" : "") + "><summary>Versión " + n.v + " · " + n.f + "</summary><div><ul>" + n.t.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div></details>"; }).join("") + "</div>";
+}
+function vistaAyuda() {
+  function d(t, c, ab) { return "<details" + (ab ? " open" : "") + "><summary>" + t + "</summary><div>" + c + "</div></details>"; }
+  var h = '<div class="cab"><h1>Ayuda</h1></div><button class="btn pri" data-a="verTut" style="margin:0 0 14px">▶ Ver el tutorial otra vez</button><div class="card ayuda">';
+  h += d("Cómo hago una cotización", "<ol><li>En <b>Cotizar</b> toca «Nueva cotización».</li><li>Escribe el cliente (si ya lo cotizaste antes, se completa solo).</li><li>Agrega lo que vendes: nombre, cantidad con − y +, y precio.</li><li>Elige descuento, IVA y validez.</li><li>Toca <b>Enviar</b>: WhatsApp o PDF.</li></ol>", 1);
+  if (PRO) h += d("Para qué sirve el catálogo", "<p>Es tu lista guardada de productos y servicios, con precio y costo. <b>Se llena sola</b>: cada ítem que usas en una cotización queda guardado.</p><p>Cuando armes otra cotización, escribe unas letras en el buscador de la sección (por ejemplo «tablero») y toca el resultado: se agrega con su precio. También puedes agregar o corregir ítems en la pestaña <b>Catálogo</b>.</p><p>Si cambias un precio en una cotización, el catálogo se actualiza.</p><p><b>Cargar muchos de una vez:</b> en la pestaña Catálogo toca «Descargar plantilla», llénala en Excel (Nombre, Tipo, Precio, Costo) y súbela con «Importar desde Excel o CSV». Sirven archivos .xlsx y .csv. O elige «Usar un catálogo de ejemplo» y cambia los precios por los tuyos.</p>");
+  h += d("Mi logo en el PDF", "<p>Ve a <b>Ajustes → Tu negocio → Subir logo</b> y elige la imagen desde tu galería. Aparece arriba en la app y en el PDF que le envías a tu cliente. Mejor si es cuadrado o horizontal y con fondo blanco.</p><button class=\"btn\" data-a=\"irAj\">Ir a Ajustes</button>");
+  h += d("IVA: cuál elegir", "<p><b>No incluyen IVA:</b> tus precios son netos y la app suma el 19 %.</p><p><b>Ya incluyen IVA:</b> tus precios son finales y la app separa neto e IVA.</p><p><b>Exentos:</b> servicios sin IVA.</p>");
+  if (PRO) h += d("Margen y semáforo", "<p>Escribe el <b>costo</b> de cada ítem (lo que a ti te cuesta). El resumen calcula cuánto ganas. Verde: sobre tu margen objetivo. Amarillo: entre el mínimo y el objetivo. Rojo: bajo el mínimo. Puedes cambiar esos números en Ajustes. El margen <b>nunca</b> sale en el PDF.</p>");
+  if (PRO) h += d("Anticipo, condiciones y pago", "<p>En Ajustes carga una plantilla de condiciones (servicios, construcción, eventos o general) y edítala. Pon tus datos de transferencia. En cada cotización indicas el % de anticipo y el PDF muestra anticipo y saldo.</p>");
+  if (PRO) h += d("Estados de las cotizaciones", "<p>Borrador, enviada, aceptada o rechazada. Al enviar queda «enviada». Cámbialo en la ventana de Enviar. Si pasa la validez sin respuesta, aparece «vencida».</p>");
+  h += d("Mis datos y respaldo", "<p>Todo se guarda solo en este celular. En <b>Ajustes → Descargar respaldo</b> bajas un archivo para guardarlo en tu correo o Drive. Hazlo de vez en cuando; si cambias de celular, lo cargas con «Cargar un respaldo».</p>");
+  h += d("Link de pago", "<p>Si ya tienes un link para cobrar (Mercado Pago, Flow, Webpay u otro), pégalo en la cotización, o una vez en <b>Ajustes</b> para que se agregue siempre. El PDF muestra un botón «Pagar en línea» y el WhatsApp incluye el link. La app no cobra ni procesa pagos: solo entrega tu link.</p>");
+  h += d("Boleta de honorarios", "<p>Si cobras con boleta de honorarios, en la cotización elige «son el valor bruto de una boleta de honorarios». Ahí no se suma IVA: la cotización muestra el total bruto, la retención y el líquido. La tasa de retención cambia cada año: revísala en sii.cl y déjala en Ajustes.</p>");
+  h += d("Datos de transferencia", "<p>En <b>Ajustes → Condiciones y pago</b> carga tu banco, tipo y número de cuenta, titular, RUT y correo. Salen en el PDF (recuadro «Datos para transferencia») y en el WhatsApp. En cada cotización puedes elegir no incluirlos. Quedan solo en tu celular.</p>");
+  h += d("Unidades por ítem", "<p>Cada ítem puede tener una unidad (hora, m², día, global…). Sale junto a la cantidad en el PDF y en el texto de WhatsApp.</p>");
+  h += d("Seguimiento y estadísticas", "<p>En la pantalla Cotizar verás las cotizaciones enviadas hace 3 días o más, con un botón para recordarle al cliente por WhatsApp. También verás cuántas enviaste, cuántas te aceptaron y el monto. En Ajustes puedes exportar todo el historial a Excel.</p>");
+  h += d("Importante", "<p>" + NOMBRE + " no emite boletas ni facturas del SII. Una cotización es solo una oferta de precio; al vender, emite tu documento tributario como siempre.</p>");
+  h += '</div>' + novedades() + '<div class="card"><h2>¿Algo no funciona o quieres algo nuevo?</h2><p class="nota">Cuéntanos qué mejorar: la app se actualiza sola, sin que tengas que hacer nada.</p><a class="btn pri" target="_blank" rel="noopener" href="https://wa.me/' + Activacion.whatsapp + "?text=" + encodeURIComponent("Hola, tengo una sugerencia para " + NOMBRE + ": ") + '">💡 Enviar una sugerencia</a><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/' + Activacion.whatsapp + "?text=" + encodeURIComponent("Hola, necesito ayuda con " + NOMBRE + ". Mi código es " + Activacion.codigoCelular()) + '">Escribir por WhatsApp</a></div>';
+  return h;
+}
+function pintar() {
+  var lg = E.neg.logo ? '<img class="mlogo" src="' + esc(E.neg.logo) + '" alt=""> ' : "";
+  $("marca").innerHTML = lg + "<span>" + esc(E.neg.nombre || NOMBRE) + "</span>";
+  var t = [["cots", "Cotizar"], ["cli", "Clientes"]]; if (PRO) t.push(["cat", "Catálogo"]); t.push(["ayuda", "Ayuda"]); t.push(["aj", "Ajustes"]);
+  $("tabs").innerHTML = t.map(function (x) { return '<button data-a="tab" data-t="' + x[0] + '" class="' + (tab === x[0] ? "sel" : "") + '">' + x[1] + "</button>"; }).join("");
+  var h = tab === "cots" ? vistaCots() : tab === "cli" ? vistaClientes() : tab === "cat" ? vistaCat() : tab === "ayuda" ? vistaAyuda() : vistaAj();
+  h += '<p class="pie">' + NOMBRE + " v" + VERSION + " · Licencia de uso personal · Ordenaíto</p>";
+  $("app").innerHTML = h; window.scrollTo(0, 0);
+}
+document.addEventListener("click", function (e) {
+  var b = e.target.closest("[data-a]");
+  if (!b) return;
+  var a = b.getAttribute("data-a"), id = b.getAttribute("data-id"), ix = +b.getAttribute("data-ix");
+  if (a === "tab") { tab = b.getAttribute("data-t"); pintar(); }
+  else if (a === "verTut") abrirTut();
+  else if (a === "tourSig") tourAvanzar(false);
+  else if (a === "tourAnt") tourIr(tour.i - 1);
+  else if (a === "tourSaltar") tourAvanzar(true);
+  else if (a === "tourSalir") cerrarTut();
+  else if (a === "irAj") { tab = "aj"; pintar(); }
+  else if (a === "nueva") abrirEd(null);
+  else if (a === "abrir") abrirEd(id);
+  else if (a === "volver") { guardarEd(true); cerrarEd(); }
+  else if (a === "guardarEd") { if (guardarEd(false)) { } else aviso("Escribe el cliente o un ítem para guardar."); }
+  else if (a === "linea") { var r = b.getAttribute("data-r"); ed.items.push({ id: uid(), n: "", c: 1, p: 0, k: 0, r: r }); repintarLineas(r); var ins = $("lin-" + r).querySelectorAll("[data-it=n]"); if (ins.length) ins[ins.length - 1].focus(); }
+  else if (a === "quitarIt") { var rr = ed.items[ix].r || "mat"; ed.items.splice(ix, 1); repintarTodasLineas(); }
+  else if (a === "menos" || a === "mas") { var it = ed.items[ix]; it.c = Math.max(0, Math.round((it.c + (a === "mas" ? 1 : -1)) * 100) / 100); var el = document.querySelector('[data-it=c][data-ix="' + ix + '"]'); el.value = String(it.c).replace(".", ","); recalc(); }
+  else if (a === "delCat") { var cc = E.cat.filter(function (x) { return x.id === id; })[0]; if (cc) { ed.items.push({ id: uid(), n: cc.n, c: 1, p: cc.p, k: cc.k || 0, r: cc.r, u: cc.u || "" }); var bi = document.querySelector("[data-bus=" + cc.r + "]"); if (bi) bi.value = ""; $("res-" + cc.r).innerHTML = ""; repintarLineas(cc.r); } }
+  else if (a === "ultima") {
+    var nom = ed.cli.n.trim().toLowerCase(), l = E.cots.filter(function (x) { return x.cli && x.cli.n.toLowerCase() === nom && x.id !== ed.id; }).sort(function (p, q) { return p.fecha < q.fecha ? 1 : -1; });
+    if (!nom || !l.length) return aviso("Escribe el nombre de un cliente que ya tenga cotizaciones.");
+    ed.items = JSON.parse(JSON.stringify(l[0].items)).map(function (x) { x.id = uid(); return x; }); ed.proyecto = ed.proyecto || l[0].proyecto || ""; ed.lugar = ed.lugar || l[0].lugar || "";
+    pintarEd(); aviso("Cargué la última cotización de " + l[0].cli.n + ". Ajusta cantidades y precios.");
+  }
+  else if (a === "duplicar") { guardarEd(true); var cp = JSON.parse(JSON.stringify(ed)); cp.id = uid(); cp.num = "COT-" + pad(E.cfg.correl, 4); cp.fecha = hoyISO(); cp.estado = "borrador"; ed = cp; edNuevo = true; pintarEd(); aviso("Duplicada como " + cp.num + "."); }
+  else if (a === "eliminar") { if (confirm("¿Eliminar esta cotización? No se puede deshacer.")) { E.cots = E.cots.filter(function (x) { return x.id !== ed.id; }); guardar(); cerrarEd(); } }
+  else if (a === "enviar") abrirEnviar();
+  else if (a === "wa") { marcarEnviada(); }
+  else if (a === "pdfCompartir") { marcarEnviada(); compartirPDF(); }
+  else if (a === "pdfBajar") { marcarEnviada(); try { bajar(hacerPDF(ed)); aviso("PDF descargado."); } catch (er) { aviso("No pude armar el PDF."); } }
+  else if (a === "copiarTxt") { var tx = textoWA(ed); marcarEnviada(); (navigator.clipboard ? navigator.clipboard.writeText(tx) : Promise.reject()).then(function () { aviso("Texto copiado."); }, function () { aviso("No pude copiar. Usa el botón de WhatsApp."); }); }
+  else if (a === "cerrar") { $("hoja").className = ""; }
+  else if (a === "nuevoCli") abrirCli(null);
+  else if (a === "editCli") abrirCli(id);
+  else if (a === "guardarCli") guardarCli();
+  else if (a === "borrarCli") { if (confirm("¿Eliminar este cliente? Sus cotizaciones se mantienen.")) { E.clientes = E.clientes.filter(function (x) { return x.id !== edCli.id; }); guardar(); $("hoja").className = ""; pintar(); } }
+  else if (a === "impXls") $("f-xls").click();
+  else if (a === "plantillaXls") plantillaCSV();
+  else if (a === "packs") abrirPacks();
+  else if (a === "addPack") addPack(id);
+  else if (a === "nuevoCat") abrirCat(null);
+  else if (a === "editCat") abrirCat(id);
+  else if (a === "guardarCat") guardarCat();
+  else if (a === "borrarCat") { if (confirm("¿Quitar del catálogo?")) { E.cat = E.cat.filter(function (x) { return x.id !== edCat.id; }); guardar(); $("hoja").className = ""; pintar(); } }
+  else if (a === "color") { E.neg.color = b.getAttribute("data-c"); guardar(); tema(); pintar(); }
+  else if (a === "logo") $("f-logo").click();
+  else if (a === "quitarLogo") { E.neg.logo = ""; E.neg.logoW = 0; E.neg.logoH = 0; guardar(); pintar(); }
+  else if (a === "plant") { E.neg.terminos = PLANTILLAS[b.getAttribute("data-p")]; guardar(); pintar(); aviso("Plantilla cargada. Puedes editarla."); }
+  else if (a === "exportar") exportar();
+  else if (a === "csv") exportarCSV();
+  else if (a === "importar") $("f-resp").click();
+  else if (a === "borrar") { if (confirm("Se borrarán todas tus cotizaciones, clientes y ajustes de este celular. ¿Seguro?")) { E = nuevoE(); guardar(); tema(); tab = "cots"; pintar(); aviso("Datos borrados."); } }
+});
+document.addEventListener("input", function (e) {
+  var t = e.target;
+  if (t.id === "bus") { busq = t.value; $("lc").innerHTML = listaCots(busq); }
+  else if (t.getAttribute("data-bus")) buscarCat(t.getAttribute("data-bus"), t.value);
+  else if (t.getAttribute("data-it") && ed) {
+    var k = t.getAttribute("data-it"), it = ed.items[+t.getAttribute("data-ix")];
+    if (k === "n") it.n = t.value; else if (k === "u") it.u = t.value.slice(0, 10); else if (k === "c") it.c = num(t.value); else it[k] = Math.round(num(digitos(t.value)));
+    recalc();
+  }
+  else if (t.getAttribute("data-f") && ed) {
+    var f = t.getAttribute("data-f"), v = t.value;
+    if (f === "validez") v = Math.max(1, Math.round(num(v)) || 15); else if (f === "anticipo") v = Math.min(100, Math.round(num(v))); else if (f === "dv.v") v = num(v); else if (f === "tasa") v = num(v); else if (f === "retiene" || f === "transf") v = +v;
+    setPath(ed, f, v); if (f === "modo") $("rowTasa").className = v === "hon" ? "" : "oculto"; recalc();
+  }
+  else if (t.getAttribute("data-n")) { E.neg[t.getAttribute("data-n")] = t.value; guardar(); }
+  else if (t.getAttribute("data-c")) { var kk = t.getAttribute("data-c"); E.cfg[kk] = kk === "modo" ? t.value : kk === "honTasa" ? num(t.value) : Math.max(0, Math.round(num(t.value))); if (kk === "validez" && !E.cfg.validez) E.cfg.validez = 15; guardar(); }
+});
+document.addEventListener("change", function (e) {
+  var t = e.target, f = t.files && t.files[0];
+  if (t.id === "c-n" && ed) autocompletarCliente();
+  if (t.id === "c-r" || t.id === "a-rut" || t.id === "k-r") revisarRut(t);
+  if (t.id === "c-lp" || t.id === "a-lp") revisarLink(t);
+  if (t.getAttribute && t.getAttribute("data-f") === "estado") { ed.estado = t.value; guardarEd(true); }
+  if (t.getAttribute && t.getAttribute("data-c") === "modo") guardar();
+  if (!f) return;
+  if (t.id === "f-logo") achicar(f, 300, function (u, w, h) { if (!u) return aviso("No pude leer esa imagen."); E.neg.logo = u; E.neg.logoW = w; E.neg.logoH = h; guardar(); pintar(); });
+  else if (t.id === "f-resp") importar(f);
+  else if (t.id === "f-xls") importarTabla(f);
+  t.value = "";
+});
+document.addEventListener("gesturestart", function (e) { e.preventDefault(); });
+function arrancarApp() { tema(); pintar(); if (!tutVisto()) abrirTut(); }
+Activacion.iniciar(arrancarApp);
+</script>
+</body>
+</html>

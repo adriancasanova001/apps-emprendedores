@@ -20,24 +20,28 @@
   --p1:color-mix(in srgb,var(--primario) 88%,#4ade80);
   --p2:color-mix(in srgb,var(--primario) 60%,#5eead4);
   --ambar:#f59e0b; --coral:#fb7185;
-  --fondo:#eef6f5; --tarjeta:#ffffff; --tarjeta2:#f1f7f6; --texto:#0e2220; --suave:#4b605d;
-  --borde:#d3e3e0; --campo:#ffffff;
+  --fondo:#edf6f3; --tarjeta:#ffffff; --tarjeta2:#f4faf8; --texto:#0e2220; --suave:#4b605d;
+  --borde:#d4e6e0; --campo:#ffffff;
   --ok:#0b7a43; --ok-fondo:#d9f5e5; --aviso:#8a5200; --aviso-fondo:#fdeec6; --mal:#b42318; --mal-fondo:#fde2df;
   --sombra:0 1px 2px rgba(14,34,32,.06),0 8px 18px -6px rgba(14,34,32,.12),0 26px 48px -20px rgba(15,118,110,.26);
   --sombra-s:0 1px 2px rgba(14,34,32,.08),0 8px 16px -8px rgba(14,34,32,.20);
   --brillo-i:inset 0 1px 0 rgba(255,255,255,.85);
   --radio:26px;
   --primario-texto:var(--primario);
-  --grad:linear-gradient(135deg,var(--primario),var(--p1));
+  --grad:var(--primario);
   --grad-t:var(--grad);
   --grad-hero:linear-gradient(135deg,var(--p0) 0%,var(--primario) 52%,var(--p2) 130%);
-  --grad-calido:linear-gradient(135deg,#fbbf24,#f59e0b 45%,#fb7185);
-  --brillo:0 10px 24px -8px color-mix(in srgb,var(--primario) 70%,transparent);
-  --brillo-c:0 10px 24px -8px rgba(245,158,11,.75);
+  --grad-calido:#f59e0b;
+  --brillo:0 0 0 0 transparent;
+  --brillo-c:0 0 0 0 transparent;
   --vidrio:color-mix(in srgb,var(--tarjeta) 78%,transparent);
-  --malla1:color-mix(in srgb,var(--p2) 34%,transparent);
-  --malla2:rgba(251,191,36,.20);
-  --malla3:color-mix(in srgb,var(--primario) 16%,transparent);
+  --malla1:transparent; --malla2:transparent; --malla3:transparent;
+  --hero-bg:#ffffff; --hero-bd:color-mix(in srgb,var(--primario) 26%,#ffffff); --hero-tx:color-mix(in srgb,var(--primario) 40%,#000);
+  --hero-pill:color-mix(in srgb,var(--primario) 14%,#ffffff); --hero-pill-tx:color-mix(in srgb,var(--primario) 80%,#000);
+  --hero-sombra:0 10px 30px -14px color-mix(in srgb,var(--primario) 35%,transparent);
+  --precio-c:color-mix(in srgb,var(--primario) 72%,#000); --ambar-t:#b45309;
+  --r-bg:#ffffff; --r-tx:var(--hero-tx); --r-sub:var(--suave); --r-line:var(--borde); --r-pill:var(--tarjeta2);
+  --r-ok:var(--ok); --r-mal:var(--mal); --r-nota:var(--aviso); --r-btn:var(--tarjeta2);
 }
 @supports (color:hsl(from red h s l)){
   :root{
@@ -55,10 +59,13 @@
     --sombra-s:0 0 0 1px rgba(255,255,255,.03),0 8px 16px -8px rgba(0,0,0,.7);
     --brillo-i:inset 0 1px 0 rgba(255,255,255,.07);
     --primario-texto:color-mix(in srgb,var(--primario) 52%,#fff);
-    --grad-t:linear-gradient(135deg,color-mix(in srgb,var(--primario) 45%,#fff),color-mix(in srgb,var(--p2) 55%,#fde68a));
-    --malla1:color-mix(in srgb,var(--primario) 38%,transparent);
-    --malla2:rgba(251,146,60,.10);
-    --malla3:color-mix(in srgb,var(--p2) 12%,transparent);
+    --grad-t:var(--primario-texto);
+    --malla1:transparent; --malla2:transparent; --malla3:transparent;
+    --hero-bg:var(--tarjeta2); --hero-bd:color-mix(in srgb,var(--primario) 40%,var(--borde)); --hero-tx:var(--texto);
+    --hero-pill:color-mix(in srgb,var(--primario) 26%,var(--tarjeta)); --hero-pill-tx:var(--primario-texto); --hero-sombra:var(--sombra);
+    --precio-c:#fde68a; --ambar-t:#fbbf24;
+    --r-bg:color-mix(in srgb,var(--primario) 42%,#061211); --r-tx:#ffffff; --r-sub:rgba(255,255,255,.82); --r-line:rgba(255,255,255,.25); --r-pill:rgba(255,255,255,.2);
+    --r-ok:#a7f3d0; --r-mal:#fecaca; --r-nota:#fde68a; --r-btn:rgba(255,255,255,.14);
   }
 }
 :root[data-tema="oscuro"]{
@@ -69,10 +76,13 @@
   --sombra-s:0 0 0 1px rgba(255,255,255,.03),0 8px 16px -8px rgba(0,0,0,.7);
   --brillo-i:inset 0 1px 0 rgba(255,255,255,.07);
   --primario-texto:color-mix(in srgb,var(--primario) 52%,#fff);
-  --grad-t:linear-gradient(135deg,color-mix(in srgb,var(--primario) 45%,#fff),color-mix(in srgb,var(--p2) 55%,#fde68a));
-  --malla1:color-mix(in srgb,var(--primario) 38%,transparent);
-  --malla2:rgba(251,146,60,.10);
-  --malla3:color-mix(in srgb,var(--p2) 12%,transparent);
+  --grad-t:var(--primario-texto);
+  --malla1:transparent; --malla2:transparent; --malla3:transparent;
+  --hero-bg:var(--tarjeta2); --hero-bd:color-mix(in srgb,var(--primario) 40%,var(--borde)); --hero-tx:var(--texto);
+  --hero-pill:color-mix(in srgb,var(--primario) 26%,var(--tarjeta)); --hero-pill-tx:var(--primario-texto); --hero-sombra:var(--sombra);
+  --precio-c:#fde68a; --ambar-t:#fbbf24;
+  --r-bg:color-mix(in srgb,var(--primario) 42%,#061211); --r-tx:#ffffff; --r-sub:rgba(255,255,255,.82); --r-line:rgba(255,255,255,.25); --r-pill:rgba(255,255,255,.2);
+  --r-ok:#a7f3d0; --r-mal:#fecaca; --r-nota:#fde68a; --r-btn:rgba(255,255,255,.14);
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;color-scheme:light dark}
@@ -322,6 +332,39 @@ body #act-pantalla .act-btn{border-radius:15px;min-height:50px;font-weight:700;b
 body #act-pantalla .act-btn.pri{background:var(--grad);border-color:transparent;box-shadow:var(--brillo)}
 body #act-pantalla .act-btn.wa{background:linear-gradient(135deg,#25d366,#0e9f6e);color:#052e16;border-color:transparent}
 body #act-pantalla input{border-radius:15px;border-width:1.5px}
+body::before{display:none}
+.hero{background:var(--hero-bg);color:var(--hero-tx);border:1.5px solid var(--hero-bd);box-shadow:var(--hero-sombra)}
+.hero::before,.hero::after{display:none}
+.hero .ey{background:var(--hero-pill);color:var(--hero-pill-tx);border-color:transparent}
+.hero h1,.hero p{color:var(--hero-tx);opacity:1}
+.hero p{color:var(--suave)}
+.marca-ic,.card h2 .num,.pasos li::before{box-shadow:none}
+.btn,.btn.pri,.btn.cal,.btn.wa,.nav,.chip,.chip.sel,.seg button.sel,.nav button.act{box-shadow:none}
+.btn.cal{background:#f59e0b;color:#1b2430;border-color:transparent}
+.btn.wa{background:#25d366;color:#052e16;border-color:transparent}
+.kpi{background:var(--tarjeta);-webkit-backdrop-filter:none;backdrop-filter:none}
+.kpi.al b{background:none;color:var(--ambar-t)}
+.prod .pr b,:root:not([data-tema="oscuro"]) .prod .pr b{background:none;color:var(--ambar-t)}
+@media (prefers-color-scheme:dark){:root:not([data-tema="claro"]) .prod .pr b{background:none;color:var(--ambar-t)}}
+.tipos button.sel,.tipos button.t-fabrico.sel,.tipos button.t-reventa.sel,.tipos button.t-servicio.sel{background:var(--tc);box-shadow:none;color:#fff}
+.tipos button.t-fabrico.sel{color:#1b2430}
+.resumen-c{background:var(--tarjeta2)}
+.resultado{background:var(--r-bg);color:var(--r-tx);border:1.5px solid var(--hero-bd);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:var(--hero-sombra),0 6px 16px rgba(0,0,0,.12)}
+.resultado::before{display:none}
+.resultado small.e,.resultado small.u,.lin span:first-child{color:var(--r-sub)}
+.lin.t span:first-child{color:var(--r-tx)}
+.lin.t,.detalle{border-top-color:var(--r-line)}
+.precio-g{background:none;color:var(--precio-c)}
+.gan .pill{background:var(--r-pill)}
+.gan.ok{color:var(--r-ok)} .gan.mal{color:var(--r-mal)}
+.resultado .vermas{border-color:var(--r-line);background:var(--r-btn);color:var(--r-tx)}
+.detalle .nota{color:var(--r-nota)}
+.res-err{color:var(--r-mal)}
+body #act-pantalla{background:var(--fondo)}
+body #act-pantalla .act-cont h1{background:none;color:var(--primario-texto)}
+body #act-pantalla .act-cod{background:none;color:var(--primario-texto)}
+body #act-pantalla .act-btn,body #act-pantalla .act-btn.pri{box-shadow:none}
+body #act-pantalla .act-btn.wa{background:#25d366}
 </style>
 </head>
 <body>

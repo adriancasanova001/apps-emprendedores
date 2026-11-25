@@ -99,7 +99,7 @@ main.wrap{padding-top:14px;padding-bottom:110px}
 .card h3{font-size:15px;margin:12px 0 6px}
 .nota{color:var(--suave);font-size:14px;margin:2px 0 8px}
 label.l{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
-input[type=text],input[type=search],input[type=tel],input[type=number],input[type=date],input[type=time],select,textarea{width:100%;min-height:46px;border:1px solid var(--borde);background:var(--campo);border-radius:12px;padding:8px 12px}
+input[type=text],input[type=password],input[type=search],input[type=tel],input[type=number],input[type=date],input[type=time],select,textarea{width:100%;min-height:46px;border:1px solid var(--borde);background:var(--campo);border-radius:12px;padding:8px 12px}
 textarea{min-height:84px;resize:vertical}
 input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid color-mix(in srgb,var(--primario) 50%,transparent);outline-offset:1px}
 .fila2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -148,6 +148,7 @@ input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{out
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
 .stat{background:var(--vidrio);border:1px solid color-mix(in srgb,var(--primario) 16%,var(--borde));border-radius:14px;padding:10px 8px;text-align:center}
 .stat b{display:block;font-size:19px;font-weight:800;line-height:1.2;overflow-wrap:anywhere;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dato2{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--borde)}.dato2:last-child{border:0}.dato2 span:first-child{color:var(--suave)}
 .stat small{color:var(--suave);font-size:12px}
 .stat.cob b{background:linear-gradient(135deg,#4ade80,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
 .siguiente{display:block;width:100%;text-align:left;border:0;border-radius:16px;padding:12px 14px;margin-bottom:10px;background:var(--grad);color:var(--sobre-primario);box-shadow:var(--brillo);cursor:pointer;min-height:64px}
@@ -313,9 +314,37 @@ nav.tabs .mas{background:var(--grad);color:var(--sobre-primario);box-shadow:var(
 .s-x{background:var(--tarjeta2);box-shadow:var(--sombra-s)}
 .pasos li::before{background:var(--grad);color:#fff;box-shadow:var(--brillo)}
 .iconos button.sel{background:var(--grad)}
+.iconos{grid-template-columns:repeat(6,1fr)}
+.ico{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vertical-align:-5px}
+.ico .a{stroke:url(#icg)}
+.iconos button{display:grid;place-items:center;color:var(--texto)}.iconos button .ico{width:26px;height:26px}
+.iconos button.sel{color:#fff}.iconos button.sel .ico .a,.chip.sel .ico .a{stroke:currentColor}
+.chip .ico{width:18px;height:18px;vertical-align:-4px}
+.fila .av{color:var(--primario-texto,var(--primario))}
 .etq{border-radius:999px}
 #toast{background:var(--texto);color:var(--fondo);border-radius:14px;box-shadow:var(--sombra)}
 .meter,.barra{background:var(--tarjeta2)}
+@media (prefers-color-scheme:light){:root:not([data-tema="oscuro"]) {--fondo:#edf6f3;--tarjeta2:#f4faf8;--borde:#d4e6e0;--malla1:transparent;--malla2:transparent;--malla3:transparent;--grad:var(--primario);--grad-t:var(--primario);--grad-hero:#fff;--grad-calido:#f59e0b;--brillo:0 0 0 0 transparent;--brillo-c:0 0 0 0 transparent}
+:root:not([data-tema="oscuro"])  body{background:var(--fondo)}
+:root:not([data-tema="oscuro"])  .siguiente{background:#fff;border:1.5px solid #bfe0d6;box-shadow:0 10px 30px -14px rgba(15,118,110,.35);color:#0b3b36}
+:root:not([data-tema="oscuro"])  .siguiente::after{display:none}
+:root:not([data-tema="oscuro"])  .siguiente small,:root:not([data-tema="oscuro"])  .siguiente span,:root:not([data-tema="oscuro"])  .siguiente b{color:#0b3b36}
+:root:not([data-tema="oscuro"])  .siguiente small{display:inline-block;background:#d6efe7;color:#0f766e;border-radius:999px;padding:3px 10px;opacity:1}
+:root:not([data-tema="oscuro"])  .recobj .btn{background:#f59e0b;color:#1b2430;box-shadow:none}
+:root:not([data-tema="oscuro"])  nav.tabs .mas{background:#f59e0b;color:#1b2430;box-shadow:0 6px 16px -8px rgba(245,158,11,.8)}
+:root:not([data-tema="oscuro"])  .btn.wa,.chip.wa{background:#25d366;box-shadow:none}
+:root:not([data-tema="oscuro"])  .btn.pri,:root:not([data-tema="oscuro"])  .plan:not(.full),:root:not([data-tema="oscuro"])  .chip.sel,:root:not([data-tema="oscuro"])  .slot.sel,:root:not([data-tema="oscuro"])  .seg button.sel{box-shadow:none}
+}
+:root[data-tema="claro"] {--fondo:#edf6f3;--tarjeta2:#f4faf8;--borde:#d4e6e0;--malla1:transparent;--malla2:transparent;--malla3:transparent;--grad:var(--primario);--grad-t:var(--primario);--grad-hero:#fff;--grad-calido:#f59e0b;--brillo:0 0 0 0 transparent;--brillo-c:0 0 0 0 transparent}
+:root[data-tema="claro"]  body{background:var(--fondo)}
+:root[data-tema="claro"]  .siguiente{background:#fff;border:1.5px solid #bfe0d6;box-shadow:0 10px 30px -14px rgba(15,118,110,.35);color:#0b3b36}
+:root[data-tema="claro"]  .siguiente::after{display:none}
+:root[data-tema="claro"]  .siguiente small,:root[data-tema="claro"]  .siguiente span,:root[data-tema="claro"]  .siguiente b{color:#0b3b36}
+:root[data-tema="claro"]  .siguiente small{display:inline-block;background:#d6efe7;color:#0f766e;border-radius:999px;padding:3px 10px;opacity:1}
+:root[data-tema="claro"]  .recobj .btn{background:#f59e0b;color:#1b2430;box-shadow:none}
+:root[data-tema="claro"]  nav.tabs .mas{background:#f59e0b;color:#1b2430;box-shadow:0 6px 16px -8px rgba(245,158,11,.8)}
+:root[data-tema="claro"]  .btn.wa,.chip.wa{background:#25d366;box-shadow:none}
+:root[data-tema="claro"]  .btn.pri,:root[data-tema="claro"]  .plan:not(.full),:root[data-tema="claro"]  .chip.sel,:root[data-tema="claro"]  .slot.sel,:root[data-tema="claro"]  .seg button.sel{box-shadow:none}
 .hero{position:relative;overflow:hidden;border-radius:32px;padding:22px 20px 58px;color:#fff;background:var(--grad-hero);box-shadow:0 24px 50px -22px color-mix(in srgb,var(--primario) 80%,#000),inset 0 1px 0 rgba(255,255,255,.25)}
 .hero::before{content:"";position:absolute;right:-60px;top:-70px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.38),rgba(255,255,255,0) 68%)}
 .hero::after{content:"";position:absolute;left:-40px;bottom:-90px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.55),rgba(251,191,36,0) 66%)}
@@ -325,6 +354,33 @@ nav.tabs .mas{background:var(--grad);color:var(--sobre-primario);box-shadow:var(
 .hero p{font-size:15px;opacity:.92;margin:0 0 16px}
 .btn.cal{background:var(--grad-calido);color:#2b1700;border-color:transparent;box-shadow:var(--brillo-c),inset 0 1px 0 rgba(255,255,255,.45)}
 .hero + .fecha-barra{margin-top:12px}
+@media (prefers-color-scheme:light){:root:not([data-tema="oscuro"]) .hero{background:#fff;border:1.5px solid #bfe0d6;box-shadow:0 10px 30px -14px rgba(15,118,110,.35);color:#0b3b36}
+:root:not([data-tema="oscuro"]) .hero::before,.hero::after{display:none}
+:root:not([data-tema="oscuro"]) .hero h1,.hero p{color:#0b3b36;opacity:1}
+:root:not([data-tema="oscuro"]) .hero .ey{background:#d6efe7;color:#0f766e;border-color:transparent}
+:root:not([data-tema="oscuro"]) .btn.cal{background:#f59e0b;color:#1b2430;box-shadow:none}
+:root:not([data-tema="oscuro"]) .btn.wa,.chip.wa{background:#25d366;box-shadow:none}
+}
+:root[data-tema="claro"] .hero{background:#fff;border:1.5px solid #bfe0d6;box-shadow:0 10px 30px -14px rgba(15,118,110,.35);color:#0b3b36}
+:root[data-tema="claro"] .hero::before,.hero::after{display:none}
+:root[data-tema="claro"] .hero h1,.hero p{color:#0b3b36;opacity:1}
+:root[data-tema="claro"] .hero .ey{background:#d6efe7;color:#0f766e;border-color:transparent}
+:root[data-tema="claro"] .btn.cal{background:#f59e0b;color:#1b2430;box-shadow:none}
+:root[data-tema="claro"] .btn.wa,.chip.wa{background:#25d366;box-shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-tema="claro"]) .hero::before,.hero::after,.siguiente::after{display:none}
+:root:not([data-tema="claro"]) .btn.cal,.btn.wa{box-shadow:none}
+:root:not([data-tema="claro"]) .btn.cal{background:#f59e0b;color:#1b2430}
+:root:not([data-tema="claro"]) .btn.wa,.chip.wa{background:#25d366}
+.hero p{color:#fff}
+:root:not([data-tema="claro"]) .hero,.cierre{box-shadow:0 10px 30px -14px rgba(0,0,0,.6)}
+:root:not([data-tema="claro"]){--grad-calido:#f59e0b}}
+:root[data-tema="oscuro"] .hero::before,.hero::after,.siguiente::after{display:none}
+:root[data-tema="oscuro"] .btn.cal,.btn.wa{box-shadow:none}
+:root[data-tema="oscuro"] .btn.cal{background:#f59e0b;color:#1b2430}
+:root[data-tema="oscuro"] .btn.wa,.chip.wa{background:#25d366}
+.hero p{color:#fff}
+:root[data-tema="oscuro"] .hero,.cierre{box-shadow:0 10px 30px -14px rgba(0,0,0,.6)}
+:root[data-tema="oscuro"]{--grad-calido:#f59e0b}
 </style>
 </head>
 <body>
@@ -762,7 +818,8 @@ function nuevoEstado(){
     negocio: {nombre: "Mi negocio", color: "#0f766e", logo: "", tema: "auto", intro: false},
     horario: hor, paso: 15, dias: 30,
     plant: {
-      rec: "¡Hola {nombre}! 👋😊 Te recuerdo tu hora de {servicio} {dia} a las {hora} ⏰💈\n\nSi no puedes venir, avísame y la cambiamos 📅\n¡Te esperamos! 🙌 {negocio}",
+      conf: "¡Hola {nombre}! 👋😊 Tu hora en {negocio} está confirmada ✅\n\n📅 {dia} a las {hora}\n✂️ {servicio}{con}{link}\n¡Te esperamos! 🙌",
+      rec:"¡Hola {nombre}! 👋😊 Te recuerdo tu hora de {servicio} {dia} a las {hora} ⏰💈\n\nSi no puedes venir, avísame y la cambiamos 📅\n¡Te esperamos! 🙌 {negocio}",
       eco: "¡Hola {nombre}! 👋😃 Hace un tiempo que no te vemos por {negocio} 💈 ¿Te reservo una hora esta semana? ✂️ ¡Tengo horarios disponibles! 📅🙌",
       cum: "¡Feliz cumpleaños {nombre}! 🎂🎉🥳 Un abrazo de parte de todos en {negocio}. ¡Que lo pases genial! 🎁✨"
     },
@@ -859,9 +916,11 @@ function varsCita(c){
   var nombre = nomCli(c).split(" ")[0], f = c.f, dia;
   if (f === hoyISO()) dia = "hoy"; else if (f === sumaDias(hoyISO(), 1)) dia = "mañana"; else dia = "el " + fechaLarga(f);
   var p = prof(c.p);
-  return {nombre: nombre, servicio: (c.sn || []).join(" + ").toLowerCase(), dia: dia, hora: hhmm(c.i), negocio: E.negocio.nombre, profesional: p ? p.nombre : ""};
+  return {nombre: nombre, servicio: (c.sn || []).join(" + ").toLowerCase(), dia: dia, hora: hhmm(c.i), negocio: E.negocio.nombre, profesional: p ? p.nombre : "",
+    con: E.prof.length > 1 && p ? "\n👤 Con " + p.nombre : "", link: c.link ? "\n\n🔗 Ver o cancelar tu hora: " + c.link : ""};
 }
 function mensajeCita(c){ return llenar(E.plant.rec, varsCita(c)); }
+function mensajeConf(c){ return llenar(E.plant.conf || nuevoEstado().plant.conf, varsCita(c)); }
 function aplicarApariencia(){
   var n = E.negocio, r = document.documentElement;
   r.setAttribute("data-tema", n.tema === "claro" ? "claro" : n.tema === "oscuro" ? "oscuro" : "auto");
@@ -1101,7 +1160,7 @@ function vServicios(){
   if (UI.serTab === "servicios"){
     h += '<p class="nota">Lo que ofreces, con su duración y precio. La duración define cuánto espacio ocupa en la agenda.</p>';
     if (!E.serv.length) h += '<div class="vacio">Aún no tienes servicios.</div>';
-    E.serv.forEach(function(s){ h += '<div class="fila" data-a="editServicio" data-id="' + s.id + '" role="button" tabindex="0">' + (s.ic ? '<div class="av" style="font-size:22px">' + s.ic + '</div>' : '') + '<div class="tx"><b>' + esc(s.nombre) + '</b><small>' + durTxt(s.min) + '</small></div><div class="der">' + plata(s.precio) + '</div></div>'; });
+    E.serv.forEach(function(s){ h += '<div class="fila" data-a="editServicio" data-id="' + s.id + '" role="button" tabindex="0">' + (s.ic ? '<div class="av">' + icoSvg(s.ic) + '</div>' : '') + '<div class="tx"><b>' + esc(s.nombre) + '</b><small>' + durTxt(s.min) + '</small></div><div class="der">' + plata(s.precio) + '</div></div>'; });
   } else {
     h += '<p class="nota">Las personas que atienden. Cada una tiene su propia agenda: dos profesionales sí pueden tener citas a la misma hora.</p>';
     E.prof.forEach(function(p){
@@ -1114,6 +1173,7 @@ function vServicios(){
 function vAjustes(){
   var n = E.negocio, h = '<div class="cabeza"><h1>Ajustes</h1></div>';
   h += '<div class="card"><h2>¿Cómo se usa?</h2><p class="nota">Los pasos básicos en una pantalla.</p><div class="acciones" style="margin-top:0"><button type="button" class="btn" data-a="ayuda">Ver la ayuda</button></div></div>';
+  h += '<div class="card"><h2>Ventas y pagos</h2><p class="nota">Cuánto vendió cada profesional, cuánto le corresponde (comisión o sueldo) y cuánto queda para el negocio.</p><div class="acciones" style="margin-top:0"><button type="button" class="btn pri" data-a="informe">Ver informe</button></div></div>';
   var mes = citasMes(hoyISO());
   h += '<div class="card"><h2>' + (esCompleta() ? "Versión completa" : "Versión gratis") + '</h2>';
   if (esCompleta()) h += '<p class="nota">Sin límites. Tu licencia está activa en este celular.</p>';
@@ -1138,6 +1198,7 @@ function vAjustes(){
   });
   h += '<label class="l">Tamaño de cada casilla de la agenda</label><div class="seg">' + [15, 30, 60].map(function(p){ return '<button type="button" class="' + (E.paso === p ? "sel" : "") + '" data-a="paso" data-id="' + p + '">' + p + ' min</button>'; }).join("") + '</div></div>';
   h += '<div class="card"><h2>Mensajes de WhatsApp</h2><p class="nota">La app arma el mensaje y abre WhatsApp: tú lo revisas y lo envías. Puedes usar: {nombre} {servicio} {dia} {hora} {negocio}.</p>' +
+    '<label class="l" for="pConf">Confirmación de reserva</label><textarea id="pConf" data-in="plant" data-k="conf">' + esc(E.plant.conf) + '</textarea><p class="nota">Puedes usar {nombre}, {servicio}, {dia}, {hora}, {negocio}, {con} y {link}.</p>' +
     '<label class="l" for="pRec">Recordatorio de cita</label><textarea id="pRec" data-in="plant" data-k="rec">' + esc(E.plant.rec) + '</textarea>' +
     '<label class="l" for="pEco">Para clientes que no vuelven</label><textarea id="pEco" data-in="plant" data-k="eco">' + esc(E.plant.eco) + '</textarea>' +
     '<label class="l" for="pCum">Cumpleaños</label><textarea id="pCum" data-in="plant" data-k="cum">' + esc(E.plant.cum) + '</textarea>' +
@@ -1171,7 +1232,7 @@ function htmlCita(){
   var exacto = !existe && F.cn.trim() && E.cli.some(function(k){ return k.nombre.toLowerCase() === F.cn.trim().toLowerCase(); });
   h += '<label class="l" for="fCli">Cliente</label><input type="text" id="fCli" autocomplete="off" placeholder="Escribe el nombre" value="' + esc(F.cn) + '" data-in="fCli"><div class="sug" id="sug"></div>';
   if (!existe && F.cn.trim() && !exacto) h += '<label class="l" for="fTel">WhatsApp del cliente (opcional)</label><input type="tel" id="fTel" inputmode="tel" placeholder="9 1234 5678" value="' + esc(F.tel) + '" data-in="fTel">';
-  h += '<label class="l">Servicios</label><div class="chips">' + E.serv.map(function(s){ return '<button type="button" class="chip' + (F.s.indexOf(s.id) >= 0 ? " sel" : "") + '" data-a="tglServ" data-id="' + s.id + '">' + esc((s.ic ? s.ic + " " : "") + s.nombre) + '</button>'; }).join("") + '</div>';
+  h += '<label class="l">Servicios</label><div class="chips">' + E.serv.map(function(s){ return '<button type="button" class="chip' + (F.s.indexOf(s.id) >= 0 ? " sel" : "") + '" data-a="tglServ" data-id="' + s.id + '">' + (s.ic ? icoSvg(s.ic) + ' ' : '') + esc(s.nombre) + '</button>'; }).join("") + '</div>';
   if (!E.serv.length) h += '<p class="nota">Primero agrega servicios en la pestaña Servicios.</p>';
   h += '<div class="fila2"><div><label class="l" for="fDur">Duración (min)</label><input type="number" id="fDur" inputmode="numeric" min="5" step="5" value="' + (F.d || "") + '" data-in="fDur"></div>' +
     '<div><label class="l" for="fPre">Precio ($)</label><input type="number" id="fPre" inputmode="numeric" min="0" step="500" value="' + (F.t || "") + '" data-in="fPre"></div></div>';
@@ -1284,7 +1345,7 @@ function hojaCitaVer(id){
   }
   var p = prof(c.p), tel = telCli(c);
   var estados = {pend: ["Pendiente", ""], hecha: ["Atendida y cobrada", "ok"], novino: ["No vino", "mal"], cancelada: ["Cancelada", "mal"]};
-  var h = '<h3 class="tit">' + esc(nomCli(c)) + '</h3><span class="etq ' + estados[c.est][1] + '">' + estados[c.est][0] + '</span>' + (c.g ? ' <span class="etq">Se repite</span>' : '') +
+  var h = '<h3 class="tit">' + esc(nomCli(c)) + '</h3><span class="etq ' + estados[c.est][1] + '">' + estados[c.est][0] + '</span>' + (c.g ? ' <span class="etq">Se repite</span>' : '') + (c.origen === "online" ? ' <span class="etq">Reservó por internet</span>' : '') +
     '<div class="card" style="margin-top:12px"><div class="dato"><span>Día</span><span>' + esc(cap(fechaLarga(c.f))) + '</span></div>' +
     '<div class="dato"><span>Hora</span><span>' + hhmm(c.i) + ' a ' + hhmm(c.i + c.d) + ' (' + durTxt(c.d) + ')</span></div>' +
     '<div class="dato"><span>Servicios</span><span>' + esc((c.sn || []).join(" + ") || "—") + '</span></div>' +
@@ -1293,7 +1354,8 @@ function hojaCitaVer(id){
     (c.est === "hecha" && c.pago ? '<div class="dato"><span>Pago</span><span>' + esc(c.pago) + (c.tip ? ' · propina ' + plata(c.tip) : '') + (c.t0 && c.t0 !== c.t ? ' · antes ' + plata(c.t0) : '') + '</span></div>' : '') +
     (c.n ? '<div class="dato"><span>Nota</span><span>' + esc(c.n) + '</span></div>' : '') + '</div>';
   h += '<div class="acciones">' +
-    (tel ? '<a class="btn wa block" target="_blank" rel="noopener" href="' + waLink(tel, mensajeCita(c)) + '" data-a="marcarRec" data-id="' + c.id + '">' + (c.rec ? "Recordar de nuevo por WhatsApp" : "Recordar por WhatsApp") + '</a>' : '<button type="button" class="btn block" data-a="faltaTel" data-id="' + c.id + '">Agregar WhatsApp para recordar</button>') + '</div>';
+    (tel && c.est === "pend" ? '<a class="btn wa block" style="flex:1 1 100%" target="_blank" rel="noopener" href="' + waLink(tel, mensajeConf(c)) + '">' + (c.origen === "online" ? "Confirmar la reserva por WhatsApp" : "Enviar confirmación por WhatsApp") + '</a>' : '') +
+    (tel ? '<a class="btn wa block" style="flex:1 1 100%" target="_blank" rel="noopener" href="' + waLink(tel, mensajeCita(c)) + '" data-a="marcarRec" data-id="' + c.id + '">' + (c.rec ? "Recordar de nuevo por WhatsApp" : "Recordar por WhatsApp") + '</a>' : '<button type="button" class="btn block" data-a="faltaTel" data-id="' + c.id + '">Agregar WhatsApp para recordar</button>') + '</div>';
   h += '<div class="acciones">';
   if (c.est === "pend") h += '<button type="button" class="btn pri" data-a="estadoCita" data-id="' + c.id + '" data-e="hecha">Atendida y cobrada ✓</button><button type="button" class="btn" data-a="estadoCita" data-id="' + c.id + '" data-e="novino">No vino</button>';
   else h += '<button type="button" class="btn" data-a="estadoCita" data-id="' + c.id + '" data-e="pend">Volver a pendiente</button>';
@@ -1378,7 +1440,41 @@ function guardarCliente(){
   }
   guardar(); cerrarHoja(); dibujar(); toast("Cliente guardado");
 }
-var ICONOS = ["✂️", "💈", "🧔", "🪒", "💇", "💇‍♀️", "💅", "💆", "👁️", "🎨", "✨", "🧴", "💄", "🧖", "🦶", "⭐"];
+var ICO = {
+  "✂": '<circle cx="6" cy="6.5" r="2.6"/><circle cx="6" cy="17.5" r="2.6"/><path d="M8.2 8l11.3 9.2M8.2 16l11.3-9.2"/><circle class="a" cx="13.85" cy="12" r=".9"/>',
+  "💈": '<rect x="7" y="3" width="10" height="2.6" rx="1.3"/><rect x="7" y="18.4" width="10" height="2.6" rx="1.3"/><rect x="8" y="5.6" width="8" height="12.8"/><path class="a" d="M8 9.5l8-3M8 14l8-3M8 18l8-3"/>',
+  "🧔": '<path d="M6 8c0-3 2.5-5 6-5s6 2 6 5"/><path d="M6 8v3.5c0 4.5 2.5 8 6 8s6-3.5 6-8V8"/><path class="a" d="M9 13.4c1-1 2-1 3 0 1-1 2-1 3 0"/><path d="M10.8 16.4h2.4M9.5 10.2h.01M14.5 10.2h.01"/>',
+  "🪒": '<g transform="rotate(-32 12 12)"><path d="M13 9.2H2.8l2.4 5.6H13"/><rect x="13" y="9.2" width="8.5" height="5.6" rx="2.8"/><path class="a" d="M2.8 9.2l2.4 5.6"/><circle class="a" cx="17" cy="12" r=".9"/></g>',
+  "🪮": '<path d="M3.5 9.5A1.5 1.5 0 0 1 5 8h14a1.5 1.5 0 0 1 1.5 1.5V12h-17z"/><path class="a" d="M6 12v6M9 12v6M12 12v6M15 12v6M18 12v6"/>',
+  "🖌": '<path d="M6.5 11C6 6.5 9 3.5 12 3.5s6 3 5.5 7.5"/><path d="M6 11h12M9 11l.8 4.5h4.4L15 11M10 15.5l-.5 5h5l-.5-5"/><path class="a" d="M10 6.5v3M14 6.5v3M12 5.2v4.3"/>',
+  "💇‍♀": '<rect x="2.5" y="5" width="12" height="7" rx="3.5"/><path d="M14.5 6.2l3.5-1v7.6l-3.5-1M7.5 12l-1 7.2a1 1 0 0 0 1 1.2h2.4a1 1 0 0 0 1-1.2L10 12"/><path class="a" d="M20.7 6.5v2M20.7 10v2"/>',
+  "💅": '<rect x="9" y="3" width="6" height="6" rx="1.5"/><path d="M10.5 9v2M13.5 9v2M8.5 11h7a2.5 2.5 0 0 1 2.5 2.5v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 6 18.5v-5A2.5 2.5 0 0 1 8.5 11z"/><path class="a" d="M9.2 14.5v3"/>',
+  "💆": '<path d="M12 5c2 2 3 4.2 3 6.5s-1.2 3.8-3 5c-1.8-1.2-3-2.7-3-5S10 7 12 5z"/><path class="a" d="M9 12.5C6.5 12 4.5 10.8 3.5 9c-.3 3 1.2 6.4 5.5 8M15 12.5c2.5-.5 4.5-1.7 5.5-3.5.3 3-1.2 6.4-5.5 8"/><path d="M6 20h12"/>',
+  "👁": '<path d="M2.5 14.5c2.2-3 5.4-4.5 9.5-4.5s7.3 1.5 9.5 4.5c-2.2 3-5.4 4.5-9.5 4.5s-7.3-1.5-9.5-4.5z"/><circle class="a" cx="12" cy="14.5" r="2.5"/><path d="M4.5 7.5C6.7 5.9 9.3 5 12 5s5.3.9 7.5 2.5"/>',
+  "🎨": '<path d="M3.5 11.5h12a6 6 0 0 1-12 0z"/><path d="M20.5 3.5L11.5 9.5"/><path class="a" d="M11.5 9.5c-1.6-.2-2.6.8-2.9 2 1.4.2 2.7-.3 3.4-1.5"/><path class="a" d="M19 14.5c1.3 1.6 2 2.7 2 3.7a2 2 0 0 1-4 0c0-1 .7-2.1 2-3.7z"/>',
+  "✨": '<path d="M10 4l1.6 4.4L16 10l-4.4 1.6L10 16l-1.6-4.4L4 10l4.4-1.6z"/><path class="a" d="M18 13.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/>',
+  "🧴": '<path d="M9 8h6v1.5l1.5 1.5v8.5a1.5 1.5 0 0 1-1.5 1.5H9a1.5 1.5 0 0 1-1.5-1.5V11L9 9.5z"/><path d="M12 8V4.5h3.5"/><path class="a" d="M9.8 14h4.4M9.8 17h2.6"/>',
+  "💄": '<rect x="8" y="13" width="8" height="8" rx="1.5"/><path d="M9 13v-2h6v2"/><path class="a" d="M10 11V5.5L14.5 3v8"/>',
+  "🧖": '<path d="M4 12h16v3.5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path class="a" d="M8.5 8.5c-1-1 1-2 0-3.2M12 8.5c-1-1 1-2 0-3.2M15.5 8.5c-1-1 1-2 0-3.2"/>',
+  "🦶": '<path d="M7.5 12c0-2.4 1.8-4 4-4s4 1.6 4 4c0 1.8-1 3-1.2 4.6-.2 2.4-.9 4-2.8 4s-2.6-1.6-2.8-4C8.5 15 7.5 13.8 7.5 12z"/><circle class="a" cx="8.3" cy="5.6" r=".9"/><circle class="a" cx="11" cy="4.3" r=".9"/><circle class="a" cx="13.7" cy="4.3" r=".9"/><circle class="a" cx="16" cy="5.6" r=".9"/>',
+  "⭐": '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 17l-5.2 2.7 1-5.9L3.5 9.7l5.9-.8z"/>',
+  "👦": '<circle cx="12" cy="13" r="7"/><path d="M5.6 11.4C8.6 11.2 10.8 9.8 11.8 7.4c1 2.4 3.2 3.8 6.6 4"/><path class="a" d="M9.6 14.2h.01M14.4 14.2h.01M10 17c1.2 1 2.8 1 4 0"/>',
+  "💎": '<path d="M6.5 4h11l4 5.5L12 20.5 2.5 9.5z"/><path class="a" d="M2.5 9.5h19M9 4L7.5 9.5 12 20.5M15 4l1.5 5.5L12 20.5"/>'
+};
+var ICO_ALIAS = {"💇": "🪮", "💇‍♂": "🪮", "💆‍♂": "💆", "🧔‍♂": "🧔", "🪥": "🧴", "🧼": "🧴", "🔥": "✨", "💫": "✨", "🌟": "⭐", "👧": "👦", "👶": "👦", "🧒": "👦"};
+function icoSvg(e){
+  var k = String(e == null ? "" : e).replace(/️/g, ""), s = ICO[k] || ICO[ICO_ALIAS[k]];
+  if (!s) return String(e == null ? "" : e).replace(/[&<>"']/g, function(c){ return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]; });
+  return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + s + '</svg>';
+}
+function icoDefs(){
+  if (document.getElementById("icg-s") || !document.body) return;
+  var d = document.createElement("div"); d.id = "icg-s"; d.setAttribute("aria-hidden", "true"); d.style.cssText = "position:absolute;width:0;height:0;overflow:hidden";
+  d.innerHTML = '<svg width="0" height="0"><defs><linearGradient id="icg" gradientUnits="userSpaceOnUse" x1="3" y1="3" x2="21" y2="21"><stop offset="0" style="stop-color:var(--primario)"/><stop offset="1" style="stop-color:#f59e0b"/></linearGradient></defs></svg>';
+  document.body.insertBefore(d, document.body.firstChild);
+}
+if (document.body) icoDefs(); else document.addEventListener("DOMContentLoaded", icoDefs);
+var ICONOS = ["✂️", "💈", "🧔", "🪒", "🪮", "🖌️", "💇‍♀️", "💅", "💆", "👁️", "🎨", "✨", "🧴", "💄", "🧖", "🦶", "⭐", "💎"];
 function hojaServicio(sv){
   F = {tipo: "serv", id: sv ? sv.id : "", nombre: sv ? sv.nombre : "", min: sv ? sv.min : 30, precio: sv ? sv.precio : "", ic: sv ? (sv.ic || "") : ""};
   abrirHoja(htmlServicio(), htmlServicio);
@@ -1386,7 +1482,7 @@ function hojaServicio(sv){
 function htmlServicio(){
   return '<h3 class="tit">' + (F.id ? "Editar servicio" : "Nuevo servicio") + '</h3>' +
     '<label class="l" for="sNom">Nombre</label><input type="text" id="sNom" value="' + esc(F.nombre) + '" maxlength="50" placeholder="Ej: Corte fade" data-in="sNom">' +
-    '<label class="l">Ícono</label><div class="iconos">' + ICONOS.map(function(e){ return '<button type="button" class="' + (F.ic === e ? "sel" : "") + '" data-a="sIc" data-id="' + e + '" aria-label="Ícono">' + e + '</button>'; }).join("") + '</div>' +
+    '<label class="l">Ícono</label><div class="iconos">' + ICONOS.map(function(e){ return '<button type="button" class="' + (F.ic === e ? "sel" : "") + '" data-a="sIc" data-id="' + e + '" aria-label="Ícono">' + icoSvg(e) + '</button>'; }).join("") + '</div>' +
     '<label class="l" for="sMin">Duración (minutos)</label><input type="number" id="sMin" inputmode="numeric" min="5" step="5" value="' + F.min + '" data-in="sMin">' +
     '<div class="chips" style="margin-top:8px">' + [15, 30, 45, 60, 90].map(function(m){ return '<button type="button" class="chip" data-a="sDur" data-id="' + m + '">' + m + ' min</button>'; }).join("") + '</div>' +
     '<label class="l" for="sPre">Precio ($)</label><input type="number" id="sPre" inputmode="numeric" min="0" step="500" value="' + F.precio + '" data-in="sPre">' +
@@ -1400,20 +1496,71 @@ function guardarServicio(){
   guardar(); cerrarHoja(); dibujar(); toast("Servicio guardado");
 }
 function hojaProf(p){
-  F = {tipo: "prof", id: p ? p.id : "", nombre: p ? p.nombre : "", color: p ? p.color : PALETA[E.prof.length % PALETA.length]};
+  var pg = p ? (p.pago || {m: "fijo", pct: 0, base: 0}) : {m: "com", pct: 50, base: 0};
+  F = {tipo: "prof", id: p ? p.id : "", nombre: p ? p.nombre : "", color: p ? p.color : PALETA[E.prof.length % PALETA.length], m: pg.m, pct: pg.pct, base: pg.base};
   abrirHoja(htmlProf(), htmlProf);
 }
 function htmlProf(){
   return '<h3 class="tit">' + (F.id ? "Editar profesional" : "Nuevo profesional") + '</h3>' +
     '<label class="l" for="pNom">Nombre</label><input type="text" id="pNom" value="' + esc(F.nombre) + '" maxlength="40" data-in="pNom">' +
     '<label class="l">Color en la agenda</label><div class="colores">' + PALETA.map(function(c){ return '<button type="button" class="col' + (F.color === c ? " sel" : "") + '" style="background:' + c + '" data-a="pColor" data-id="' + c + '" aria-label="Color"></button>'; }).join("") + '</div>' +
+    '<label class="l">¿Cómo se le paga?</label><div class="chips">' + [["com", "Comisión"], ["fijo", "Sueldo fijo"], ["mixto", "Sueldo + comisión"]].map(function(x){ return '<button type="button" class="chip' + (F.m === x[0] ? " sel" : "") + '" data-a="pMod" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join("") + '</div>' +
+    (F.m !== "fijo" ? '<label class="l" for="pPct">Porcentaje que se lleva el profesional (%)</label><input type="number" id="pPct" inputmode="numeric" min="0" max="100" value="' + esc(F.pct) + '" data-in="pPct">' : '') +
+    (F.m !== "com" ? '<label class="l" for="pBase">Sueldo mensual ($)</label><input type="number" id="pBase" inputmode="numeric" min="0" value="' + esc(F.base) + '" data-in="pBase">' : '') +
+    '<p class="nota">Esto sirve para el informe de ventas y pagos. No cambia lo que cobras a tus clientes.</p>' +
     '<div class="acciones"><button type="button" class="btn pri" data-a="guardarProf">Guardar</button>' + (F.id && E.prof.length > 1 ? '<button type="button" class="btn mal" data-a="borrarProf" data-id="' + F.id + '">Borrar</button>' : '') + '</div>';
 }
 function guardarProf(){
   if (!F.nombre.trim()) return toast("Escribe el nombre.");
-  if (F.id){ var p = prof(F.id); p.nombre = F.nombre.trim(); p.color = F.color; }
-  else { if (limite("prof")) return; E.prof.push({id: uid(), nombre: F.nombre.trim(), color: F.color}); }
+  var pg = {m: F.m, pct: Math.min(100, Math.max(0, Math.round(+F.pct || 0))), base: Math.max(0, Math.round(+F.base || 0))};
+  if (F.id){ var p = prof(F.id); p.nombre = F.nombre.trim(); p.color = F.color; p.pago = pg; }
+  else { if (limite("prof")) return; E.prof.push({id: uid(), nombre: F.nombre.trim(), color: F.color, pago: pg}); }
   guardar(); cerrarHoja(); dibujar(); toast("Profesional guardado");
+}
+function rangoInf(k){
+  var h = hoyISO(), d = pISO(h);
+  if (k === "hoy") return [h, h];
+  if (k === "semana"){ var i = inicioSemana(h); return [i, sumaDias(i, 6)]; }
+  if (k === "mes") return [fISO(new Date(d.getFullYear(), d.getMonth(), 1)), fISO(new Date(d.getFullYear(), d.getMonth() + 1, 0))];
+  return [fISO(new Date(d.getFullYear(), d.getMonth() - 1, 1)), fISO(new Date(d.getFullYear(), d.getMonth(), 0))];
+}
+function mon(n){ return n < 0 ? "-" + plata(-n) : plata(n); }
+function esSoloProf(){ return typeof PRO !== "undefined" && PRO.rol === "prof"; }
+function calcInforme(k){
+  var r = rangoInf(k), mensual = k === "mes" || k === "pasado", filas = [];
+  E.prof.forEach(function(p){
+    var cs = E.citas.filter(function(c){ return c.p === p.id && c.est === "hecha" && !c.b && c.f >= r[0] && c.f <= r[1]; });
+    var ventas = cs.reduce(function(s, c){ return s + (c.t || 0); }, 0), prop = cs.reduce(function(s, c){ return s + (c.tip || 0); }, 0);
+    var pg = p.pago || {m: "fijo", pct: 0, base: 0};
+    var com = pg.m !== "fijo" ? Math.round(ventas * pg.pct / 100) : 0, base = pg.m !== "com" && mensual ? pg.base : 0;
+    filas.push({p: p, pg: pg, n: cs.length, ventas: ventas, prop: prop, com: com, base: base, gana: com + base});
+  });
+  return {r: r, mensual: mensual, filas: filas};
+}
+function htmlInforme(){
+  var k = F.per, I = calcInforme(k), solo = esSoloProf();
+  var per = [["hoy", "Hoy"], ["semana", "Esta semana"], ["mes", "Este mes"], ["pasado", "Mes pasado"]];
+  var h = '<h3 class="tit">' + (solo ? "Mis ventas" : "Ventas y pagos") + '</h3><div class="chips" style="margin-bottom:8px">' + per.map(function(x){ return '<button type="button" class="chip' + (k === x[0] ? " sel" : "") + '" data-a="infPer" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join("") + '</div>' +
+    '<p class="nota">Del ' + fechaCorta(I.r[0]) + ' al ' + fechaCorta(I.r[1]) + '. Solo cuentan las citas atendidas y cobradas.</p>';
+  var tot = {n: 0, v: 0, g: 0, pr: 0}, txt = "📊 Ventas " + E.negocio.nombre + " (" + fechaCorta(I.r[0]) + " al " + fechaCorta(I.r[1]) + ")\n";
+  I.filas.forEach(function(f){
+    tot.n += f.n; tot.v += f.ventas; tot.g += f.gana; tot.pr += f.prop;
+    var pg = f.pg, modo = pg.m === "com" ? "Comisión " + pg.pct + " %" : pg.m === "mixto" ? "Sueldo + " + pg.pct + " %" : "Sueldo fijo";
+    h += '<div class="card"><h2><span class="pt" style="background:' + esc(f.p.color) + '"></span> ' + esc(f.p.nombre) + ' <small style="color:var(--suave);font-weight:400">· ' + modo + '</small></h2>' +
+      '<div class="dato2"><span>Atenciones</span><b>' + f.n + '</b></div><div class="dato2"><span>Vendió</span><b>' + plata(f.ventas) + '</b></div>' +
+      (pg.m !== "fijo" ? '<div class="dato2"><span>Comisión (' + pg.pct + ' %)</span><b>' + plata(f.com) + '</b></div>' : '') +
+      (pg.m !== "com" ? '<div class="dato2"><span>Sueldo base' + (I.mensual ? '' : ' (se suma en el mes)') + '</span><b>' + plata(f.base) + '</b></div>' : '') +
+      '<div class="dato2"><span><b>Le corresponde</b></span><b>' + plata(f.gana) + '</b></div><div class="dato2"><span>Propinas (son suyas)</span><b>' + plata(f.prop) + '</b></div>' +
+      (solo ? '' : '<div class="dato2"><span>Queda para el negocio</span><b>' + mon(f.ventas - f.gana) + '</b></div>') + '</div>';
+    txt += "\n• " + f.p.nombre + ": vendió " + plata(f.ventas) + " (" + f.n + " atenciones), le corresponde " + plata(f.gana) + (f.prop ? " + " + plata(f.prop) + " de propinas" : "");
+  });
+  if (!solo && I.filas.length > 1){
+    h += '<div class="card"><h2>Total del negocio</h2><div class="dato2"><span>Vendido</span><b>' + plata(tot.v) + '</b></div><div class="dato2"><span>Para los profesionales</span><b>' + plata(tot.g) + '</b></div><div class="dato2"><span><b>Queda para el negocio</b></span><b>' + mon(tot.v - tot.g) + '</b></div><div class="dato2"><span>Propinas (aparte)</span><b>' + plata(tot.pr) + '</b></div></div>';
+    txt += "\n\nTotal vendido " + plata(tot.v) + ". Queda para el negocio " + mon(tot.v - tot.g) + ".";
+  }
+  h += '<p class="nota">La comisión se calcula sobre lo realmente cobrado (con descuento) y sin la propina. El sueldo base solo se suma en "Este mes" y "Mes pasado".</p>' +
+    '<div class="acciones"><a class="btn wa" target="_blank" rel="noopener" href="' + esc(waLink("", txt)) + '">Enviar resumen por WhatsApp</a></div>';
+  return h;
 }
 var L = null;
 function hojaLibres(){
@@ -1589,6 +1736,9 @@ var ACC = {
   borrarServicio: function(el){ var id = el.getAttribute("data-id"); confirmar("¿Borrar este servicio? Las citas ya hechas no cambian.", "Borrar", function(){ E.serv = E.serv.filter(function(s){ return s.id !== id; }); guardar(); cerrarHoja(); dibujar(); }, true); },
   nuevoProf: function(){ if (limite("prof")) return; hojaProf(null); },
   editProf: function(el){ hojaProf(prof(el.getAttribute("data-id"))); },
+  pMod: function(el){ F.m = el.getAttribute("data-id"); redibujarHoja(); },
+  informe: function(){ F = {tipo: "inf", per: "mes"}; abrirHoja(htmlInforme(), htmlInforme); },
+  infPer: function(el){ F.per = el.getAttribute("data-id"); redibujarHoja(); },
   pColor: function(el){ F.color = el.getAttribute("data-id"); redibujarHoja(); },
   guardarProf: guardarProf,
   borrarProf: function(el){
@@ -1638,6 +1788,8 @@ var IN = {
   kMes: function(el){ F.cm = el.value; },
   sNom: function(el){ F.nombre = el.value; }, sMin: function(el){ F.min = +el.value; }, sPre: function(el){ F.precio = el.value; },
   pNom: function(el){ F.nombre = el.value; },
+  pPct: function(el){ F.pct = el.value; },
+  pBase: function(el){ F.base = el.value; },
   negNombre: function(el){ E.negocio.nombre = el.value.trim() || "Mi negocio"; guardar(); $("#hNegocio").textContent = E.negocio.nombre; },
   colorLibre: function(el){ E.negocio.color = el.value; guardar(); aplicarApariencia(); },
   hOn: function(el){ E.horario[+el.getAttribute("data-i")].on = el.checked; guardar(); el.closest(".fila-h").classList.toggle("off", !el.checked); },

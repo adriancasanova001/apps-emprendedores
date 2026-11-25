@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ordenaíto · Apps simples para ordenar tu negocio</title>
-<meta name="description" content="Calcula tu Precio y Agenda de Horas: apps simples para emprendedores de Chile. Funcionan sin internet, las pagas una vez y son tuyas. Prueba la demo de la Agenda.">
+<meta name="description" content="Calcula tu Precio, Agenda de Horas y Cotizador: apps simples para emprendedores de Chile. Funcionan sin internet, las pagas una vez y son tuyas. Prueba las demos.">
 <meta name="theme-color" content="#0f766e">
 <link rel="icon" type="image/svg+xml" href="icono.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Ordenaíto">
 <meta property="og:locale" content="es_CL">
 <meta property="og:title" content="Ordenaíto: apps simples para ordenar tu negocio">
-<meta property="og:description" content="Calcula tu Precio y Agenda de Horas. Las pagas una vez y son tuyas. Funcionan sin internet. Tu negocio, ordenaíto.">
+<meta property="og:description" content="Calcula tu Precio, Agenda de Horas y Cotizador. Las pagas una vez y son tuyas. Funcionan sin internet. Tu negocio, ordenaíto.">
 <meta property="og:image" content="https://ordenaito.cl/og.png">
 <meta property="og:image:width" content="1080">
 <meta property="og:image:height" content="1080">
@@ -226,7 +226,8 @@ footer .sep{margin:0 8px}
 
 @media (min-width:720px){
   .botones{flex-direction:row;max-width:none}
-  .ventajas .wrap{grid-template-columns:repeat(4,1fr)}
+  .ventajas .wrap{grid-template-columns:repeat(3,1fr)}
+
   .planes{grid-template-columns:1fr 1fr}
   .prox{grid-template-columns:repeat(2,1fr)}
   .pasos{grid-template-columns:repeat(3,1fr)}
@@ -234,6 +235,7 @@ footer .sep{margin:0 8px}
   .demo{padding:34px 36px}
 }
 @media (min-width:980px){
+  .ventajas .wrap{grid-template-columns:repeat(5,1fr)}
   body{font-size:18px}
   .menu{display:flex}
   .portada{padding:72px 0 0}
@@ -304,6 +306,55 @@ footer .sep{margin:0 8px}
 .wa-flota.corto{padding:0;gap:0;width:58px;justify-content:center}
 .wa-flota.corto .wa-txt{max-width:0;opacity:0}
 @media (min-width:980px){ .wa-flota{right:28px;bottom:28px} }
+
+
+.pdfs{margin-top:76px}
+.pdf-fila{display:grid;gap:22px;margin-top:8px}
+.pdf-fila figure{margin:0;background:#e9f0ef;border-radius:26px;padding:18px 18px 14px;box-shadow:var(--sombra);border:1px solid var(--borde)}
+@media (prefers-color-scheme: dark){ .pdf-fila figure{background:#16262a} }
+.pdf-fila img{display:block;width:100%;height:auto;border-radius:6px;box-shadow:0 18px 40px -14px rgba(10,40,45,.55);background:#fff}
+.pdf-fila figcaption{text-align:center;font-weight:800;color:var(--suave);font-size:15px;margin-top:12px}
+.nota-pdf{text-align:center;color:var(--suave);font-size:14.5px;margin-top:16px}
+@media (min-width:720px){ .pdf-fila{grid-template-columns:repeat(3,1fr);gap:26px} .pdf-fila figure:nth-child(2){margin-top:-18px;margin-bottom:18px} }
+@media (min-width:980px){
+  .tarjetas-app{grid-template-columns:repeat(3,1fr)}
+  .app-card{grid-template-columns:1fr;text-align:center;justify-items:center;padding:26px 22px}
+  .app-card .tel{max-width:190px;margin:0 auto}
+  .app-card .btn{width:100%}
+}
+@media (min-width:720px) and (max-width:979px){ .tarjetas-app{grid-template-columns:1fr} }
+
+
+@media (not (prefers-color-scheme: dark)){
+  :root{--fondo:#edf6f3;--borde:#d4e6e0;--chip:#d6efe7;--grad:#0f766e;--sombra:0 1px 2px rgba(15,60,55,.05),0 10px 26px -16px rgba(15,118,110,.30);--sombra-g:0 18px 44px -22px rgba(15,118,110,.40);--vidrio:rgba(255,255,255,.80)}
+  .btn.verde{background:#0f766e;box-shadow:none}
+  .btn.acento{background:#f59e0b;color:#1b2430;box-shadow:none}
+  .btn.wa{box-shadow:none}
+  .tabs a.on{background:#0f766e;box-shadow:none}
+  .portada{background:linear-gradient(180deg,#d9eee7 0%,#edf6f3 100%);color:#0b3b36}
+  .portada::before,.portada::after{display:none}
+  .portada h1,.portada .sub{color:#0b3b36}
+  .portada h1 em{background:none;-webkit-background-clip:initial;background-clip:initial;color:#0f766e}
+  .portada .insignia{background:#fff;border-color:#bfe0d6;color:#0f766e}
+  .portada .btn.vidrio{background:#fff;border-color:#bfe0d6;color:#0f766e;backdrop-filter:none}
+  .portada .confianza{color:#0b3b36}
+  .portada .confianza .ic{color:#0f766e}
+  .cabapp{background:#d6efe7;color:#0b3b36}
+  .cabapp::after{display:none}
+  .cabapp .insignia{background:#fff;border-color:#bfe0d6;color:#0f766e}
+  .cabapp .sub a{background:#fff;border-color:#bfe0d6;color:#0f766e}
+  .cabapp .sub a:hover{background:#f4faf8}
+  .demo{background:#fff;color:#0b3b36;border:1.5px solid #bfe0d6;box-shadow:0 14px 36px -20px rgba(15,118,110,.4)}
+  .demo::after{display:none}
+  .demo p,.demo small{color:#0b3b36;opacity:1}
+  .demo small{color:#566676}
+  .demo .btn.vidrio{background:#fff;border-color:#bfe0d6;color:#0f766e}
+  .cierre{background:linear-gradient(180deg,#edf6f3,#d9eee7);color:#0b3b36}
+  .cierre::before{display:none}
+  .cierre p{color:#0b3b36}
+  .cierre .btn.vidrio{background:#fff;border-color:#bfe0d6;color:#0f766e}
+  .tj,.app-card,.plan,.lista li,.pasos li,details,.medida{box-shadow:var(--sombra)}
+}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .flota{animation:none!important}
@@ -338,6 +389,10 @@ footer .sep{margin:0 8px}
 <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></symbol>
 <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17h.01"/></symbol>
 <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8M18 2v4h-4M6 22v-4h4"/></symbol>
 </defs></svg>
 
 <header class="cabecera"><div class="wrap">
@@ -348,6 +403,7 @@ footer .sep{margin:0 8px}
     <a href="#inicio" data-tab="inicio"><svg class="ic"><use href="#i-home"/></svg>Inicio</a>
     <a href="#calcula" data-tab="calcula"><svg class="ic"><use href="#i-calc"/></svg>Calcula tu Precio</a>
     <a href="#agenda" data-tab="agenda"><svg class="ic"><use href="#i-cal"/></svg>Agenda de Horas</a>
+    <a href="#cotizador" data-tab="cotizador"><svg class="ic"><use href="#i-doc"/></svg>Cotizador</a>
     <a href="ayuda/"><svg class="ic"><use href="#i-help"/></svg>Ayuda</a>
   </nav>
 </div></header>
@@ -362,11 +418,12 @@ footer .sep{margin:0 8px}
     <p class="sub">Apps simples y bonitas para emprendedores de Chile. Las pagas una vez, son tuyas y funcionan sin internet.</p>
     <div class="botones">
       <a class="btn acento" href="#apps"><svg class="ic"><use href="#i-calc"/></svg> Ver las apps</a>
-      <a class="btn vidrio" href="#demo-agenda"><svg class="ic"><use href="#i-play"/></svg> Probar la demo de Agenda</a>
+      <a class="btn vidrio" href="#demo-agenda"><svg class="ic"><use href="#i-play"/></svg> Probar una demo</a>
     </div>
     <ul class="confianza">
       <li><svg class="ic"><use href="#i-wifi"/></svg> Funciona sin internet</li>
       <li><svg class="ic"><use href="#i-cel"/></svg> iPhone y Android</li>
+      <li><svg class="ic"><use href="#i-refresh"/></svg> Actualizaciones sin costo</li>
       <li><svg class="ic"><use href="#i-chile"/></svg> Hecha en Chile</li>
     </ul>
   </div>
@@ -383,11 +440,12 @@ footer .sep{margin:0 8px}
   <div><svg class="ic"><use href="#i-wifi"/></svg>Sin internet, sin cuotas</div>
   <div><svg class="ic"><use href="#i-key"/></svg>Se activa en tu celular</div>
   <div><svg class="ic"><use href="#i-chat"/></svg>Ayuda por WhatsApp</div>
+  <div><svg class="ic"><use href="#i-refresh"/></svg>Actualizaciones sin costo</div>
 </div></div>
 
 
 <section class="bloque" id="apps"><div class="wrap">
-  <div class="cab centro"><span class="etiqueta">Nuestras apps</span><h2>Elige la que necesitas</h2><p>Cada app tiene su propia página: entra y mira cómo funciona, su video, su demo y sus precios.</p></div>
+  <div class="cab centro"><span class="etiqueta">Nuestras apps</span><h2>Elige la que necesitas</h2><p>Cada app tiene su propia página: entra y mira cómo funciona, su video, su demo y su precio.</p></div>
   <div class="tarjetas-app">
     <a class="app-card rev" href="#calcula">
       <div class="app-card-img"><div class="tel"><div class="pantalla"><picture data-t="Ficha" data-d="Costo, ganancia y margen real de cada producto."><source media="(prefers-color-scheme: dark)" srcset="img/ca-ficha-osc.webp"><img src="img/ca-ficha.webp" alt="Calcula tu Precio: ficha de producto" width="1170" height="2532" decoding="async" loading="lazy"></picture></div></div></div>
@@ -407,6 +465,16 @@ footer .sep{margin:0 8px}
         <p>Ordena tus citas, recuerda a tus clientes por WhatsApp y mira la plata del día.</p>
         <span class="desde">Completa <b>$14.990</b> · pago único</span>
         <span class="btn verde">Ver Agenda de Horas</span>
+      </div>
+    </a>
+    <a class="app-card rev" href="#cotizador">
+      <div class="app-card-img"><div class="tel"><div class="pantalla"><picture data-t="Resumen" data-d="Cuánto cotizaste, cuánto te aceptaron y a quién darle seguimiento."><source media="(prefers-color-scheme: dark)" srcset="img/cot-lista-osc.webp"><img src="img/cot-lista.webp" alt="Cotizador: lista de cotizaciones y resumen" width="1170" height="2532" decoding="async" loading="lazy"></picture></div></div></div>
+      <div class="app-card-txt">
+        <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> Nueva · Demo gratis</span>
+        <h3>Cotizador</h3>
+        <p>Arma cotizaciones con tu logo, mándalas en PDF por WhatsApp y sabe cuánto ganas en cada una.</p>
+        <span class="desde">Completo <b>$14.990</b> · pago único</span>
+        <span class="btn verde">Ver el Cotizador</span>
       </div>
     </a>
   </div>
@@ -445,9 +513,10 @@ footer .sep{margin:0 8px}
     <details><summary>¿Funciona sin internet?</summary><p>Sí. Después de instalarlas, las usas sin internet. Tus datos quedan en tu celular.</p></details>
     <details><summary>¿Sirve en iPhone y en Android?</summary><p>Sí, en los dos. Se instalan en la pantalla de inicio de tu celular, como cualquier app. En ordenaito.cl/ayuda están los pasos con imágenes.</p></details>
     <details><summary>¿Hay mensualidad?</summary><p>En Calcula tu Precio y en la Agenda de Horas, no: pagas una sola vez. Si más adelante sale una app que necesite internet y tenga un costo mensual, lo diremos claro antes de que compres.</p></details>
-    <details><summary>¿Puedo probarlas antes de comprar?</summary><p>La Agenda de Horas tiene demo gratis: la abres y la pruebas en el momento. De Calcula tu Precio tienes el video, y por WhatsApp te calculamos el precio de un producto tuyo para que veas el resultado antes de pagar.</p></details>
-    <details><summary>¿Qué incluye la demo de la Agenda?</summary><p>Toda la app, con límites: hasta 12 citas al mes, 5 servicios y 10 clientes. Lo que pruebes se guarda solo en tu aparato y no se mezcla con la versión completa.</p></details>
-    <details><summary>¿Emiten boletas del SII?</summary><p>No. Son para tu control interno: calcular costos y precios, y ordenar tus citas. Para boletas y facturas sigues usando tu sistema de siempre.</p></details>
+    <details><summary>¿Las apps se actualizan? ¿Tiene costo?</summary><p>Sí, se actualizan, y las actualizaciones no tienen costo: cuando mejoramos una app, tú recibes las mejoras sin pagar de nuevo. Tus datos se mantienen en tu celular.</p></details>
+    <details><summary>¿Puedo probarlas antes de comprar?</summary><p>La Agenda de Horas y el Cotizador tienen demo gratis: la abres y la pruebas en el momento. De Calcula tu Precio tienes el video, y por WhatsApp te calculamos el precio de un producto tuyo para que veas el resultado antes de pagar.</p></details>
+    <details><summary>¿Qué incluyen las demos?</summary><p>Toda la app, con límites. Agenda de Horas: hasta 12 citas al mes, 5 servicios y 10 clientes. Cotizador: hasta 3 cotizaciones, con "DEMO" en el PDF. Lo que pruebes se guarda solo en tu aparato y no se mezcla con la versión completa.</p></details>
+    <details><summary>¿Emiten boletas del SII?</summary><p>No. Son para tu control interno: calcular costos y precios, ordenar tus citas y armar cotizaciones. Una cotización es solo una oferta de precio, no una boleta ni factura. Para eso sigues usando tu sistema de siempre.</p></details>
     <details><summary>¿Y si cambio de celular?</summary><p>Escríbenos por WhatsApp y lo vemos. Con un respaldo de tus datos no pierdes nada. La versión básica incluye 1 activación y la personalizada de Calcula tu Precio, 2.</p></details>
   </div>
 </div></section>
@@ -644,6 +713,7 @@ footer .sep{margin:0 8px}
         <li>Horas libres para compartir por WhatsApp</li>
         <li>Funciona sin internet</li>
         <li>Activación en 1 celular y ayuda por WhatsApp</li>
+        <li>Actualizaciones sin costo</li>
       </ul>
       <a class="btn acento block" href="#" data-wa="Hola, quiero Agenda de Horas, versión completa ($14.990).">Quiero la versión completa</a>
     </article>
@@ -656,11 +726,130 @@ footer .sep{margin:0 8px}
 </div></section>
 </div>
 
+<div class="vista" data-vista="cotizador">
+<div class="cabapp"><div class="wrap">
+  <span class="insignia"><svg class="ic"><use href="#i-doc"/></svg> Cotizador</span>
+  <nav class="sub" aria-label="En esta app"><a href="#cotizador">Qué hace</a><a href="#pdf-cotizador">Tu PDF</a><a href="#video-cotizador">Video</a><a href="#demo-cotizador">Demo gratis</a><a href="#planes-cotizador">Precio</a></nav>
+</div></div>
+<section class="bloque"><div class="wrap">
+  <div class="app inv">
+    <div class="carr rev" data-carr>
+      <div class="tel"><div class="pantalla">
+        <picture class="on" data-t="Resumen" data-d="Cuánto cotizaste, cuánto te aceptaron y a quién darle seguimiento."><source media="(prefers-color-scheme: dark)" srcset="img/cot-lista-osc.webp"><img src="img/cot-lista.webp" alt="Cotizador: resumen de cotizaciones, aceptadas y monto cotizado" width="1170" height="2532" decoding="async"></picture>
+        <picture data-t="Ítems" data-d="Cantidad, precio y costo de cada ítem. Tu margen, al tiro."><source media="(prefers-color-scheme: dark)" srcset="img/cot-items-osc.webp"><img src="img/cot-items.webp" alt="Cotizador: ítems con cantidad, precio y costo" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+        <picture data-t="Enviar" data-d="WhatsApp, PDF o copiar texto, en un toque."><source media="(prefers-color-scheme: dark)" srcset="img/cot-enviar-osc.webp"><img src="img/cot-enviar.webp" alt="Cotizador: enviar por WhatsApp, compartir PDF o copiar texto" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+        <picture data-t="Clientes" data-d="Tus clientes guardados, listos para la próxima cotización."><source media="(prefers-color-scheme: dark)" srcset="img/cot-clientes-osc.webp"><img src="img/cot-clientes.webp" alt="Cotizador: lista de clientes guardados" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+      </div></div>
+      <div class="pie"><b>Tus cotizaciones, al día</b><span>Cuánto cotizaste, cuánto te aceptaron y a quién darle seguimiento.</span></div>
+      <div class="puntos"></div>
+    </div>
+    <div class="rev">
+      <div class="cab" style="margin-bottom:24px">
+        <span class="etiqueta"><svg class="ic"><use href="#i-doc"/></svg> Nueva · Con demo gratis</span>
+        <h2>Cotizador</h2>
+        <p>Deja de armar cotizaciones en Word o en un cuaderno. Anota lo que vendes, y listo: un PDF con tu logo y tus colores para mandar por WhatsApp. Sirve para servicios, ventas, eventos, obras y todo negocio que cotiza.</p>
+      </div>
+      <ul class="lista">
+        <li><svg class="ic"><use href="#i-doc"/></svg><div><b>PDF profesional con tu marca</b><span>Tu logo, tu color y tus datos. Con tabla, subtotales, IVA y condiciones.</span></div></li>
+        <li><svg class="ic"><use href="#i-send"/></svg><div><b>Se envía en segundos</b><span>Por WhatsApp (texto o PDF), compartido o copiado. Sin salir de la app.</span></div></li>
+        <li><svg class="ic"><use href="#i-trend"/></svg><div><b>Sabes si estás ganando</b><span>Anota tu costo y ve tu margen con semáforo. Esa parte es solo tuya: no sale en el PDF.</span></div></li>
+        <li><svg class="ic"><use href="#i-pct"/></svg><div><b>IVA y honorarios bien hechos</b><span>Más IVA, IVA incluido o exento, y también valor bruto de boleta de honorarios.</span></div></li>
+        <li><svg class="ic"><use href="#i-bell"/></svg><div><b>Seguimiento de lo enviado</b><span>Te avisa qué cotizaciones llevan días sin respuesta y te deja recordarlas por WhatsApp.</span></div></li>
+        <li><svg class="ic"><use href="#i-cash"/></svg><div><b>Anticipo, transferencia y link de pago</b><span>Todo en el PDF para que te paguen más rápido. Tú generas el link en tu medio de pago.</span></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pdfs" id="pdf-cotizador">
+    <div class="cab centro rev">
+      <span class="etiqueta ambar"><svg class="ic"><use href="#i-palette"/></svg> Personalizable</span>
+      <h2>Tu cotización, con tu marca</h2>
+      <p>Sube tu logo, elige tu color y escribe tus datos y condiciones. Cada negocio tiene su PDF, distinto y profesional.</p>
+    </div>
+    <div class="pdf-fila">
+      <figure class="rev"><img src="img/pdf-pasteleria.webp" width="1190" height="1684" loading="lazy" decoding="async" alt="Ejemplo de cotización en PDF de una pastelería, con logo y color rosado"><figcaption>Pastelería · color rosado</figcaption></figure>
+      <figure class="rev"><img src="img/pdf-electrica.webp" width="910" height="1287" loading="lazy" decoding="async" alt="Ejemplo de cotización en PDF de una empresa eléctrica, con logo y color verde"><figcaption>Servicios técnicos · color verde</figcaption></figure>
+      <figure class="rev"><img src="img/pdf-diseno.webp" width="1190" height="1684" loading="lazy" decoding="async" alt="Ejemplo de cotización en PDF de un estudio de diseño, con logo y color azul"><figcaption>Diseño · color azul</figcaption></figure>
+    </div>
+    <p class="nota-pdf rev">Ejemplos con negocios y datos inventados. La cotización no es una boleta ni factura del SII.</p>
+  </div>
+
+  <div class="video-fila video-ag" id="video-cotizador" style="margin:70px 0 10px">
+    <div class="rev">
+      <div class="cab" style="margin-bottom:22px">
+        <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> En un celular real</span>
+        <h2>Mira el Cotizador en acción</h2>
+        <p>Cómo se arma una cotización y cómo queda el PDF.</p>
+      </div>
+      <ol class="pasitos">
+        <li>Anotas lo que vendes<span>Cliente, ítems, descuento e IVA.</span></li>
+        <li>Ves tu total y tu margen<span>Con semáforo, solo para ti.</span></li>
+        <li>Envías el PDF con tu marca<span>Por WhatsApp, en un toque.</span></li>
+      </ol>
+      <a class="btn acento" href="#demo-cotizador">Probar la demo gratis</a>
+    </div>
+    <div class="rev">
+      <div class="tel"><div class="pantalla">
+        <video controls playsinline preload="metadata" poster="video/cotizador-portada.jpg"><source src="video/cotizador.mp4" type="video/mp4"></video>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="demo rev" id="demo-cotizador">
+    <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> Demo gratis</span>
+    <h3>Pruébalo en tu celular, de verdad</h3>
+    <p>Abre la demo y arma una cotización real: pon tus ítems, mira el total y el margen, y genera el PDF. Es la app de verdad, con límites para que veas cómo funciona.</p>
+    <div class="botones">
+      <a class="btn acento" href="demo/cotizador-demo.html" target="_blank" rel="noopener"><svg class="ic"><use href="#i-play"/></svg> Probar la demo ahora</a>
+      <a class="btn vidrio" href="demo/cotizador-demo.html" download="Cotizador-DEMO.html"><svg class="ic"><use href="#i-down"/></svg> Descargar la demo</a>
+    </div>
+    <small>La demo guarda hasta 3 cotizaciones, lleva la marca "DEMO" en el PDF y guarda lo que pruebes solo en tu aparato. Para trabajar de verdad necesitas la versión completa, que te activamos en tu celular. La descarga sirve en computador y Android; en iPhone usa "Probar la demo ahora".</small>
+  </div>
+
+  <div class="planes" id="planes-cotizador">
+    <article class="plan rev">
+      <h3>Demo</h3>
+      <p class="lema">Para conocer la app</p>
+      <div class="precio-g"><span>$0</span></div>
+      <p class="unico">Sin costo, sin tarjeta.</p>
+      <ul>
+        <li>Toda la app para que la pruebes</li>
+        <li>Hasta 3 cotizaciones guardadas</li>
+        <li>El PDF lleva la marca "DEMO"</li>
+        <li>No es para usar en tu negocio</li>
+      </ul>
+      <a class="btn linea block" href="demo/cotizador-demo.html" target="_blank" rel="noopener">Probar la demo</a>
+    </article>
+    <article class="plan dest rev">
+      <span class="cinta">★ VERSIÓN COMPLETA</span>
+      <h3>Cotizador completo</h3>
+      <p class="lema">Sin límites, con tu marca</p>
+      <div class="precio-g"><span>$14.990</span></div>
+      <p class="unico">Pago único. Sin mensualidad.</p>
+      <ul>
+        <li>Cotizaciones y clientes sin límite</li>
+        <li>PDF con tu logo, tu color y tus datos</li>
+        <li>Margen, catálogo con tu Excel y seguimiento</li>
+        <li>Funciona sin internet</li>
+        <li>Activación en 1 celular y ayuda por WhatsApp</li>
+        <li>Actualizaciones sin costo</li>
+      </ul>
+      <a class="btn acento block" href="#" data-wa="Hola, quiero el Cotizador, versión completa ($14.990).">Quiero el Cotizador</a>
+    </article>
+  </div>
+  <div class="medida rev">
+    <h3>¿Lo quieres a tu medida?</h3>
+    <p>Cuéntanos cómo cotizas (rubro, textos, condiciones) y te lo dejamos andando con tus ítems cargados. Te cotizamos sin compromiso.</p>
+    <a class="btn linea" href="#" data-wa="Hola, quiero cotizar un Cotizador a mi medida.">Quiero cotizar a mi gusto</a>
+  </div>
+</div></section>
+</div>
+
 <section class="cierre"><div class="wrap">
   <h2>Tu negocio, ordenaíto.</h2>
-  <p>Prueba la demo de la Agenda o cuéntanos por WhatsApp qué vendes y te ayudamos a elegir.</p>
+  <p>Prueba las demos o cuéntanos por WhatsApp qué vendes y te ayudamos a elegir.</p>
   <div class="botones">
-    <a class="btn acento" href="#demo-agenda"><svg class="ic"><use href="#i-play"/></svg> Probar la demo</a>
+    <a class="btn acento" href="#apps"><svg class="ic"><use href="#i-play"/></svg> Ver las apps y probar</a>
     <a class="btn wa" href="#" data-wa="Hola, vi Ordenaíto y quiero saber más."><svg class="ic ic-wa"><use href="#i-wa"/></svg> Escríbenos por WhatsApp</a>
   </div>
 </div></section>
@@ -675,7 +864,7 @@ footer .sep{margin:0 8px}
 <script>
 
 (function () {
-  ["video-calcula", "video-agenda"].forEach(function (id) {
+  ["video-calcula", "video-agenda", "video-cotizador"].forEach(function (id) {
     var sec = document.getElementById(id), v = sec && sec.querySelector("video");
     if (!v) return;
     function respaldo() { sec.classList.add("sin-video"); }
@@ -694,12 +883,12 @@ footer .sep{margin:0 8px}
     vistas.forEach(function (v) { v.classList.toggle("on", v.getAttribute("data-vista") === nombre); });
     tabs.forEach(function (t) { t.classList.toggle("on", t.getAttribute("data-tab") === nombre); });
     var a = document.querySelector(".tabs a.on"); if (a && a.scrollIntoView) { try { a.scrollIntoView({ inline: "center", block: "nearest" }); } catch (e) {} }
-    var nombres = { inicio: "Ordenaíto · Apps simples para ordenar tu negocio", calcula: "Calcula tu Precio · Ordenaíto", agenda: "Agenda de Horas · Ordenaíto" };
+    var nombres = { inicio: "Ordenaíto · Apps simples para ordenar tu negocio", calcula: "Calcula tu Precio · Ordenaíto", agenda: "Agenda de Horas · Ordenaíto", cotizador: "Cotizador · Ordenaíto" };
     document.title = nombres[nombre] || document.title;
   }
   function ruta() {
     var id = decodeURIComponent((location.hash || "#inicio").slice(1)) || "inicio";
-    if (id === "inicio" || id === "calcula" || id === "agenda") { mostrar(id); window.scrollTo(0, 0); return; }
+    if (id === "inicio" || id === "calcula" || id === "agenda" || id === "cotizador") { mostrar(id); window.scrollTo(0, 0); return; }
     var el = document.getElementById(id), v = el && el.closest(".vista");
     mostrar(v ? v.getAttribute("data-vista") : "inicio");
     if (el) setTimeout(function () { el.scrollIntoView(); }, 40);

@@ -256,6 +256,29 @@ header.top .seg button{flex:1;padding:0 4px;font-size:12.5px;min-width:0}
 .seg-fila{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--borde)}
 .seg-fila .btn{width:auto;margin:0;padding:0 18px;min-height:44px}
 label.mini.un{flex:0 0 96px;min-width:96px}
+:root{--primario:#0f766e;--grad:var(--primario);--brillo:none;--brillo-c:none;--grad-calido:#f59e0b}
+.btn.cal{color:#1b2430;box-shadow:none}
+.btn.pri,.seg button.sel{box-shadow:none}
+@media (prefers-color-scheme:dark){:root:not([data-tema="claro"]){--malla1:rgba(15,118,110,.14);--malla2:transparent;--malla3:transparent}}
+:root[data-tema="oscuro"]{--malla1:rgba(15,118,110,.14);--malla2:transparent;--malla3:transparent}
+@media (prefers-color-scheme:light){
+:root:not([data-tema="oscuro"]){--fondo:#edf6f3;--tarjeta2:#f4faf8;--borde:#d4e6e0;--malla1:transparent;--malla2:transparent;--malla3:transparent}
+:root:not([data-tema="oscuro"]) .hero{background:#fff;border:1.5px solid #bfe0d6;box-shadow:0 10px 30px -14px rgba(15,118,110,.35);color:#0b3b36}
+:root:not([data-tema="oscuro"]) .hero::after,:root:not([data-tema="oscuro"]) .hero::before{display:none}
+:root:not([data-tema="oscuro"]) .hero h1,:root:not([data-tema="oscuro"]) .hero .sub,:root:not([data-tema="oscuro"]) .hero p{color:#0b3b36}
+:root:not([data-tema="oscuro"]) .hero .eyebrow{background:#d6efe7;color:#0f766e;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+:root:not([data-tema="oscuro"]) .btn.wa{background:#25d366;color:#052e16;box-shadow:none}
+:root:not([data-tema="oscuro"]) .pr,:root:not([data-tema="oscuro"]) .stat b.av{background:none;color:#b45309;-webkit-text-fill-color:currentColor}
+:root:not([data-tema="oscuro"]) .card{box-shadow:0 6px 20px -12px rgba(15,118,110,.30)}
+}
+:root[data-tema="claro"]{--fondo:#edf6f3;--tarjeta2:#f4faf8;--borde:#d4e6e0;--malla1:transparent;--malla2:transparent;--malla3:transparent}
+:root[data-tema="claro"] .hero{background:#fff;border:1.5px solid #bfe0d6;box-shadow:0 10px 30px -14px rgba(15,118,110,.35);color:#0b3b36}
+:root[data-tema="claro"] .hero::after,:root[data-tema="claro"] .hero::before{display:none}
+:root[data-tema="claro"] .hero h1,:root[data-tema="claro"] .hero .sub,:root[data-tema="claro"] .hero p{color:#0b3b36}
+:root[data-tema="claro"] .hero .eyebrow{background:#d6efe7;color:#0f766e;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+:root[data-tema="claro"] .btn.wa{background:#25d366;color:#052e16;box-shadow:none}
+:root[data-tema="claro"] .pr,:root[data-tema="claro"] .stat b.av{background:none;color:#b45309;-webkit-text-fill-color:currentColor}
+:root[data-tema="claro"] .card{box-shadow:0 6px 20px -12px rgba(15,118,110,.30)}
 </style>
 </head>
 <body>
@@ -628,6 +651,8 @@ var CotPDF = (function () {
   function crear(d) {
     var PW = 595, PH = 842, M = 40, CW = PW - 2 * M, col = rgb(d.neg.color), pro = !!d.pro, $ = d.money;
     var pags = [], anots = [], c, y;
+    var campos = [];
+    function campo(x, yTop, w, h, nombre) { campos.push({ p: pags.length - 1, r: [x, PH - yTop - h, x + w, PH - yTop], n: nombre }); }
     function enlace(x, yTop, w, h, url) { anots.push({ p: pags.length - 1, r: [x, PH - yTop - h, x + w, PH - yTop], u: url }); }
     function nueva() { c = []; pags.push(c); y = M; }
     function color(a, tipo) { c.push(f(a[0]) + " " + f(a[1]) + " " + f(a[2]) + (tipo === "f" ? " rg" : " RG")); }
@@ -727,20 +752,9 @@ var CotPDF = (function () {
       y += 8;
     }
     seccion("NOTAS", d.cot.notas);
-    if (pro) { seccion("CONDICIONES", d.neg.terminos); seccion("DATOS DE PAGO", d.neg.pago); }
+    if (pro) { seccion("CONDICIONES", d.neg.terminos); seccion("DATOS PARA TRANSFERENCIA", d.neg.pago); }
     seccion("VALIDEZ", "Esta cotización es válida hasta el " + d.cot.hasta + ". Pasada esa fecha, los precios pueden cambiar.");
     if (d.neg.pie) seccion("", d.neg.pie);
-    if (d.aceptacion) {
-      if (y > PH - 150) nueva();
-      y += 6; rect(M, y, CW, 100, [0.97, 0.98, 0.98]); linea(M, y, M + CW, pro ? col : claro, 0.8);
-      txt(M + 12, y + 16, "ACEPTACIÓN DEL CLIENTE", 8.5, true, pro ? col : gris);
-      txt(M + 12, y + 31, "Acepto esta cotización y sus condiciones.", 9.5, false, oscuro);
-      var mitad = M + CW / 2 + 6;
-      linea(M + 12, y + 62, M + CW / 2 - 8, gris, 0.5); txt(M + 12, y + 73, "Nombre y RUT", 8, false, gris);
-      linea(mitad, y + 62, M + CW - 12, gris, 0.5); txt(mitad, y + 73, "Firma", 8, false, gris);
-      linea(M + 12, y + 90, M + CW / 2 - 8, gris, 0.5); txt(M + 12, y + 98, "Fecha", 8, false, gris);
-      y += 110;
-    }
     pags.forEach(function (p, i) {
       c = p;
       linea(M, PH - 38, PW - M, claro, 0.5);
@@ -754,7 +768,7 @@ var CotPDF = (function () {
     poner("%PDF-1.4\n%\xE2\xE3\xCF\xD3\n");
     var nP = pags.length, base0 = 6, i;
     var kids = []; for (i = 0; i < nP; i++) kids.push((base0 + i * 2) + " 0 R");
-    obj(1, "<< /Type /Catalog /Pages 2 0 R >>");
+    obj(1, "<< /Type /Catalog /Pages 2 0 R" + (campos.length ? " /AcroForm << /Fields [" + campos.map(function (a, k) { return (base0 + nP * 2 + anots.length + k) + " 0 R"; }).join(" ") + "] /NeedAppearances true /DA (/Helv 10 Tf 0 g) /DR << /Font << /Helv 3 0 R >> >> >>" : "") + " >>");
     obj(2, "<< /Type /Pages /Count " + nP + " /Kids [" + kids.join(" ") + "] >>");
     obj(3, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
     obj(4, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>");
@@ -763,11 +777,13 @@ var CotPDF = (function () {
     for (i = 0; i < nP; i++) {
       var idP = base0 + i * 2, idC = idP + 1, cont = pags[i].join("\n"), an = [];
       anots.forEach(function (a, k) { if (a.p === i) an.push((base0 + nP * 2 + k) + " 0 R"); });
+      campos.forEach(function (a, k) { if (a.p === i) an.push((base0 + nP * 2 + anots.length + k) + " 0 R"); });
       obj(idP, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + PW + " " + PH + "] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> /XObject << /Im1 5 0 R >> >> /Contents " + idC + " 0 R" + (an.length ? " /Annots [" + an.join(" ") + "]" : "") + " >>");
       offs[idC] = len; poner(idC + " 0 obj\n<< /Length " + cont.length + " >>\nstream\n"); poner(cont); poner("\nendstream\nendobj\n");
     }
     anots.forEach(function (a, k) { obj(base0 + nP * 2 + k, "<< /Type /Annot /Subtype /Link /Rect [" + a.r.map(f).join(" ") + "] /Border [0 0 0] /A << /S /URI /URI (" + esc(a.u) + ") >> >>"); });
-    var total = base0 + nP * 2 + anots.length, xref = len, s = "xref\n0 " + total + "\n0000000000 65535 f \n";
+    campos.forEach(function (a, k) { obj(base0 + nP * 2 + anots.length + k, "<< /Type /Annot /Subtype /Widget /FT /Tx /T (" + a.n + ") /Rect [" + a.r.map(f).join(" ") + "] /F 4 /DA (/Helv 10 Tf 0 g) /MaxLen 60 /Border [0 0 0] >>"); });
+    var total = base0 + nP * 2 + anots.length + campos.length, xref = len, s = "xref\n0 " + total + "\n0000000000 65535 f \n";
     for (i = 1; i < total; i++) s += ("0000000000" + offs[i]).slice(-10) + " 00000 n \n";
     poner(s + "trailer\n<< /Size " + total + " /Root 1 0 R >>\nstartxref\n" + xref + "\n%%EOF");
     var out = new Uint8Array(len), p = 0; partes.forEach(function (x) { out.set(x, p); p += x.length; });
@@ -803,6 +819,16 @@ function urlPago(s) {
   if (!/^https?:\/\/[^\s"'<>]+\.[^\s"'<>]+$/i.test(s)) return "";
   try { return encodeURI(decodeURI(s)); } catch (e) { return ""; }
 }
+function pagoTexto() {
+  var n = E.neg, l = [];
+  if (n.banco) l.push("Banco: " + n.banco + (n.tcuenta ? " - " + n.tcuenta : "")); else if (n.tcuenta) l.push("Tipo de cuenta: " + n.tcuenta);
+  if (n.ncuenta) l.push("N° de cuenta: " + n.ncuenta);
+  if (n.titular) l.push("Titular: " + n.titular);
+  if (n.rutT) l.push("RUT: " + n.rutT);
+  if (n.mailT) l.push("Correo para el comprobante: " + n.mailT);
+  if (n.pago) l.push(n.pago);
+  return l.join("\n");
+}
 function revisarLink(t) {
   var v = t.value.trim(); if (!v) return;
   var u = urlPago(v);
@@ -835,7 +861,7 @@ function revisarRut(t) {
 function fecha(iso) { var p = String(iso).split("-"); return p.length === 3 ? p[2] + "-" + p[1] + "-" + p[0] : ""; }
 function aviso(t) { var el = $("toast"); el.textContent = t; el.className = "on"; clearTimeout(aviso.t); aviso.t = setTimeout(function () { el.className = ""; }, 4200); }
 function nuevoE() {
-  return { v: 1, app: APPKEY, neg: { nombre: "", rut: "", dir: "", tel: "", mail: "", color: "#0f766e", logo: "", logoW: 0, logoH: 0, pie: "", terminos: "", pago: "", linkPago: "" },
+  return { v: 1, app: APPKEY, neg: { nombre: "", rut: "", dir: "", tel: "", mail: "", color: "#0f766e", logo: "", logoW: 0, logoH: 0, pie: "", terminos: "", pago: "", linkPago: "", banco: "", tcuenta: "", ncuenta: "", titular: "", rutT: "", mailT: "" },
     cfg: { validez: 15, modo: "mas", anticipo: 50, mmin: 15, mobj: 30, correl: 1, aceptacion: 1, honTasa: 15.25, ultResp: 0 }, clientes: [], cat: [], cots: [] };
 }
 function migrar(d) {
@@ -853,7 +879,7 @@ function migrar(d) {
 function limpiarCot(x) {
   function st(s, n) { return String(s == null ? "" : s).slice(0, n); }
   var cli = x.cli || {};
-  return { retiene: x.retiene === 0 ? 0 : 1, linkPago: urlPago(x.linkPago), id: st(x.id || uid(), 40), num: st(x.num || "COT-0000", 20), fecha: st(x.fecha, 10), validez: Math.max(1, Math.round(num(x.validez)) || 15), enviada: /^\d{4}-\d{2}-\d{2}$/.test(String(x.enviada)) ? x.enviada : "",
+  return { retiene: x.retiene === 0 ? 0 : 1, linkPago: urlPago(x.linkPago), transf: x.transf === 0 ? 0 : 1, id: st(x.id || uid(), 40), num: st(x.num || "COT-0000", 20), fecha: st(x.fecha, 10), validez: Math.max(1, Math.round(num(x.validez)) || 15), enviada: /^\d{4}-\d{2}-\d{2}$/.test(String(x.enviada)) ? x.enviada : "",
     cli: { n: st(cli.n, 80), rut: st(cli.rut, 20), tel: st(cli.tel, 30), mail: st(cli.mail, 80) }, proyecto: st(x.proyecto, 90), lugar: st(x.lugar, 90),
     items: x.items.filter(function (it) { return it && typeof it === "object"; }).map(function (it) { return { id: st(it.id || uid(), 40), n: st(it.n, 120), c: num(it.c), p: Math.round(num(it.p)), k: Math.round(num(it.k)), r: /^(mat|mo|gg)$/.test(it.r) ? it.r : "mat", u: st(it.u, 10) }; }),
     dv: { t: x.dv && x.dv.t === "monto" ? "monto" : "pct", v: num(x.dv && x.dv.v) }, modo: /^(mas|con|exento|hon)$/.test(x.modo) ? x.modo : "mas", tasa: x.tasa != null && isFinite(+x.tasa) ? +x.tasa : 15.25, anticipo: Math.min(100, Math.round(num(x.anticipo))), notas: st(x.notas, 600), estado: /^(borrador|enviada|aceptada|rechazada|vencida)$/.test(x.estado) ? x.estado : "borrador" };
@@ -940,7 +966,7 @@ function vistaCots() {
 }
 function nuevaCot() {
   var h = hoyISO(), n = E.cfg.correl;
-  return { retiene: 1, linkPago: E.neg.linkPago || "", id: uid(), num: "COT-" + pad(n, 4), fecha: h, validez: E.cfg.validez, cli: { n: "", rut: "", tel: "", mail: "" }, proyecto: "", lugar: "", items: [], dv: { t: "pct", v: 0 }, modo: E.cfg.modo, tasa: E.cfg.honTasa, enviada: "", anticipo: PRO ? E.cfg.anticipo : 0, notas: "", estado: "borrador" };
+  return { retiene: 1, transf: 1, linkPago: E.neg.linkPago || "", id: uid(), num: "COT-" + pad(n, 4), fecha: h, validez: E.cfg.validez, cli: { n: "", rut: "", tel: "", mail: "" }, proyecto: "", lugar: "", items: [], dv: { t: "pct", v: 0 }, modo: E.cfg.modo, tasa: E.cfg.honTasa, enviada: "", anticipo: PRO ? E.cfg.anticipo : 0, notas: "", estado: "borrador" };
 }
 function abrirEd(id) {
   if (id) { var c = E.cots.filter(function (x) { return x.id === id; })[0]; if (!c) return; ed = JSON.parse(JSON.stringify(c)); edNuevo = false; }
@@ -979,7 +1005,7 @@ function pintarEd() {
   h += '<datalist id="lun">' + ["un", "hora", "día", "mes", "m²", "m", "global", "kg", "litro", "servicio"].map(function (x) { return '<option value="' + x + '">'; }).join("") + "</datalist>";
   h += '<div class="dos"><div><label class="l" for="c-v">Validez (días)</label><input id="c-v" data-f="validez" inputmode="numeric" value="' + c.validez + '"></div>';
   if (PRO) h += '<div><label class="l" for="c-a">Anticipo (%)</label><input id="c-a" data-f="anticipo" inputmode="numeric" value="' + (c.anticipo || "") + '" placeholder="0"></div>';
-  h += '</div><label class="l" for="c-no">Notas para el cliente</label><textarea id="c-no" data-f="notas" maxlength="600" placeholder="Ej.: Incluye traslado. Fecha de entrega a convenir.">' + esc(c.notas) + '</textarea><label class="l" for="c-lp">Link de pago (opcional)</label><input id="c-lp" data-f="linkPago" inputmode="url" maxlength="500" placeholder="https://…" value="' + esc(c.linkPago || "") + '"><p class="nota">Pega el link de Mercado Pago, Flow, Webpay u otro. Tu cliente verá un botón «Pagar en línea» en el PDF y el link en el WhatsApp. La app no procesa pagos.</p></div>';
+  h += '</div><label class="l" for="c-no">Notas para el cliente</label><textarea id="c-no" data-f="notas" maxlength="600" placeholder="Ej.: Incluye traslado. Fecha de entrega a convenir.">' + esc(c.notas) + '</textarea><label class="l" for="c-tf">Datos de transferencia en el PDF</label><select id="c-tf" data-f="transf"><option value="1"' + (c.transf !== 0 ? " selected" : "") + '>Sí, incluirlos</option><option value="0"' + (c.transf === 0 ? " selected" : "") + '>No incluirlos</option></select><p class="nota">' + (pagoTexto() ? "Se toman de Ajustes → Condiciones y pago." : "Aún no los cargas: ve a Ajustes → Condiciones y pago.") + '</p><label class="l" for="c-lp">Link de pago (opcional)</label><input id="c-lp" data-f="linkPago" inputmode="url" maxlength="500" placeholder="https://…" value="' + esc(c.linkPago || "") + '"><p class="nota">Pega el link de Mercado Pago, Flow, Webpay u otro. Tu cliente verá un botón «Pagar en línea» en el PDF y el link en el WhatsApp. La app no procesa pagos.</p></div>';
   if (PRO) h += '<div class="card"><div class="paso">' + cn++ + ' · Resumen y margen <span class="sub">(interno, no sale en el PDF)</span></div><div id="resumen"></div></div>';
   if (!edNuevo) h += '<button class="btn" data-a="duplicar">Duplicar cotización</button><button class="btn mal" data-a="eliminar">Eliminar cotización</button>';
   h += '</div></div></div><div class="barra"><div><small>Total</small><b id="b-total"></b></div>' + (PRO ? '<div><small>Margen</small><b id="b-m"></b></div>' : "") + '<button class="btn cal" data-a="enviar">Enviar ›</button></div>';
@@ -1061,7 +1087,7 @@ function textoWA(c) {
   if (r.modo === "hon") { if (r.retiene) { L.push("Retención " + tasaTxt(r.tasa) + " %: -" + clp(r.ret)); L.push("Líquido a pagar al prestador: " + clp(r.liq)); } L.push("_Servicio a emitir con boleta de honorarios. Montos referenciales: la retención y el documento definitivo los determina el SII al emitir la boleta._"); }
   if (PRO && r.anticipo) { L.push("Anticipo: " + clp(r.anticipo)); L.push("Saldo: " + clp(r.saldo)); }
   if (c.notas) { L.push(""); L.push(c.notas); }
-  if (PRO && E.neg.pago) { L.push(""); L.push("Datos de pago:"); L.push(E.neg.pago); }
+  if (c.transf !== 0 && pagoTexto()) { L.push(""); L.push("Datos para transferencia:"); L.push(pagoTexto()); }
   if (urlPago(c.linkPago)) { L.push(""); L.push("Paga en línea aquí: " + urlPago(c.linkPago)); }
   L.push(""); L.push("_Esta cotización no es una boleta ni factura del SII._");
   return L.join("\n");
@@ -1070,7 +1096,7 @@ function datosPDF(c) {
   var logo = null;
   if (E.neg.logo && E.neg.logoW) { try { var b = atob(E.neg.logo.split(",")[1]), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); logo = { bytes: u, w: E.neg.logoW, h: E.neg.logoH }; } catch (e) { logo = null; } }
   var grupos = RUBROS.map(function (x) { return { t: PRO ? x[1] : "", items: c.items.filter(function (it) { return (it.r || "mat") === x[0]; }).map(function (it) { return { n: it.n, c: it.c, p: it.p, cu: cantTxt(it) }; }) }; });
-  return { neg: E.neg, cot: { num: c.num, fecha: fecha(c.fecha), hasta: fecha(mas(c.fecha, c.validez)), cli: c.cli, proyecto: c.proyecto, lugar: c.lugar, notas: c.notas }, grupos: grupos, calc: calc(c), pro: PRO, linkPago: urlPago(c.linkPago), aceptacion: E.cfg.aceptacion !== 0, logo: logo, money: clp };
+  return { neg: Object.assign({}, E.neg, { pago: c.transf === 0 ? "" : pagoTexto() }), cot: { num: c.num, fecha: fecha(c.fecha), hasta: fecha(mas(c.fecha, c.validez)), cli: c.cli, proyecto: c.proyecto, lugar: c.lugar, notas: c.notas }, grupos: grupos, calc: calc(c), pro: PRO, linkPago: urlPago(c.linkPago), logo: logo, money: clp };
 }
 function nombreArchivo(c) { return (c.num + "-" + (c.cli.n || "cliente")).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".pdf"; }
 function hacerPDF(c) { return new File([CotPDF.crear(datosPDF(c))], nombreArchivo(c), { type: "application/pdf" }); }
@@ -1273,10 +1299,10 @@ function vistaAj() {
   h += '<label class="l">Logo (sale en el PDF)</label><div class="fotoed"><span class="th">' + (n.logo ? '<img src="' + esc(n.logo) + '" alt="">' : "<i>" + esc((n.nombre || "?").charAt(0).toUpperCase()) + "</i>") + '</span><div><button class="btn" style="margin:0" data-a="logo">' + (n.logo ? "Cambiar logo" : "Subir logo") + "</button>" + (n.logo ? '<button class="lnk" data-a="quitarLogo">Quitar</button>' : "") + "</div></div></div>";
   h += '<div class="card"><h2>Mis cotizaciones</h2><div class="dos"><div><label class="l" for="a-val">Validez (días)</label><input id="a-val" data-c="validez" inputmode="numeric" value="' + f.validez + '"></div><div><label class="l" for="a-cor">Próximo número</label><input id="a-cor" data-c="correl" inputmode="numeric" value="' + f.correl + '"></div></div>';
   h += '<label class="l" for="a-modo">Mis precios normalmente…</label><select id="a-modo" data-c="modo"><option value="mas"' + (f.modo === "mas" ? " selected" : "") + '>no incluyen IVA</option><option value="con"' + (f.modo === "con" ? " selected" : "") + '>ya incluyen IVA</option><option value="exento"' + (f.modo === "exento" ? " selected" : "") + '>son exentos de IVA</option><option value="hon"' + (f.modo === "hon" ? " selected" : "") + '>son el valor bruto de una boleta de honorarios</option></select>';
-  h += '<label class="l" for="a-pie">Texto al pie (opcional)</label><textarea id="a-pie" data-n="pie" maxlength="300" placeholder="Ej.: Gracias por confiar en nosotros.">' + esc(n.pie) + '</textarea><label class="l" for="a-ace">Bloque de aceptación en el PDF</label><select id="a-ace" data-c="aceptacion"><option value="1"' + (f.aceptacion !== 0 ? " selected" : "") + '>Sí, con espacio para nombre y firma</option><option value="0"' + (f.aceptacion === 0 ? " selected" : "") + '>No</option></select><label class="l" for="a-hon">Retención de honorarios (%)</label><input id="a-hon" data-c="honTasa" inputmode="decimal" value="' + esc(tasaTxt(f.honTasa)) + '"><p class="nota">Solo se usa si cotizas como boleta de honorarios. Tasa oficial del SII: 2026 15,25 %, 2027 16 %, 2028 17 %. Cambia cada año: actualízala en enero.</p></div>';
+  h += '<label class="l" for="a-pie">Texto al pie (opcional)</label><textarea id="a-pie" data-n="pie" maxlength="300" placeholder="Ej.: Gracias por confiar en nosotros.">' + esc(n.pie) + '</textarea><label class="l" for="a-hon">Retención de honorarios (%)</label><input id="a-hon" data-c="honTasa" inputmode="decimal" value="' + esc(tasaTxt(f.honTasa)) + '"><p class="nota">Solo se usa si cotizas como boleta de honorarios. Tasa oficial del SII: 2026 15,25 %, 2027 16 %, 2028 17 %. Cambia cada año: actualízala en enero.</p></div>';
   if (PRO) {
     h += '<div class="card"><h2>Condiciones y pago</h2><p class="nota">Salen en tu PDF Pro. Parte de una plantilla y cámbiala a tu gusto.</p><div class="plant"><button class="btn" data-a="plant" data-p="tec">Servicios técnicos</button><button class="btn" data-a="plant" data-p="con">Construcción</button><button class="btn" data-a="plant" data-p="eve">Eventos y comida</button><button class="btn" data-a="plant" data-p="gen">General</button></div>';
-    h += '<label class="l" for="a-ter">Condiciones</label><textarea id="a-ter" data-n="terminos" maxlength="900">' + esc(n.terminos) + '</textarea><label class="l" for="a-pag">Datos de pago (opcional)</label><textarea id="a-pag" data-n="pago" maxlength="400" placeholder="Banco, tipo y número de cuenta, RUT, correo">' + esc(n.pago) + '</textarea><label class="l" for="a-lp">Link de pago habitual (opcional)</label><input id="a-lp" data-n="linkPago" inputmode="url" maxlength="500" placeholder="https://…" value="' + esc(n.linkPago) + '"><p class="nota">Si usas Mercado Pago, Flow, Webpay u otro, pega aquí tu link. Se agrega solo a cada cotización nueva y tus clientes pueden pagar desde ahí. La app no procesa pagos.</p>';
+    h += '<label class="l" for="a-ter">Condiciones</label><textarea id="a-ter" data-n="terminos" maxlength="900">' + esc(n.terminos) + '</textarea><div class="paso" style="margin-top:16px">Datos para transferencia</div><p class="nota">Salen en el PDF y en el WhatsApp para que tu cliente te pague. Se guardan solo en tu celular.</p>' + inp("banco", "Banco", "Ej.: Banco Estado") + inp("tcuenta", "Tipo de cuenta", "Ej.: Cuenta Vista, Cuenta Corriente o Cuenta RUT") + inp("ncuenta", "N° de cuenta", "") + inp("titular", "Nombre del titular", "") + inp("rutT", "RUT del titular", "12.345.678-5") + inp("mailT", "Correo para el comprobante", "", "email") + '<label class="l" for="a-pag">Otras instrucciones de pago (opcional)</label><textarea id="a-pag" data-n="pago" maxlength="400" placeholder="Ej.: Envía el comprobante por WhatsApp">' + esc(n.pago) + '</textarea><label class="l" for="a-lp">Link de pago habitual (opcional)</label><input id="a-lp" data-n="linkPago" inputmode="url" maxlength="500" placeholder="https://…" value="' + esc(n.linkPago) + '"><p class="nota">Si usas Mercado Pago, Flow, Webpay u otro, pega aquí tu link. Se agrega solo a cada cotización nueva y tus clientes pueden pagar desde ahí. La app no procesa pagos.</p>';
     h += '<div class="dos"><div><label class="l" for="a-ant">Anticipo (%)</label><input id="a-ant" data-c="anticipo" inputmode="numeric" value="' + f.anticipo + '"></div><div></div></div>';
     h += '<div class="dos"><div><label class="l" for="a-mm">Margen mínimo (%)</label><input id="a-mm" data-c="mmin" inputmode="numeric" value="' + f.mmin + '"></div><div><label class="l" for="a-mo">Margen objetivo (%)</label><input id="a-mo" data-c="mobj" inputmode="numeric" value="' + f.mobj + '"></div></div></div>';
   }
@@ -1417,7 +1443,7 @@ function cerrarTut(silencio) {
   if (!silencio) tutMarcar();
 }
 window.addEventListener("resize", function () { if (tour) tourMostrar(); });
-var NOVEDADES = [{ v: "1.0", f: "24-11-2026", t: ["Primera versión del Cotizador: cotizaciones con PDF en tabla, catálogo, margen, clientes, estados y respaldo.", "Importar precios desde Excel o CSV y catálogos de ejemplo.", "Bloque de aceptación con firma, unidad por ítem, boleta de honorarios, validación de RUT, recordatorios de seguimiento, estadísticas, exportación a Excel y link de pago opcional."] }];
+var NOVEDADES = [{ v: "1.0", f: "24-11-2026", t: ["Primera versión del Cotizador: cotizaciones con PDF en tabla, catálogo, margen, clientes, estados y respaldo.", "Importar precios desde Excel o CSV y catálogos de ejemplo.", "Unidad por ítem, boleta de honorarios, validación de RUT, recordatorios de seguimiento, estadísticas, exportación a Excel y link de pago opcional y datos de transferencia en el PDF."] }];
 function novedades() {
   return '<div class="card ayuda"><h2>Novedades</h2>' + NOVEDADES.map(function (n) { return "<details" + (n === NOVEDADES[0] ? " open" : "") + "><summary>Versión " + n.v + " · " + n.f + "</summary><div><ul>" + n.t.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div></details>"; }).join("") + "</div>";
 }
@@ -1434,7 +1460,7 @@ function vistaAyuda() {
   h += d("Mis datos y respaldo", "<p>Todo se guarda solo en este celular. En <b>Ajustes → Descargar respaldo</b> bajas un archivo para guardarlo en tu correo o Drive. Hazlo de vez en cuando; si cambias de celular, lo cargas con «Cargar un respaldo».</p>");
   h += d("Link de pago", "<p>Si ya tienes un link para cobrar (Mercado Pago, Flow, Webpay u otro), pégalo en la cotización, o una vez en <b>Ajustes</b> para que se agregue siempre. El PDF muestra un botón «Pagar en línea» y el WhatsApp incluye el link. La app no cobra ni procesa pagos: solo entrega tu link.</p>");
   h += d("Boleta de honorarios", "<p>Si cobras con boleta de honorarios, en la cotización elige «son el valor bruto de una boleta de honorarios». Ahí no se suma IVA: la cotización muestra el total bruto, la retención y el líquido. La tasa de retención cambia cada año: revísala en sii.cl y déjala en Ajustes.</p>");
-  h += d("Firma y aceptación", "<p>Al final del PDF hay un espacio para que tu cliente escriba su nombre, RUT, firma y fecha, y diga «acepto». Si no lo quieres, apágalo en Ajustes.</p>");
+  h += d("Datos de transferencia", "<p>En <b>Ajustes → Condiciones y pago</b> carga tu banco, tipo y número de cuenta, titular, RUT y correo. Salen en el PDF (recuadro «Datos para transferencia») y en el WhatsApp. En cada cotización puedes elegir no incluirlos. Quedan solo en tu celular.</p>");
   h += d("Unidades por ítem", "<p>Cada ítem puede tener una unidad (hora, m², día, global…). Sale junto a la cantidad en el PDF y en el texto de WhatsApp.</p>");
   h += d("Seguimiento y estadísticas", "<p>En la pantalla Cotizar verás las cotizaciones enviadas hace 3 días o más, con un botón para recordarle al cliente por WhatsApp. También verás cuántas enviaste, cuántas te aceptaron y el monto. En Ajustes puedes exportar todo el historial a Excel.</p>");
   h += d("Importante", "<p>" + NOMBRE + " no emite boletas ni facturas del SII. Una cotización es solo una oferta de precio; al vender, emite tu documento tributario como siempre.</p>");
@@ -1515,7 +1541,7 @@ document.addEventListener("input", function (e) {
   }
   else if (t.getAttribute("data-f") && ed) {
     var f = t.getAttribute("data-f"), v = t.value;
-    if (f === "validez") v = Math.max(1, Math.round(num(v)) || 15); else if (f === "anticipo") v = Math.min(100, Math.round(num(v))); else if (f === "dv.v") v = num(v); else if (f === "tasa") v = num(v); else if (f === "retiene") v = +v;
+    if (f === "validez") v = Math.max(1, Math.round(num(v)) || 15); else if (f === "anticipo") v = Math.min(100, Math.round(num(v))); else if (f === "dv.v") v = num(v); else if (f === "tasa") v = num(v); else if (f === "retiene" || f === "transf") v = +v;
     setPath(ed, f, v); if (f === "modo") $("rowTasa").className = v === "hon" ? "" : "oculto"; recalc();
   }
   else if (t.getAttribute("data-n")) { E.neg[t.getAttribute("data-n")] = t.value; guardar(); }
