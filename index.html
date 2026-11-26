@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="Logo de Ordenaíto">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://ordenaito.cl/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "name": "Ordenaíto", "url": "https://ordenaito.cl", "logo": "https://ordenaito.cl/og.png", "sameAs": ["https://www.instagram.com/ordenaito.app/"], "contactPoint": {"@type": "ContactPoint", "telephone": "+56-9-3747-6833", "contactType": "sales", "areaServed": "CL", "availableLanguage": "es"}}, {"@type": "SoftwareApplication", "name": "Calcula tu Precio", "applicationCategory": "BusinessApplication", "operatingSystem": "Android, iOS (web)", "url": "https://ordenaito.cl/#calcula", "offers": {"@type": "Offer", "price": "9990", "priceCurrency": "CLP"}}, {"@type": "SoftwareApplication", "name": "Agenda de Horas", "applicationCategory": "BusinessApplication", "operatingSystem": "Android, iOS (web)", "url": "https://ordenaito.cl/#agenda", "offers": {"@type": "Offer", "price": "14990", "priceCurrency": "CLP"}}, {"@type": "SoftwareApplication", "name": "Cotizador", "applicationCategory": "BusinessApplication", "operatingSystem": "Android, iOS (web)", "url": "https://ordenaito.cl/#cotizador", "offers": {"@type": "Offer", "price": "14990", "priceCurrency": "CLP"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "name": "Ordenaíto", "url": "https://ordenaito.cl", "logo": "https://ordenaito.cl/og.png", "sameAs": ["https://www.instagram.com/ordenaito.app/"], "contactPoint": {"@type": "ContactPoint", "telephone": "+56-9-3747-6833", "contactType": "sales", "areaServed": "CL", "availableLanguage": "es"}}, {"@type": "SoftwareApplication", "name": "Calcula tu Precio", "applicationCategory": "BusinessApplication", "operatingSystem": "Android, iOS (web)", "url": "https://ordenaito.cl/#calcula", "offers": {"@type": "Offer", "price": "9990", "priceCurrency": "CLP"}}, {"@type": "SoftwareApplication", "name": "Agenda de Horas", "applicationCategory": "BusinessApplication", "operatingSystem": "Android, iOS (web)", "url": "https://ordenaito.cl/#agenda", "offers": {"@type": "Offer", "price": "14990", "priceCurrency": "CLP"}}, {"@type": "SoftwareApplication", "name": "Cotizador", "applicationCategory": "BusinessApplication", "operatingSystem": "Android, iOS (web)", "url": "https://ordenaito.cl/#cotizador", "offers": {"@type": "Offer", "price": "9990", "priceCurrency": "CLP"}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
@@ -357,6 +357,21 @@ footer .sep{margin:0 8px}
   .cierre .btn.vidrio{background:#fff;border-color:#bfe0d6;color:#0f766e}
   .tj,.app-card,.plan,.lista li,.pasos li,details,.medida{box-shadow:var(--sombra)}
 }
+
+
+.planes.tres{grid-template-columns:1fr}
+.planes.tres .plan ul{align-content:start}
+@media (min-width:980px){ .planes.tres{grid-template-columns:repeat(3,1fr)} }
+@media (min-width:720px) and (max-width:979px){ .planes.tres{grid-template-columns:1fr 1fr} .planes.tres .plan.dest{grid-column:1 / -1} }
+.linea-sec{margin-top:80px}
+.tabla-planes{margin-top:26px;overflow-x:auto;background:var(--tarjeta);border:1px solid var(--borde);border-radius:22px;box-shadow:var(--sombra)}
+.tabla-planes table{width:100%;border-collapse:collapse;min-width:520px;font-size:15.5px}
+.tabla-planes caption{text-align:left;font:700 18px var(--titulo);padding:18px 20px 6px}
+.tabla-planes th,.tabla-planes td{padding:12px 16px;border-top:1px solid var(--borde);text-align:left;vertical-align:top}
+.tabla-planes thead th{font:800 15px var(--cuerpo);color:var(--verde-texto);border-top:0}
+.tabla-planes tbody th{font-weight:700;color:var(--texto);width:44%}
+.tabla-planes td.si{color:var(--verde-texto);font-weight:800}
+.tabla-planes td.no{color:var(--suave)}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .flota{animation:none!important}
@@ -417,7 +432,7 @@ footer .sep{margin:0 8px}
   <div>
     <span class="insignia"><svg class="ic"><use href="#i-pago"/></svg> Pago único · Sin mensualidad</span>
     <h1>Ordena tu negocio <em>desde tu celular</em></h1>
-    <p class="sub">Apps simples y bonitas para emprendedores de Chile. Las pagas una vez, son tuyas y funcionan sin internet.</p>
+    <p class="sub">Apps simples y bonitas para emprendedores de Chile. Cada app tiene una versión básica de pago único que funciona sin internet. Algunas tienen además una versión en línea con plan mensual, como el Cotizador personalizado ($3.990 al mes).</p>
     <div class="botones">
       <a class="btn acento" href="#apps"><svg class="ic"><use href="#i-calc"/></svg> Ver las apps</a>
       <a class="btn vidrio" href="#demo-agenda"><svg class="ic"><use href="#i-play"/></svg> Probar una demo</a>
@@ -475,7 +490,7 @@ footer .sep{margin:0 8px}
         <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> Nueva · Demo gratis</span>
         <h3>Cotizador</h3>
         <p>Arma cotizaciones con tu logo, mándalas en PDF por WhatsApp y sabe cuánto ganas en cada una.</p>
-        <span class="desde">Completo <b>$14.990</b> · pago único</span>
+        <span class="desde">Desde <b>$9.990</b> · o en línea $3.990 al mes</span>
         <span class="btn verde">Ver el Cotizador</span>
       </div>
     </a>
@@ -514,7 +529,7 @@ footer .sep{margin:0 8px}
   <div class="faq">
     <details><summary>¿Funciona sin internet?</summary><p>Sí. Después de instalarlas, las usas sin internet. Tus datos quedan en tu celular.</p></details>
     <details><summary>¿Sirve en iPhone y en Android?</summary><p>Sí, en los dos. Se instalan en la pantalla de inicio de tu celular, como cualquier app. En ordenaito.cl/ayuda están los pasos con imágenes.</p></details>
-    <details><summary>¿Hay mensualidad?</summary><p>En Calcula tu Precio y en la Agenda de Horas, no: pagas una sola vez. Si más adelante sale una app que necesite internet y tenga un costo mensual, lo diremos claro antes de que compres.</p></details>
+    <details><summary>¿Hay mensualidad?</summary><p>No en las versiones que funcionan sin internet: Calcula tu Precio (básica y personalizada), la Agenda de Horas y el Cotizador básico se pagan una sola vez. Solo las versiones en línea tienen plan mensual, como el Cotizador personalizado ($3.990 al mes), que permite que tu cliente acepte la cotización desde un link. Siempre te lo decimos claro antes de comprar.</p></details>
     <details><summary>¿Las apps se actualizan? ¿Tiene costo?</summary><p>Sí, se actualizan, y las actualizaciones no tienen costo: cuando mejoramos una app, tú recibes las mejoras sin pagar de nuevo. Tus datos se mantienen en tu celular.</p></details>
     <details><summary>¿Puedo probarlas antes de comprar?</summary><p>La Agenda de Horas y el Cotizador tienen demo gratis: la abres y la pruebas en el momento. De Calcula tu Precio tienes el video, y por WhatsApp te calculamos el precio de un producto tuyo para que veas el resultado antes de pagar.</p></details>
     <details><summary>¿Qué incluyen las demos?</summary><p>Toda la app, con límites. Agenda de Horas: hasta 5 citas, 5 servicios y 2 clientes. Cotizador: hasta 2 cotizaciones, con "DEMO" en el PDF. Lo que pruebes se guarda solo en tu aparato y no se mezcla con la versión completa.</p></details>
@@ -731,7 +746,7 @@ footer .sep{margin:0 8px}
 <div class="vista" data-vista="cotizador">
 <div class="cabapp"><div class="wrap">
   <span class="insignia"><svg class="ic"><use href="#i-doc"/></svg> Cotizador</span>
-  <nav class="sub" aria-label="En esta app"><a href="#cotizador">Qué hace</a><a href="#pdf-cotizador">Tu PDF</a><a href="#video-cotizador">Video</a><a href="#demo-cotizador">Demo gratis</a><a href="#planes-cotizador">Precio</a></nav>
+  <nav class="sub" aria-label="En esta app"><a href="#cotizador">Qué hace</a><a href="#pdf-cotizador">Tu PDF</a><a href="#video-cotizador">Video</a><a href="#demo-cotizador">Demo gratis</a><a href="#linea-cotizador">En línea</a><a href="#planes-cotizador">Precios</a></nav>
 </div></div>
 <section class="bloque"><div class="wrap">
   <div class="app inv">
@@ -808,7 +823,54 @@ footer .sep{margin:0 8px}
     <small>La demo guarda hasta 2 cotizaciones, lleva la marca "DEMO" en el PDF y guarda lo que pruebes solo en tu aparato. Para trabajar de verdad necesitas la versión completa, que te activamos en tu celular. La descarga sirve en computador y Android; en iPhone usa "Probar la demo ahora".</small>
   </div>
 
-  <div class="planes" id="planes-cotizador">
+  <div class="linea-sec" id="linea-cotizador">
+    <div class="cab centro rev">
+      <span class="etiqueta ambar"><svg class="ic"><use href="#i-send"/></svg> Cotizador personalizado · en línea</span>
+      <h2>Tu cliente la acepta desde su celular</h2>
+      <p>Le mandas un link por WhatsApp. Tu cliente ve la cotización y el PDF con tu marca, y la acepta, la rechaza o te pide cambios con un comentario. Tú ves su respuesta en tu app.</p>
+    </div>
+    <div class="app">
+      <div class="carr rev" data-carr>
+        <div class="tel"><div class="pantalla">
+          <picture class="on" data-t="Le llega el link" data-d="Un mensaje por WhatsApp con su cotización."><source media="(prefers-color-scheme: dark)" srcset="img/lin-chat-osc.webp"><img src="img/lin-chat.webp" alt="El cliente recibe por WhatsApp el link de la cotización" width="1170" height="2532" decoding="async"></picture>
+          <picture data-t="La ve con tu marca" data-d="Tu logo, tus colores y el PDF, en su celular."><source media="(prefers-color-scheme: dark)" srcset="img/cli-cotizacion-osc.webp"><img src="img/cli-cotizacion.webp" alt="El cliente ve la cotización con la marca del negocio y puede descargar el PDF" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+          <picture data-t="Responde en línea" data-d="Acepta, rechaza o pide cambios con un comentario."><source media="(prefers-color-scheme: dark)" srcset="img/cli-responder-osc.webp"><img src="img/cli-responder.webp" alt="El cliente acepta, rechaza o pide cambios con un comentario" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+          <picture data-t="Te avisa" data-d="Con un toque te avisa por WhatsApp."><source media="(prefers-color-scheme: dark)" srcset="img/cli-listo-osc.webp"><img src="img/cli-listo.webp" alt="Al responder, el cliente avisa al negocio por WhatsApp" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+          <picture data-t="Lo ves en tu app" data-d="Sus respuestas llegan a tus novedades."><source media="(prefers-color-scheme: dark)" srcset="img/lin-aviso-osc.webp"><img src="img/lin-aviso.webp" alt="El dueño ve la respuesta en las novedades de su app" width="1170" height="2532" decoding="async" loading="lazy"></picture>
+        </div></div>
+        <div class="pie"><b>Le llega el link</b><span>Un mensaje por WhatsApp con su cotización.</span></div>
+        <div class="puntos"></div>
+      </div>
+      <div class="rev">
+        <ul class="lista">
+          <li><svg class="ic"><use href="#i-send"/></svg><div><b>Un link por WhatsApp</b><span>Tocas «Enviar link» y la app te abre WhatsApp con el mensaje listo.</span></div></li>
+          <li><svg class="ic"><use href="#i-doc"/></svg><div><b>La ve y baja el PDF en su celular</b><span>Con tu logo, tus colores y tus datos. Sin instalar nada.</span></div></li>
+          <li><svg class="ic"><use href="#i-chat"/></svg><div><b>Acepta, rechaza o pide cambios</b><span>Con un comentario, y te avisa por WhatsApp con un toque.</span></div></li>
+          <li><svg class="ic"><use href="#i-bell"/></svg><div><b>Lo ves en tu app</b><span>Sus respuestas llegan a tus novedades cuando abres la app.</span></div></li>
+          <li><svg class="ic"><use href="#i-refresh"/></svg><div><b>Celular y computador al día</b><span>Tus cotizaciones se sincronizan entre tus aparatos (hasta 10).</span></div></li>
+          <li><svg class="ic"><use href="#i-shield"/></svg><div><b>Tú controlas el link</b><span>Lo puedes desactivar cuando quieras.</span></div></li>
+        </ul>
+        <p class="nota-pdf" style="text-align:left;margin-top:14px">La respuesta del cliente queda como constancia simple (fecha, hora y su nombre). No es una firma electrónica.</p>
+      </div>
+    </div>
+    <div class="video-fila video-ag" id="video-cotizador-personalizado" style="margin:60px 0 10px">
+      <div class="rev">
+        <div class="cab" style="margin-bottom:22px">
+          <span class="etiqueta ambar"><svg class="ic"><use href="#i-play"/></svg> Paso a paso</span>
+          <h2>Así se acepta en línea</h2>
+          <p>Desde que armas la cotización hasta que ves la respuesta de tu cliente.</p>
+        </div>
+        <a class="btn acento" href="#planes-cotizador">Ver precios</a>
+      </div>
+      <div class="rev">
+        <div class="tel"><div class="pantalla">
+          <video controls playsinline preload="metadata" poster="video/cotizador-personalizado-portada.jpg"><source src="video/cotizador-personalizado.mp4" type="video/mp4"></video>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="planes tres" id="planes-cotizador">
     <article class="plan rev">
       <h3>Demo</h3>
       <p class="lema">Para conocer la app</p>
@@ -822,22 +884,55 @@ footer .sep{margin:0 8px}
       </ul>
       <a class="btn linea block" href="demo/cotizador-demo.html" target="_blank" rel="noopener">Probar la demo</a>
     </article>
-    <article class="plan dest rev">
-      <span class="cinta">★ VERSIÓN COMPLETA</span>
-      <h3>Cotizador completo</h3>
-      <p class="lema">Sin límites, con tu marca</p>
-      <div class="precio-g"><span>$14.990</span></div>
+    <article class="plan rev">
+      <h3>Cotizador básico</h3>
+      <p class="lema">Todo en tu celular, sin internet</p>
+      <div class="precio-g"><span>$9.990</span></div>
       <p class="unico">Pago único. Sin mensualidad.</p>
       <ul>
-        <li>Cotizaciones y clientes sin límite</li>
         <li>PDF con tu logo, tu color y tus datos</li>
+        <li>Envío por WhatsApp (texto o PDF)</li>
         <li>Margen, catálogo con tu Excel y seguimiento</li>
         <li>Funciona sin internet</li>
-        <li>Activación en 1 celular y ayuda por WhatsApp</li>
-        <li>Actualizaciones sin costo</li>
+        <li>Activación en 1 celular y actualizaciones sin costo</li>
       </ul>
-      <a class="btn acento block" href="#" data-wa="Hola, quiero el Cotizador, versión completa ($14.990).">Quiero el Cotizador</a>
+      <a class="btn verde block" href="#" data-wa="Hola, quiero el Cotizador básico ($9.990, pago único).">Quiero el básico</a>
     </article>
+    <article class="plan dest rev">
+      <span class="cinta">★ RECOMENDADO</span>
+      <h3>Cotizador personalizado</h3>
+      <p class="lema">Tu cliente acepta en línea</p>
+      <div class="precio-g"><span>$3.990</span></div>
+      <p class="unico">Al mes. Necesita internet para el link.</p>
+      <ul>
+        <li>Todo lo del básico</li>
+        <li>Link por WhatsApp: tu cliente ve la cotización y el PDF</li>
+        <li>Acepta, rechaza o pide cambios con un comentario</li>
+        <li>Respuestas en tu app y aviso por WhatsApp</li>
+        <li>Sincroniza celular y computador (hasta 10 aparatos)</li>
+        <li>Links que puedes desactivar cuando quieras</li>
+      </ul>
+      <a class="btn acento block" href="#" data-wa="Hola, quiero el Cotizador personalizado en línea ($3.990 al mes).">Quiero el personalizado</a>
+    </article>
+  </div>
+
+  <div class="tabla-planes rev">
+    <table>
+      <caption>Básico o personalizado: qué incluye cada uno</caption>
+      <thead><tr><th scope="col"></th><th scope="col">Básico</th><th scope="col">Personalizado</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Precio</th><td>$9.990 pago único</td><td>$3.990 al mes</td></tr>
+        <tr><th scope="row">PDF con tu logo, color y datos</th><td class="si">Sí</td><td class="si">Sí</td></tr>
+        <tr><th scope="row">Envío por WhatsApp (texto o PDF)</th><td class="si">Sí</td><td class="si">Sí</td></tr>
+        <tr><th scope="row">Margen, catálogo con Excel y seguimiento</th><td class="si">Sí</td><td class="si">Sí</td></tr>
+        <tr><th scope="row">Funciona sin internet</th><td class="si">Sí</td><td>Sí, pero el link necesita internet</td></tr>
+        <tr><th scope="row">Link para que tu cliente vea la cotización y el PDF</th><td class="no">No</td><td class="si">Sí</td></tr>
+        <tr><th scope="row">Tu cliente acepta, rechaza o pide cambios en línea</th><td class="no">No</td><td class="si">Sí, con comentario</td></tr>
+        <tr><th scope="row">Respuestas en tu app y aviso por WhatsApp</th><td class="no">No</td><td class="si">Sí</td></tr>
+        <tr><th scope="row">Sincroniza entre aparatos</th><td>1 celular</td><td class="si">Hasta 10 aparatos</td></tr>
+        <tr><th scope="row">Desactivar un link enviado</th><td class="no">No aplica</td><td class="si">Sí</td></tr>
+      </tbody>
+    </table>
   </div>
   <div class="medida rev">
     <h3>¿Lo quieres a tu medida?</h3>
@@ -866,7 +961,7 @@ footer .sep{margin:0 8px}
 <script>
 
 (function () {
-  ["video-calcula", "video-agenda", "video-cotizador"].forEach(function (id) {
+  ["video-calcula", "video-agenda", "video-cotizador", "video-cotizador-personalizado"].forEach(function (id) {
     var sec = document.getElementById(id), v = sec && sec.querySelector("video");
     if (!v) return;
     function respaldo() { sec.classList.add("sin-video"); }
