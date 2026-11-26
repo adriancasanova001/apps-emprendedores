@@ -372,6 +372,14 @@ footer .sep{margin:0 8px}
 .tabla-planes tbody th{font-weight:700;color:var(--texto);width:44%}
 .tabla-planes td.si{color:var(--verde-texto);font-weight:800}
 .tabla-planes td.no{color:var(--suave)}
+
+
+.pro-prox{margin-top:20px;background:var(--tarjeta);border:1.5px dashed var(--borde);border-radius:24px;padding:22px 24px;display:grid;gap:6px}
+.pro-prox .chip{justify-self:start}
+.pro-prox h3{font-size:21px;margin-top:6px}
+.pro-prox p{color:var(--suave);margin:0}
+.pro-prox .precio-prox{color:var(--texto)}
+.pro-prox .precio-prox b{font:800 26px var(--titulo);color:var(--verde-texto)}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   .flota{animation:none!important}
@@ -735,6 +743,12 @@ footer .sep{margin:0 8px}
       <a class="btn acento block" href="#" data-wa="Hola, quiero Agenda de Horas, versión completa ($14.990).">Quiero la versión completa</a>
     </article>
   </div>
+  <div class="pro-prox rev">
+    <span class="chip">PRÓXIMAMENTE</span>
+    <h3>Agenda Pro en línea</h3>
+    <p>Reservas en línea para tus clientes: eligen el servicio y la hora libre desde un link, y tú lo ves en tu agenda.</p>
+    <p class="precio-prox"><b>$5.990</b> al mes</p>
+  </div>
   <div class="medida rev">
     <h3>¿Varios profesionales o algo a tu medida?</h3>
     <p>Cuéntanos cómo trabaja tu negocio y te armamos una versión a tu gusto. Te cotizamos sin compromiso.</p>
@@ -847,7 +861,7 @@ footer .sep{margin:0 8px}
           <li><svg class="ic"><use href="#i-doc"/></svg><div><b>La ve y baja el PDF en su celular</b><span>Con tu logo, tus colores y tus datos. Sin instalar nada.</span></div></li>
           <li><svg class="ic"><use href="#i-chat"/></svg><div><b>Acepta, rechaza o pide cambios</b><span>Con un comentario, y te avisa por WhatsApp con un toque.</span></div></li>
           <li><svg class="ic"><use href="#i-bell"/></svg><div><b>Lo ves en tu app</b><span>Sus respuestas llegan a tus novedades cuando abres la app.</span></div></li>
-          <li><svg class="ic"><use href="#i-refresh"/></svg><div><b>Celular y computador al día</b><span>Tus cotizaciones se sincronizan entre tus aparatos (hasta 10).</span></div></li>
+          <li><svg class="ic"><use href="#i-refresh"/></svg><div><b>Tus 2 celulares al día</b><span>Tus cotizaciones se sincronizan entre tus celulares (hasta 2).</span></div></li>
           <li><svg class="ic"><use href="#i-shield"/></svg><div><b>Tú controlas el link</b><span>Lo puedes desactivar cuando quieras.</span></div></li>
         </ul>
         <p class="nota-pdf" style="text-align:left;margin-top:14px">La respuesta del cliente queda como constancia simple (fecha, hora y su nombre). No es una firma electrónica.</p>
@@ -909,7 +923,7 @@ footer .sep{margin:0 8px}
         <li>Link por WhatsApp: tu cliente ve la cotización y el PDF</li>
         <li>Acepta, rechaza o pide cambios con un comentario</li>
         <li>Respuestas en tu app y aviso por WhatsApp</li>
-        <li>Sincroniza celular y computador (hasta 10 aparatos)</li>
+        <li>Sincroniza hasta 2 celulares</li>
         <li>Links que puedes desactivar cuando quieras</li>
       </ul>
       <a class="btn acento block" href="#" data-wa="Hola, quiero el Cotizador Pro ($3.990 al mes).">Quiero el Cotizador Pro</a>
@@ -930,7 +944,7 @@ footer .sep{margin:0 8px}
         <tr><th scope="row">Link para que tu cliente vea la cotización y el PDF</th><td class="no">No</td><td class="si">Sí</td></tr>
         <tr><th scope="row">Tu cliente acepta, rechaza o pide cambios en línea</th><td class="no">No</td><td class="si">Sí, con comentario</td></tr>
         <tr><th scope="row">Respuestas en tu app y aviso por WhatsApp</th><td class="no">No</td><td class="si">Sí</td></tr>
-        <tr><th scope="row">Sincroniza entre aparatos</th><td>1 celular</td><td class="si">Hasta 10 aparatos</td></tr>
+        <tr><th scope="row">Sincroniza entre aparatos</th><td>1 celular</td><td class="si">Hasta 2 celulares</td></tr>
         <tr><th scope="row">Desactivar un link enviado</th><td class="no">No aplica</td><td class="si">Sí</td></tr>
       </tbody>
     </table>
@@ -1000,6 +1014,11 @@ footer .sep{margin:0 8px}
   function pos() { b.classList.toggle("corto", window.scrollY > 140); }
   window.addEventListener("scroll", pos, { passive: true }); pos();
 })();
+
+document.addEventListener("play", function (e) {
+  if (!e.target || e.target.tagName !== "VIDEO") return;
+  document.querySelectorAll("video").forEach(function (v) { if (v !== e.target && !v.paused) v.pause(); });
+}, true);
 
 (function () {
   var reducido = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;

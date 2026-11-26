@@ -1490,7 +1490,7 @@ function lineaAjustes() {
     h += "<p><b>" + esc(L.negocio ? L.negocio.nombre : "") + "</b><br>Plan " + est + (p.hasta ? " hasta el " + fecha(p.hasta) : "") + "</p>";
     if (L.msg) h += '<div class="alerta">' + esc(L.msg) + "</div>";
     h += '<p class="nota">Última sincronización: ' + (L.ultima ? esc(new Date(L.ultima).toLocaleString("es-CL")) : "aún no") + "</p>";
-    h += '<button class="btn cal" data-a="lnPagar" style="width:100%">Pagar el mes</button><button class="btn pri" data-a="lnSync">Sincronizar ahora</button><button class="btn" data-a="lnVincular">Usarla en otro aparato</button><a class="btn" target="_blank" rel="noopener" href="' + LBASE + '/api/exportar">Descargar respaldo de la nube</a><button class="btn mal" data-a="lnSalir">Cerrar el plan en este aparato</button>';
+    h += '<button class="btn cal" data-a="lnPagar" style="width:100%">Pagar el mes</button><button class="btn pri" data-a="lnSync">Sincronizar ahora</button><button class="btn" data-a="lnVincular">Usarla en otro celular (máx. 2)</button><a class="btn" target="_blank" rel="noopener" href="' + LBASE + '/api/exportar">Descargar respaldo de la nube</a><button class="btn mal" data-a="lnSalir">Cerrar el plan en este aparato</button>';
   }
   return h + "</div>";
 }
@@ -1539,7 +1539,7 @@ function lineaClick(a, b, id) {
   else if (a === "lnVincular") {
     lApi("POST", "/api/vincular", {}).then(function (r) {
       var ven = new Date(r.vence);
-      $("caja").innerHTML = '<h2>Usarla en otro aparato</h2><p class="nota">Abre este link en el otro celular o computador antes del ' + esc(isNaN(ven) ? "" : ven.toLocaleString("es-CL")) + '. Sirve una sola vez.</p><p style="word-break:break-all;font-size:14px">' + esc(r.link) + '</p><button class="btn pri" data-a="lnCopiar" data-l="' + esc(r.link) + '">Copiar link</button><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent("Mi link del Cotizador en línea: " + r.link) + '">Enviármelo por WhatsApp</a><button class="btn" data-a="cerrar">Listo</button>';
+      $("caja").innerHTML = '<h2>Usarla en otro celular</h2><p class="nota">Abre este link en el otro celular o computador antes del ' + esc(isNaN(ven) ? "" : ven.toLocaleString("es-CL")) + '. Sirve una sola vez. Tu plan permite usarla en hasta 2 celulares: si entras en un tercero, se cierra el más antiguo.</p><p style="word-break:break-all;font-size:14px">' + esc(r.link) + '</p><button class="btn pri" data-a="lnCopiar" data-l="' + esc(r.link) + '">Copiar link</button><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent("Mi link del Cotizador en línea: " + r.link) + '">Enviármelo por WhatsApp</a><button class="btn" data-a="cerrar">Listo</button>';
       $("hoja").className = "on";
     }, function (e) { lError(e); aviso(e.message || "No pude crear el link."); });
   } else if (a === "lnSalir") {
