@@ -1816,7 +1816,7 @@ function lineaAjustes() {
 function lineaBotonEnviar() {
   if (DEMO || !L.on) return "";
   if (!lPlanOk()) return '<p class="nota">Tu plan en línea no está activo: el link no está disponible por ahora.</p>';
-  var ln = L.lineas[ed.id], h = '<button class="btn pri" data-a="lnEnviar">🔗 Enviar link (tu cliente la acepta en línea)</button>';
+  var ln = L.lineas[ed.id], h = '<button class="btn pri" data-a="lnEnviar">' + (ln && ln.activo ? "🔗 Enviar el link otra vez por WhatsApp" : "🔗 Enviar link (tu cliente la acepta en línea)") + "</button>";
   if (ln && ln.activo) {
     var r = ln.respuesta || {};
     h += '<p class="nota">En línea: <b>' + esc(chipTexto(ln)) + "</b>" + (ln.vistas ? " · abierta " + ln.vistas + (ln.vistas === 1 ? " vez" : " veces") : "") + (r.nombre ? " · " + esc(r.nombre) : "") + (r.comentario ? ": «" + esc(r.comentario) + "»" : "") + '</p><button class="lnk" data-a="lnRevocar">Desactivar el link</button>';
