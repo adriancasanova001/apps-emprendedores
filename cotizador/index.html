@@ -10,7 +10,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Cotizador">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icono-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 :root{
   --primario:#0f766e; --sobre-primario:#ffffff;
@@ -757,6 +757,10 @@ var CotPDF = (function () {
     if (d.neg.pie) seccion("", d.neg.pie);
     pags.forEach(function (p, i) {
       c = p;
+      if (d.demo) {
+        c.unshift("q 0.88 0.91 0.9 rg BT /F2 130 Tf 0.766 0.643 -0.643 0.766 135 250 Tm (DEMO) Tj ET Q");
+        txt(M, PH - 14, "DEMO · Cotización de prueba hecha con la demo de Cotizador (ordenaito.cl)", 8, true, [0.7, 0.25, 0.05]);
+      }
       linea(M, PH - 38, PW - M, claro, 0.5);
       txt(M, PH - 26, "Esta cotización no es una boleta ni factura del SII.", 8, false, gris);
       txt(PW - M, PH - 26, "Página " + (i + 1) + " de " + pags.length, 8, false, gris, "r");
@@ -793,7 +797,8 @@ var CotPDF = (function () {
 })();
 var PRO = true;
 var NOMBRE = "Cotizador";
-var VERSION = "1.0", KEY = "ord_cot_datos", APPKEY = "COTIZADOR";
+var DEMO = false;
+var VERSION = "1.0", KEY = DEMO ? "ord_cot_demo" : "ord_cot_datos", APPKEY = "COTIZADOR";
 var COLORES = ["#0f766e", "#2563eb", "#7c3aed", "#db2777", "#dc2626", "#ea580c", "#ca8a04", "#475569"];
 var RUBROS = PRO ? [["mat", "Materiales o productos", "Buscar en mi catálogo…"], ["mo", "Mano de obra o servicios", "Buscar servicio…"], ["gg", "Gastos y traslados", "Buscar gasto…"]] : [["mat", "Ítems", ""]];
 var PLANTILLAS = {
@@ -859,6 +864,15 @@ function revisarRut(t) {
   else if (t.getAttribute("data-n") === "rut") { E.neg.rut = f; guardar(); }
 }
 function fecha(iso) { var p = String(iso).split("-"); return p.length === 3 ? p[2] + "-" + p[1] + "-" + p[0] : ""; }
+var LIM_DEMO = 2, KEYDN = "ord_cot_demo_n", MSG_LIM = "Ya hiciste las 2 cotizaciones de prueba.";
+var demoMem = 0;
+function demoUsadas() { var s = 0; try { s = +localStorage.getItem(KEYDN) || 0; } catch (e) {} return Math.max(s, demoMem); }
+function demoSumar() { demoMem = demoUsadas() + 1; try { localStorage.setItem(KEYDN, String(demoMem)); } catch (e) {} }
+function linkComprar() { return "https://wa.me/" + Activacion.whatsapp + "?text=" + encodeURIComponent("Hola, probé la demo del Cotizador y quiero comprarlo."); }
+function hojaPagar(motivo) {
+  $("caja").innerHTML = "<h2>Esta es la versión de prueba</h2><p class=\"nota\">" + esc(motivo) + "</p><p class=\"nota\">Con la versión completa haces cotizaciones sin límite y sin la marca DEMO, con tu catálogo, importación desde Excel y respaldo.</p><a class=\"btn cal\" style=\"width:100%\" target=\"_blank\" rel=\"noopener\" href=\"" + linkComprar() + "\">Comprar la versión completa</a><button class=\"btn\" data-a=\"cerrar\">Seguir probando</button>";
+  $("hoja").className = "on";
+}
 function aviso(t) { var el = $("toast"); el.textContent = t; el.className = "on"; clearTimeout(aviso.t); aviso.t = setTimeout(function () { el.className = ""; }, 4200); }
 function nuevoE() {
   return { v: 1, app: APPKEY, neg: { nombre: "", rut: "", dir: "", tel: "", mail: "", color: "#0f766e", logo: "", logoW: 0, logoH: 0, pie: "", terminos: "", pago: "", linkPago: "", banco: "", tcuenta: "", ncuenta: "", titular: "", rutT: "", mailT: "" },
@@ -932,6 +946,7 @@ function listaCots(q) {
   }).join("");
 }
 function avisoRespaldo() {
+  if (DEMO) return "";
   if (E.cots.length < 2 && E.clientes.length < 3) return "";
   var d = hoyDias() - (E.cfg.ultResp || 0);
   if (E.cfg.ultResp && d < 15) return "";
@@ -958,6 +973,7 @@ function vistaCots() {
   var monto = delMes.reduce(function (s, c) { return s + calc(c).total; }, 0);
   var h = '<section class="card hero"><span class="eyebrow">COTIZACIONES</span><h1>' + esc(E.neg.nombre || "Tu negocio") + '</h1><p class="sub">Arma una cotización en segundos y envíala por WhatsApp o PDF.</p><button class="btn cal" data-a="nueva">+ Nueva cotización</button></section>';
   h += '<div class="stats"><div class="stat"><b>' + E.cots.length + "</b><span>cotizaciones</span></div><div class=\"stat\"><b>" + delMes.length + "</b><span>este mes</span></div><div class=\"stat\"><b class=\"av\" style=\"font-size:20px\">" + clp(monto) + "</b><span>cotizado en el mes</span></div></div>";
+  if (DEMO) h += '<div class="alerta"><b>Versión de prueba:</b> puedes hacer ' + LIM_DEMO + " cotizaciones (llevas " + Math.min(demoUsadas(), LIM_DEMO) + '). Los PDF y mensajes salen con la marca DEMO.<a class="btn cal" style="width:100%;margin-top:8px" target="_blank" rel="noopener" href="' + linkComprar() + '">Comprar la versión completa</a></div>';
   h += avisoRespaldo() + resumenCierre() + seguimiento();
   if (!E.neg.nombre || !E.neg.logo) h += '<div class="alerta">Para que tus cotizaciones se vean profesionales, ' + (!E.neg.nombre ? "pon el nombre de tu negocio y " : "") + 'sube tu <b>logo</b>.<button class="btn" data-a="logo" style="margin-top:8px">Subir mi logo ahora</button></div>';
   h += '<input type="search" id="bus" placeholder="Buscar por cliente o número…" value="' + esc(busq) + '" style="margin-bottom:12px"><div id="lc">' + listaCots(busq) + "</div>";
@@ -970,7 +986,7 @@ function nuevaCot() {
 }
 function abrirEd(id) {
   if (id) { var c = E.cots.filter(function (x) { return x.id === id; })[0]; if (!c) return; ed = JSON.parse(JSON.stringify(c)); edNuevo = false; }
-  else { ed = nuevaCot(); edNuevo = true; if (!PRO) ed.items.push({ id: uid(), n: "", c: 1, p: 0, k: 0, r: "mat" }); }
+  else { if (DEMO && demoUsadas() >= LIM_DEMO) return hojaPagar(MSG_LIM); ed = nuevaCot(); edNuevo = true; if (!PRO) ed.items.push({ id: uid(), n: "", c: 1, p: 0, k: 0, r: "mat" }); }
   pintarEd();
 }
 function filaItem(it, ix) {
@@ -1037,6 +1053,7 @@ function guardarEd(silencio) {
   else {
     var yaN = function (n) { return E.cots.some(function (x) { return x.num === n; }); };
     while (yaN(c.num)) { E.cfg.correl++; c.num = "COT-" + pad(E.cfg.correl, 4); }
+    if (DEMO) { if (demoUsadas() >= LIM_DEMO) { hojaPagar(MSG_LIM); return false; } demoSumar(); }
     E.cots.push(c); E.cfg.correl = Math.max(E.cfg.correl, (parseInt(c.num.slice(4), 10) || 0) + 1);
   }
   var nom = c.cli.n.trim();
@@ -1089,6 +1106,7 @@ function textoWA(c) {
   if (c.notas) { L.push(""); L.push(c.notas); }
   if (c.transf !== 0 && pagoTexto()) { L.push(""); L.push("Datos para transferencia:"); L.push(pagoTexto()); }
   if (urlPago(c.linkPago)) { L.push(""); L.push("Paga en línea aquí: " + urlPago(c.linkPago)); }
+  if (DEMO) { L.push(""); L.push("*DEMO* - Cotización de prueba hecha con la demo de Cotizador (ordenaito.cl)."); }
   L.push(""); L.push("_Esta cotización no es una boleta ni factura del SII._");
   return L.join("\n");
 }
@@ -1096,7 +1114,7 @@ function datosPDF(c) {
   var logo = null;
   if (E.neg.logo && E.neg.logoW) { try { var b = atob(E.neg.logo.split(",")[1]), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); logo = { bytes: u, w: E.neg.logoW, h: E.neg.logoH }; } catch (e) { logo = null; } }
   var grupos = RUBROS.map(function (x) { return { t: PRO ? x[1] : "", items: c.items.filter(function (it) { return (it.r || "mat") === x[0]; }).map(function (it) { return { n: it.n, c: it.c, p: it.p, cu: cantTxt(it) }; }) }; });
-  return { neg: Object.assign({}, E.neg, { pago: c.transf === 0 ? "" : pagoTexto() }), cot: { num: c.num, fecha: fecha(c.fecha), hasta: fecha(mas(c.fecha, c.validez)), cli: c.cli, proyecto: c.proyecto, lugar: c.lugar, notas: c.notas }, grupos: grupos, calc: calc(c), pro: PRO, linkPago: urlPago(c.linkPago), logo: logo, money: clp };
+  return { neg: Object.assign({}, E.neg, { pago: c.transf === 0 ? "" : pagoTexto() }), cot: { num: c.num, fecha: fecha(c.fecha), hasta: fecha(mas(c.fecha, c.validez)), cli: c.cli, proyecto: c.proyecto, lugar: c.lugar, notas: c.notas }, grupos: grupos, calc: calc(c), pro: PRO, demo: DEMO, linkPago: urlPago(c.linkPago), logo: logo, money: clp };
 }
 function nombreArchivo(c) { return (c.num + "-" + (c.cli.n || "cliente")).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".pdf"; }
 function hacerPDF(c) { return new File([CotPDF.crear(datosPDF(c))], nombreArchivo(c), { type: "application/pdf" }); }
@@ -1307,7 +1325,7 @@ function vistaAj() {
     h += '<div class="dos"><div><label class="l" for="a-mm">Margen mínimo (%)</label><input id="a-mm" data-c="mmin" inputmode="numeric" value="' + f.mmin + '"></div><div><label class="l" for="a-mo">Margen objetivo (%)</label><input id="a-mo" data-c="mobj" inputmode="numeric" value="' + f.mobj + '"></div></div></div>';
   }
   h += '<div class="card"><h2>Respaldo</h2><p class="nota">Descarga tus datos en un archivo. Guárdalo en tu correo o Drive.</p><button class="btn pri" data-a="exportar">Descargar respaldo</button><button class="btn" data-a="importar">Cargar un respaldo</button><button class="btn" data-a="csv">Exportar historial a Excel (CSV)</button></div>';
-  h += '<div class="card"><h2>Tu código de celular</h2><p class="nota">Lo usa tu vendedor para activar la app.</p><p style="font:700 22px ui-monospace,Consolas,monospace;letter-spacing:2px;margin:0">' + esc(Activacion.codigoCelular()) + '</p></div>';
+  if (!DEMO) h += '<div class="card"><h2>Tu código de celular</h2><p class="nota">Lo usa tu vendedor para activar la app.</p><p style="font:700 22px ui-monospace,Consolas,monospace;letter-spacing:2px;margin:0">' + esc(Activacion.codigoCelular()) + '</p></div>';
   h += '<div class="card"><h2>Borrar todo</h2><button class="btn mal" data-a="borrar">Borrar mis datos de este celular</button></div>';
   h += '<p class="sii">⚠ ' + NOMBRE + " no emite boletas ni facturas del SII. Es una herramienta para preparar cotizaciones.</p>";
   return h;
@@ -1473,7 +1491,7 @@ function pintar() {
   var t = [["cots", "Cotizar"], ["cli", "Clientes"]]; if (PRO) t.push(["cat", "Catálogo"]); t.push(["ayuda", "Ayuda"]); t.push(["aj", "Ajustes"]);
   $("tabs").innerHTML = t.map(function (x) { return '<button data-a="tab" data-t="' + x[0] + '" class="' + (tab === x[0] ? "sel" : "") + '">' + x[1] + "</button>"; }).join("");
   var h = tab === "cots" ? vistaCots() : tab === "cli" ? vistaClientes() : tab === "cat" ? vistaCat() : tab === "ayuda" ? vistaAyuda() : vistaAj();
-  h += '<p class="pie">' + NOMBRE + " v" + VERSION + " · Licencia de uso personal · Ordenaíto</p>";
+  h += '<p class="pie">' + NOMBRE + " v" + VERSION + " · " + (DEMO ? "Versión de prueba (DEMO)" : "Licencia de uso personal") + " · Ordenaíto</p>";
   $("app").innerHTML = h; window.scrollTo(0, 0);
 }
 document.addEventListener("click", function (e) {
@@ -1501,7 +1519,7 @@ document.addEventListener("click", function (e) {
     ed.items = JSON.parse(JSON.stringify(l[0].items)).map(function (x) { x.id = uid(); return x; }); ed.proyecto = ed.proyecto || l[0].proyecto || ""; ed.lugar = ed.lugar || l[0].lugar || "";
     pintarEd(); aviso("Cargué la última cotización de " + l[0].cli.n + ". Ajusta cantidades y precios.");
   }
-  else if (a === "duplicar") { guardarEd(true); var cp = JSON.parse(JSON.stringify(ed)); cp.id = uid(); cp.num = "COT-" + pad(E.cfg.correl, 4); cp.fecha = hoyISO(); cp.estado = "borrador"; ed = cp; edNuevo = true; pintarEd(); aviso("Duplicada como " + cp.num + "."); }
+  else if (a === "duplicar") { if (DEMO && demoUsadas() >= LIM_DEMO) return hojaPagar(MSG_LIM); guardarEd(true); var cp = JSON.parse(JSON.stringify(ed)); cp.id = uid(); cp.num = "COT-" + pad(E.cfg.correl, 4); cp.fecha = hoyISO(); cp.estado = "borrador"; ed = cp; edNuevo = true; pintarEd(); aviso("Duplicada como " + cp.num + "."); }
   else if (a === "eliminar") { if (confirm("¿Eliminar esta cotización? No se puede deshacer.")) { E.cots = E.cots.filter(function (x) { return x.id !== ed.id; }); guardar(); cerrarEd(); } }
   else if (a === "enviar") abrirEnviar();
   else if (a === "wa") { marcarEnviada(); }
@@ -1513,7 +1531,7 @@ document.addEventListener("click", function (e) {
   else if (a === "editCli") abrirCli(id);
   else if (a === "guardarCli") guardarCli();
   else if (a === "borrarCli") { if (confirm("¿Eliminar este cliente? Sus cotizaciones se mantienen.")) { E.clientes = E.clientes.filter(function (x) { return x.id !== edCli.id; }); guardar(); $("hoja").className = ""; pintar(); } }
-  else if (a === "impXls") $("f-xls").click();
+  else if (a === "impXls") { if (DEMO) return hojaPagar("Importar desde Excel está en la versión completa."); $("f-xls").click(); }
   else if (a === "plantillaXls") plantillaCSV();
   else if (a === "packs") abrirPacks();
   else if (a === "addPack") addPack(id);
@@ -1525,9 +1543,9 @@ document.addEventListener("click", function (e) {
   else if (a === "logo") $("f-logo").click();
   else if (a === "quitarLogo") { E.neg.logo = ""; E.neg.logoW = 0; E.neg.logoH = 0; guardar(); pintar(); }
   else if (a === "plant") { E.neg.terminos = PLANTILLAS[b.getAttribute("data-p")]; guardar(); pintar(); aviso("Plantilla cargada. Puedes editarla."); }
-  else if (a === "exportar") exportar();
-  else if (a === "csv") exportarCSV();
-  else if (a === "importar") $("f-resp").click();
+  else if (a === "exportar") { if (DEMO) return hojaPagar("El respaldo está en la versión completa."); exportar(); }
+  else if (a === "csv") { if (DEMO) return hojaPagar("Exportar a Excel está en la versión completa."); exportarCSV(); }
+  else if (a === "importar") { if (DEMO) return hojaPagar("Cargar respaldos está en la versión completa."); $("f-resp").click(); }
   else if (a === "borrar") { if (confirm("Se borrarán todas tus cotizaciones, clientes y ajustes de este celular. ¿Seguro?")) { E = nuevoE(); guardar(); tema(); tab = "cots"; pintar(); aviso("Datos borrados."); } }
 });
 document.addEventListener("input", function (e) {

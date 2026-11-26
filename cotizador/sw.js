@@ -3,7 +3,7 @@
 // Todo lo demás (bloqueos, configuraciones de clientes, WhatsApp, etc.) va directo a la red.
 // Sube el número de CACHE solo si cambian los archivos precargados (manifest o íconos);
 // el index se actualiza solo porque se pide primero a la red.
-var CACHE = 'ord-cot-v1';
+var CACHE = 'ord-cot-v2';
 var PREFIJO = 'ord-cot-';
 var PRECARGA = ['./', 'manifest.webmanifest', 'icono-192.png', 'icono-512.png', 'maskable-192.png', 'maskable-512.png'];
 var SCOPE = self.registration.scope;
