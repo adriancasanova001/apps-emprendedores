@@ -40,22 +40,30 @@ a{color:var(--verde-texto)}
 .btn.verde{background:var(--verde);color:#fff}
 .btn.linea{border-color:var(--verde-texto);color:var(--verde-texto);background:transparent}
 .btn.block{width:100%}
+
+
 .cabecera{padding:14px 0}
 .cabecera .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .cabecera a.logo{display:block;line-height:0}
 .cabecera svg{height:40px;width:auto;max-width:100%}
 .logo-oscuro{display:none}
 @media (prefers-color-scheme: dark){ .logo-claro{display:none} .logo-oscuro{display:block} }
+
+
 .portada{background:radial-gradient(circle at 90% 0,#13897f 0,transparent 50%),linear-gradient(160deg,var(--verde) 0%,var(--verde-osc) 100%);color:#fff;padding:36px 0 44px}
 .portada h1{font-size:clamp(28px,7.4vw,46px);font-weight:800;letter-spacing:-.5px;max-width:20ch}
 .portada .lema{font:800 clamp(20px,5vw,26px)/1.2 var(--titulo);color:var(--acento);margin:14px 0 8px}
 .portada p.sub{font-size:18px;max-width:34em;opacity:.95;margin-bottom:22px}
 .botones{display:flex;flex-direction:column;gap:12px;max-width:420px}
 .portada .nota{margin:16px 0 0;font-size:15px;font-weight:700;opacity:.9}
+
+
 section.bloque{padding:44px 0}
 section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .bajada{color:var(--suave);max-width:40em;margin-bottom:22px}
 .etiqueta{display:inline-block;background:var(--acento);color:#1b2430;font:800 13px/1 var(--cuerpo);padding:6px 11px;border-radius:99px;margin-bottom:10px;letter-spacing:.3px}
+
+
 .app{display:grid;gap:28px;align-items:center}
 .beneficios{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
 .beneficios li{display:flex;gap:12px;align-items:flex-start}
@@ -77,6 +85,8 @@ section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .pant .ganas{display:inline-block;margin-top:4px;background:var(--acento);color:#1b2430;font-weight:800;font-size:12px;padding:3px 9px;border-radius:99px}
 .pant .conv h4{font-size:13px}
 .pant .conv p{font-size:12.5px;font-weight:700;color:#15803d;margin:0}
+
+
 .planes{display:grid;gap:16px;margin-top:30px}
 .plan{background:var(--tarjeta);border:1px solid var(--borde);border-radius:20px;padding:22px 20px;box-shadow:var(--sombra);display:flex;flex-direction:column}
 .plan.dest{border:2px solid var(--verde-texto)}
@@ -87,23 +97,31 @@ section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .plan ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:8px;flex:1}
 .plan li{padding-left:26px;position:relative}
 .plan li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--verde-texto);font-weight:800}
+
+
 .prox{display:grid;gap:14px}
 .prox .tj{background:var(--tarjeta);border:1px dashed var(--borde);border-radius:18px;padding:18px}
 .prox h3{font-size:19px;margin:8px 0 4px}
 .prox p{color:var(--suave);margin:0;font-size:16px}
 .chip{display:inline-block;background:var(--acento-suave);color:#a16207;font:800 12px/1 var(--cuerpo);padding:5px 10px;border-radius:99px}
 @media (prefers-color-scheme: dark){ .chip{color:#facc15} }
+
+
 .pasos{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px;counter-reset:p}
 .pasos li{background:var(--tarjeta);border:1px solid var(--borde);border-radius:18px;padding:16px 16px 16px 66px;position:relative;counter-increment:p;box-shadow:var(--sombra)}
 .pasos li::before{content:counter(p);position:absolute;left:16px;top:14px;width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;font:800 18px/36px var(--titulo);text-align:center}
 .pasos b{display:block;font-size:18px}
 .pasos span{color:var(--suave)}
+
+
 details{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;margin-bottom:10px}
 summary{cursor:pointer;min-height:48px;padding:12px 44px 12px 16px;font-weight:800;list-style:none;position:relative}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";position:absolute;right:16px;top:8px;font:800 24px/32px var(--titulo);color:var(--verde-texto)}
 details[open] summary::after{content:"\2212"}
 details p{padding:0 16px 14px;margin:0;color:var(--suave)}
+
+
 .cierre{background:linear-gradient(160deg,var(--verde) 0%,var(--verde-osc) 100%);color:#fff;text-align:center;padding:40px 0}
 .cierre h2{font-size:clamp(24px,6vw,32px);margin-bottom:8px}
 .cierre p{opacity:.95}
@@ -111,6 +129,8 @@ details p{padding:0 16px 14px;margin:0;color:var(--suave)}
 footer{padding:26px 0 34px;text-align:center;color:var(--suave);font-size:15px}
 footer a{font-weight:700}
 footer .sep{margin:0 8px}
+
+
 .doc{padding:28px 16px 36px;max-width:720px}
 .doc h1{font-size:clamp(28px,7vw,38px);margin-bottom:6px}
 .doc h2{font-size:21px;margin:28px 0 8px}
@@ -118,6 +138,7 @@ footer .sep{margin:0 8px}
 .doc ul{padding-left:22px;margin:0 0 12px}
 .doc li{margin-bottom:6px}
 .volver{display:inline-flex;align-items:center;min-height:44px;font-weight:800}
+
 @media (min-width:720px){
   .botones{flex-direction:row;max-width:none}
   .botones .btn{padding:10px 28px}
@@ -129,6 +150,21 @@ footer .sep{margin:0 8px}
   .pasos li::before{top:16px}
   .portada{padding:56px 0 64px}
   .cierre .botones{justify-content:center}
+}
+
+
+@media (not (prefers-color-scheme: dark)){
+  :root{--fondo:#edf6f3;--borde:#d4e6e0;--acento-suave:#d6efe7}
+  .portada{background:linear-gradient(180deg,#d9eee7 0%,#edf6f3 100%);color:#0b3b36}
+  .portada h1,.portada p,.portada .sub,.portada .nota{color:#0b3b36}
+  .portada .lema{color:#0f766e}
+  .portada a:not(.btn){color:#0f766e}
+  .btn.borde{border-color:#bfe0d6;color:#0f766e;background:#fff}
+  .btn.verde{background:#0f766e}
+  .btn.acento{background:#f59e0b;color:#1b2430}
+  .cierre{background:linear-gradient(180deg,#edf6f3,#d9eee7);color:#0b3b36}
+  .cierre p,.cierre h2{color:#0b3b36}
+  details,.tj,.plan,.pasos li{box-shadow:0 1px 2px rgba(15,60,55,.05),0 10px 26px -16px rgba(15,118,110,.30)}
 }
 </style>
 </head>
@@ -143,28 +179,38 @@ footer .sep{margin:0 8px}
   <h1>Política de privacidad</h1>
   <p class="vigencia">Versión inicial · vigente desde el 13 de noviembre de 2026</p>
   <p>Aquí te contamos, en simple, qué datos tuyos tenemos, para qué los usamos y cómo puedes pedirnos que los corrijamos o borremos. Es una versión inicial y la iremos mejorando.</p>
+
   <h2>1. Quiénes somos</h2>
   <p>Ordenaíto es una marca de apps para emprendedores de Chile. Responsable de los datos: Adrián Casanova. Contacto: <a href="mailto:contacto@ordenaito.cl">contacto@ordenaito.cl</a> o por <a href="#" data-wa="Hola, tengo una consulta sobre mis datos.">WhatsApp</a>.</p>
+
   <h2>2. Qué datos tenemos</h2>
   <ul>
     <li><b>Lo que tú anotas en la app</b> (productos, precios, costos, ajustes): queda <b>solo en tu celular</b>. Ordenaíto no lo recibe ni lo guarda en ningún servidor.</li>
     <li><b>Datos de tu compra</b>, para entregarte la app y darte soporte: tu nombre, tu WhatsApp, la app y versión que compraste, el pago y el <b>código del celular</b> que nos envías para activar. Si nos los das, también tu correo, la comuna y el nombre y rubro de tu negocio. En la versión personalizada, además, el logo, los colores y los productos que nos pides cargar.</li>
     <li><b>Estado de tu licencia</b> (activa o suspendida), para que la app pueda funcionar.</li>
   </ul>
+
   <h2>3. Para qué los usamos</h2>
   <p>Solo para entregarte y activar la app, darte soporte, avisarte sobre tu licencia o tu pago, y llevar el orden de las ventas. No vendemos tus datos ni los compartimos con terceros para publicidad.</p>
+
   <h2>4. Qué revisa la app en internet</h2>
   <p>Cuando la app abre con internet, consulta una lista pública para saber si su licencia está suspendida. Esa lista usa una huella anónima del código del celular: no muestra tu nombre ni tu teléfono. Si no hay internet, la app funciona igual.</p>
+
   <h2>5. Dónde se guardan nuestros datos</h2>
   <p>En un panel privado de Ordenaíto, protegido con contraseña, que funciona sobre servicios de Cloudflare, y con respaldos en cuentas privadas del responsable.</p>
+
   <h2>6. Por cuánto tiempo</h2>
   <p>Mientras seas cliente y el tiempo necesario para darte soporte y cumplir obligaciones tributarias. Puedes pedir que borremos tus datos de compra cuando quieras, salvo lo que la ley nos obligue a conservar.</p>
+
   <h2>7. Tus derechos</h2>
   <p>Puedes pedirnos ver, corregir o borrar tus datos, o que dejemos de escribirte. Escríbenos por WhatsApp o a <a href="mailto:contacto@ordenaito.cl">contacto@ordenaito.cl</a>.</p>
+
   <h2>8. Mensajes por WhatsApp</h2>
   <p>Te escribimos solo por temas de tu compra y soporte. Si no quieres que te escribamos más, avísanos.</p>
+
   <h2>9. Cookies y seguimiento</h2>
   <p>Este sitio y las apps no usan cookies de publicidad, estadísticas ni herramientas de seguimiento.</p>
+
   <h2>10. Cambios</h2>
   <p>Si cambiamos esta política, publicaremos aquí la nueva versión con su fecha.</p>
 </main>
@@ -173,6 +219,8 @@ footer .sep{margin:0 8px}
   <p style="margin:10px 0 0">© 2026 Ordenaíto · Hecha en Chile, para emprendedores de verdad.</p>
 </div></footer>
 <script>
+
+
 const WHATSAPP = "56937476833";
 document.querySelectorAll("[data-wa]").forEach(function (a) {
   a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.getAttribute("data-wa"));

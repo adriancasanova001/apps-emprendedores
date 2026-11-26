@@ -40,22 +40,30 @@ a{color:var(--verde-texto)}
 .btn.verde{background:var(--verde);color:#fff}
 .btn.linea{border-color:var(--verde-texto);color:var(--verde-texto);background:transparent}
 .btn.block{width:100%}
+
+
 .cabecera{padding:14px 0}
 .cabecera .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .cabecera a.logo{display:block;line-height:0}
 .cabecera svg{height:40px;width:auto;max-width:100%}
 .logo-oscuro{display:none}
 @media (prefers-color-scheme: dark){ .logo-claro{display:none} .logo-oscuro{display:block} }
+
+
 .portada{background:radial-gradient(circle at 90% 0,#13897f 0,transparent 50%),linear-gradient(160deg,var(--verde) 0%,var(--verde-osc) 100%);color:#fff;padding:36px 0 44px}
 .portada h1{font-size:clamp(28px,7.4vw,46px);font-weight:800;letter-spacing:-.5px;max-width:20ch}
 .portada .lema{font:800 clamp(20px,5vw,26px)/1.2 var(--titulo);color:var(--acento);margin:14px 0 8px}
 .portada p.sub{font-size:18px;max-width:34em;opacity:.95;margin-bottom:22px}
 .botones{display:flex;flex-direction:column;gap:12px;max-width:420px}
 .portada .nota{margin:16px 0 0;font-size:15px;font-weight:700;opacity:.9}
+
+
 section.bloque{padding:44px 0}
 section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .bajada{color:var(--suave);max-width:40em;margin-bottom:22px}
 .etiqueta{display:inline-block;background:var(--acento);color:#1b2430;font:800 13px/1 var(--cuerpo);padding:6px 11px;border-radius:99px;margin-bottom:10px;letter-spacing:.3px}
+
+
 .app{display:grid;gap:28px;align-items:center}
 .beneficios{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
 .beneficios li{display:flex;gap:12px;align-items:flex-start}
@@ -77,6 +85,8 @@ section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .pant .ganas{display:inline-block;margin-top:4px;background:var(--acento);color:#1b2430;font-weight:800;font-size:12px;padding:3px 9px;border-radius:99px}
 .pant .conv h4{font-size:13px}
 .pant .conv p{font-size:12.5px;font-weight:700;color:#15803d;margin:0}
+
+
 .planes{display:grid;gap:16px;margin-top:30px}
 .plan{background:var(--tarjeta);border:1px solid var(--borde);border-radius:20px;padding:22px 20px;box-shadow:var(--sombra);display:flex;flex-direction:column}
 .plan.dest{border:2px solid var(--verde-texto)}
@@ -87,23 +97,31 @@ section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .plan ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:8px;flex:1}
 .plan li{padding-left:26px;position:relative}
 .plan li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--verde-texto);font-weight:800}
+
+
 .prox{display:grid;gap:14px}
 .prox .tj{background:var(--tarjeta);border:1px dashed var(--borde);border-radius:18px;padding:18px}
 .prox h3{font-size:19px;margin:8px 0 4px}
 .prox p{color:var(--suave);margin:0;font-size:16px}
 .chip{display:inline-block;background:var(--acento-suave);color:#a16207;font:800 12px/1 var(--cuerpo);padding:5px 10px;border-radius:99px}
 @media (prefers-color-scheme: dark){ .chip{color:#facc15} }
+
+
 .pasos{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px;counter-reset:p}
 .pasos li{background:var(--tarjeta);border:1px solid var(--borde);border-radius:18px;padding:16px 16px 16px 66px;position:relative;counter-increment:p;box-shadow:var(--sombra)}
 .pasos li::before{content:counter(p);position:absolute;left:16px;top:14px;width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;font:800 18px/36px var(--titulo);text-align:center}
 .pasos b{display:block;font-size:18px}
 .pasos span{color:var(--suave)}
+
+
 details{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;margin-bottom:10px}
 summary{cursor:pointer;min-height:48px;padding:12px 44px 12px 16px;font-weight:800;list-style:none;position:relative}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";position:absolute;right:16px;top:8px;font:800 24px/32px var(--titulo);color:var(--verde-texto)}
 details[open] summary::after{content:"\2212"}
 details p{padding:0 16px 14px;margin:0;color:var(--suave)}
+
+
 .cierre{background:linear-gradient(160deg,var(--verde) 0%,var(--verde-osc) 100%);color:#fff;text-align:center;padding:40px 0}
 .cierre h2{font-size:clamp(24px,6vw,32px);margin-bottom:8px}
 .cierre p{opacity:.95}
@@ -111,6 +129,8 @@ details p{padding:0 16px 14px;margin:0;color:var(--suave)}
 footer{padding:26px 0 34px;text-align:center;color:var(--suave);font-size:15px}
 footer a{font-weight:700}
 footer .sep{margin:0 8px}
+
+
 .doc{padding:28px 16px 36px;max-width:720px}
 .doc h1{font-size:clamp(28px,7vw,38px);margin-bottom:6px}
 .doc h2{font-size:21px;margin:28px 0 8px}
@@ -118,6 +138,7 @@ footer .sep{margin:0 8px}
 .doc ul{padding-left:22px;margin:0 0 12px}
 .doc li{margin-bottom:6px}
 .volver{display:inline-flex;align-items:center;min-height:44px;font-weight:800}
+
 @media (min-width:720px){
   .botones{flex-direction:row;max-width:none}
   .botones .btn{padding:10px 28px}
@@ -129,6 +150,21 @@ footer .sep{margin:0 8px}
   .pasos li::before{top:16px}
   .portada{padding:56px 0 64px}
   .cierre .botones{justify-content:center}
+}
+
+
+@media (not (prefers-color-scheme: dark)){
+  :root{--fondo:#edf6f3;--borde:#d4e6e0;--acento-suave:#d6efe7}
+  .portada{background:linear-gradient(180deg,#d9eee7 0%,#edf6f3 100%);color:#0b3b36}
+  .portada h1,.portada p,.portada .sub,.portada .nota{color:#0b3b36}
+  .portada .lema{color:#0f766e}
+  .portada a:not(.btn){color:#0f766e}
+  .btn.borde{border-color:#bfe0d6;color:#0f766e;background:#fff}
+  .btn.verde{background:#0f766e}
+  .btn.acento{background:#f59e0b;color:#1b2430}
+  .cierre{background:linear-gradient(180deg,#edf6f3,#d9eee7);color:#0b3b36}
+  .cierre p,.cierre h2{color:#0b3b36}
+  details,.tj,.plan,.pasos li{box-shadow:0 1px 2px rgba(15,60,55,.05),0 10px 26px -16px rgba(15,118,110,.30)}
 }
 </style>
 </head>
@@ -142,6 +178,7 @@ footer .sep{margin:0 8px}
   <a class="volver" href="../">← Volver al inicio</a>
   <h1>Ayuda</h1>
   <p>Todo lo que necesitas para instalar y usar Calcula tu Precio. Si algo no te resulta, escríbenos por WhatsApp.</p>
+
   <h2>Paso a paso</h2>
   <details><summary>Instalar en iPhone (hazlo antes de activar)</summary><ol><li>Abre el link de la app en <b>Safari</b> (no desde el navegador de WhatsApp ni de Instagram). Si te llegó por WhatsApp, toca el link y luego «Abrir en Safari».</li><li>Toca el botón <b>Compartir</b> (el cuadrado con una flecha hacia arriba, abajo en la pantalla).</li><li>Desliza hacia abajo y toca <b>«Agregar a pantalla de inicio»</b>. Si no la ves, toca «Editar acciones» y agrégala.</li><li>Toca <b>Agregar</b>.</li><li>Cierra Safari y abre la app <b>desde el ícono nuevo</b>. Recién ahí actívala.</li></ol><p><i>En iPhone el ícono guarda sus datos aparte de Safari. Si activas en Safari y después abres desde el ícono, te pedirá activar otra vez.</i></p><img src="img/A-1.png" alt="Instalar en iPhone (hazlo antes de activar), paso 1 de 5" loading="lazy" width="540" height="675" style="width:100%;max-width:420px;height:auto;border-radius:14px;margin:8px 0">
 <img src="img/A-2.png" alt="Instalar en iPhone (hazlo antes de activar), paso 2 de 5" loading="lazy" width="540" height="675" style="width:100%;max-width:420px;height:auto;border-radius:14px;margin:8px 0">
@@ -161,6 +198,7 @@ footer .sep{margin:0 8px}
   <details><summary>Respaldar tus datos</summary><ul><li>Ajustes → <b>Exportar respaldo</b> (se descarga un archivo). Hazlo cada vez que cambies precios o agregues productos, y guárdalo fuera del celular (correo, Drive o WhatsApp a ti mismo).</li><li>Para recuperar: Ajustes → <b>Importar respaldo</b> y elige el archivo.</li></ul><img src="img/F-1.png" alt="Respaldar tus datos, paso 1 de 3" loading="lazy" width="540" height="675" style="width:100%;max-width:420px;height:auto;border-radius:14px;margin:8px 0">
 <img src="img/F-2.png" alt="Respaldar tus datos, paso 2 de 3" loading="lazy" width="540" height="675" style="width:100%;max-width:420px;height:auto;border-radius:14px;margin:8px 0">
 <img src="img/F-3.png" alt="Respaldar tus datos, paso 3 de 3" loading="lazy" width="540" height="675" style="width:100%;max-width:420px;height:auto;border-radius:14px;margin:8px 0"></details>
+
   <h2>Preguntas frecuentes</h2>
   <details><summary>¿Necesito internet para usar la app?</summary><p>Calcula tu Precio funciona sin internet una vez instalada. Solo se conecta de vez en cuando para revisar el estado de tu licencia; si falla la conexión, igual funciona.</p></details>
   <details><summary>¿Cuánto cuesta y hay mensualidad?</summary><p>Calcula tu Precio se paga <b>una sola vez</b> y no tiene mensualidad, ahora ni después. Hasta el 16 de diciembre de 2026 hay promoción de lanzamiento: <b>básica $9.990 y personalizada $14.990</b> (precios normales: $19.990 y $29.990).</p></details>
@@ -173,6 +211,7 @@ footer .sep{margin:0 8px}
   <details><summary>¿Puedo pedir un cambio especial?</summary><p>Sí. Los cambios a tu gusto se cotizan aparte; te decimos el costo antes de hacerlos.</p></details>
   <details><summary>¿Hay devoluciones?</summary><p>Una vez entregado el código de activación no hay devoluciones, porque es un producto digital. Antes de pagar, abre el link en tu celular para ver cómo se ve. Más detalle en las <a href="../condiciones/">condiciones</a>.</p></details>
   <details><summary>¿Qué pasa si no pago?</summary><p>La licencia se puede suspender. Tus datos siguen en tu celular, pero la app no se usa hasta regularizar el pago.</p></details>
+
   <h2>¿Sigues con dudas?</h2>
   <p>Escríbenos por WhatsApp: <a href="#" data-wa="Hola, necesito ayuda con Calcula tu Precio.">abrir WhatsApp</a>.</p>
 </main>
@@ -181,6 +220,8 @@ footer .sep{margin:0 8px}
   <p style="margin:10px 0 0">© 2026 Ordenaíto · Hecha en Chile, para emprendedores de verdad.</p>
 </div></footer>
 <script>
+
+
 const WHATSAPP = "56937476833";
 document.querySelectorAll("[data-wa]").forEach(function (a) {
   a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.getAttribute("data-wa"));

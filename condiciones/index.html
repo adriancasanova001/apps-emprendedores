@@ -40,22 +40,30 @@ a{color:var(--verde-texto)}
 .btn.verde{background:var(--verde);color:#fff}
 .btn.linea{border-color:var(--verde-texto);color:var(--verde-texto);background:transparent}
 .btn.block{width:100%}
+
+
 .cabecera{padding:14px 0}
 .cabecera .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .cabecera a.logo{display:block;line-height:0}
 .cabecera svg{height:40px;width:auto;max-width:100%}
 .logo-oscuro{display:none}
 @media (prefers-color-scheme: dark){ .logo-claro{display:none} .logo-oscuro{display:block} }
+
+
 .portada{background:radial-gradient(circle at 90% 0,#13897f 0,transparent 50%),linear-gradient(160deg,var(--verde) 0%,var(--verde-osc) 100%);color:#fff;padding:36px 0 44px}
 .portada h1{font-size:clamp(28px,7.4vw,46px);font-weight:800;letter-spacing:-.5px;max-width:20ch}
 .portada .lema{font:800 clamp(20px,5vw,26px)/1.2 var(--titulo);color:var(--acento);margin:14px 0 8px}
 .portada p.sub{font-size:18px;max-width:34em;opacity:.95;margin-bottom:22px}
 .botones{display:flex;flex-direction:column;gap:12px;max-width:420px}
 .portada .nota{margin:16px 0 0;font-size:15px;font-weight:700;opacity:.9}
+
+
 section.bloque{padding:44px 0}
 section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .bajada{color:var(--suave);max-width:40em;margin-bottom:22px}
 .etiqueta{display:inline-block;background:var(--acento);color:#1b2430;font:800 13px/1 var(--cuerpo);padding:6px 11px;border-radius:99px;margin-bottom:10px;letter-spacing:.3px}
+
+
 .app{display:grid;gap:28px;align-items:center}
 .beneficios{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
 .beneficios li{display:flex;gap:12px;align-items:flex-start}
@@ -77,6 +85,8 @@ section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .pant .ganas{display:inline-block;margin-top:4px;background:var(--acento);color:#1b2430;font-weight:800;font-size:12px;padding:3px 9px;border-radius:99px}
 .pant .conv h4{font-size:13px}
 .pant .conv p{font-size:12.5px;font-weight:700;color:#15803d;margin:0}
+
+
 .planes{display:grid;gap:16px;margin-top:30px}
 .plan{background:var(--tarjeta);border:1px solid var(--borde);border-radius:20px;padding:22px 20px;box-shadow:var(--sombra);display:flex;flex-direction:column}
 .plan.dest{border:2px solid var(--verde-texto)}
@@ -87,23 +97,31 @@ section.bloque>.wrap>h2{font-size:clamp(24px,6vw,34px);margin-bottom:8px}
 .plan ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:8px;flex:1}
 .plan li{padding-left:26px;position:relative}
 .plan li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--verde-texto);font-weight:800}
+
+
 .prox{display:grid;gap:14px}
 .prox .tj{background:var(--tarjeta);border:1px dashed var(--borde);border-radius:18px;padding:18px}
 .prox h3{font-size:19px;margin:8px 0 4px}
 .prox p{color:var(--suave);margin:0;font-size:16px}
 .chip{display:inline-block;background:var(--acento-suave);color:#a16207;font:800 12px/1 var(--cuerpo);padding:5px 10px;border-radius:99px}
 @media (prefers-color-scheme: dark){ .chip{color:#facc15} }
+
+
 .pasos{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px;counter-reset:p}
 .pasos li{background:var(--tarjeta);border:1px solid var(--borde);border-radius:18px;padding:16px 16px 16px 66px;position:relative;counter-increment:p;box-shadow:var(--sombra)}
 .pasos li::before{content:counter(p);position:absolute;left:16px;top:14px;width:36px;height:36px;border-radius:50%;background:var(--verde);color:#fff;font:800 18px/36px var(--titulo);text-align:center}
 .pasos b{display:block;font-size:18px}
 .pasos span{color:var(--suave)}
+
+
 details{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;margin-bottom:10px}
 summary{cursor:pointer;min-height:48px;padding:12px 44px 12px 16px;font-weight:800;list-style:none;position:relative}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";position:absolute;right:16px;top:8px;font:800 24px/32px var(--titulo);color:var(--verde-texto)}
 details[open] summary::after{content:"\2212"}
 details p{padding:0 16px 14px;margin:0;color:var(--suave)}
+
+
 .cierre{background:linear-gradient(160deg,var(--verde) 0%,var(--verde-osc) 100%);color:#fff;text-align:center;padding:40px 0}
 .cierre h2{font-size:clamp(24px,6vw,32px);margin-bottom:8px}
 .cierre p{opacity:.95}
@@ -111,6 +129,8 @@ details p{padding:0 16px 14px;margin:0;color:var(--suave)}
 footer{padding:26px 0 34px;text-align:center;color:var(--suave);font-size:15px}
 footer a{font-weight:700}
 footer .sep{margin:0 8px}
+
+
 .doc{padding:28px 16px 36px;max-width:720px}
 .doc h1{font-size:clamp(28px,7vw,38px);margin-bottom:6px}
 .doc h2{font-size:21px;margin:28px 0 8px}
@@ -118,6 +138,7 @@ footer .sep{margin:0 8px}
 .doc ul{padding-left:22px;margin:0 0 12px}
 .doc li{margin-bottom:6px}
 .volver{display:inline-flex;align-items:center;min-height:44px;font-weight:800}
+
 @media (min-width:720px){
   .botones{flex-direction:row;max-width:none}
   .botones .btn{padding:10px 28px}
@@ -129,6 +150,21 @@ footer .sep{margin:0 8px}
   .pasos li::before{top:16px}
   .portada{padding:56px 0 64px}
   .cierre .botones{justify-content:center}
+}
+
+
+@media (not (prefers-color-scheme: dark)){
+  :root{--fondo:#edf6f3;--borde:#d4e6e0;--acento-suave:#d6efe7}
+  .portada{background:linear-gradient(180deg,#d9eee7 0%,#edf6f3 100%);color:#0b3b36}
+  .portada h1,.portada p,.portada .sub,.portada .nota{color:#0b3b36}
+  .portada .lema{color:#0f766e}
+  .portada a:not(.btn){color:#0f766e}
+  .btn.borde{border-color:#bfe0d6;color:#0f766e;background:#fff}
+  .btn.verde{background:#0f766e}
+  .btn.acento{background:#f59e0b;color:#1b2430}
+  .cierre{background:linear-gradient(180deg,#edf6f3,#d9eee7);color:#0b3b36}
+  .cierre p,.cierre h2{color:#0b3b36}
+  details,.tj,.plan,.pasos li{box-shadow:0 1px 2px rgba(15,60,55,.05),0 10px 26px -16px rgba(15,118,110,.30)}
 }
 </style>
 </head>
@@ -143,30 +179,41 @@ footer .sep{margin:0 8px}
   <h1>Condiciones de uso</h1>
   <p class="vigencia">Vigentes desde el 13 de noviembre de 2026</p>
   <p>Esto es lo que debes saber al comprar una app de Ordenaíto. Está escrito en simple, para que lo entiendas a la primera.</p>
+
   <h2>1. Qué compras</h2>
-  <p>Compras una licencia de uso personal de la app, para tu negocio. Las apps que se venden como "pago único" (hoy, Calcula tu Precio) se pagan una sola vez y no tendrán mensualidad, ahora ni después. Si una app necesita un servicio en línea con costo mensual, se informa de forma expresa antes de comprar. La licencia te permite usar la app; no incluye el código de la app ni los derechos sobre ella.</p>
+  <p>Compras una licencia de uso personal de la app, para tu negocio. Las apps que se venden como "pago único" (hoy: Calcula tu Precio, Agenda de Horas y Cotizador) se pagan una sola vez y no tendrán mensualidad, ahora ni después. Si una app necesita un servicio en línea con costo mensual, se informa de forma expresa antes de comprar. La licencia te permite usar la app; no incluye el código de la app ni los derechos sobre ella.</p>
+
   <h2>2. Activaciones y cambio de celular</h2>
   <ul>
     <li>La versión básica se activa en 1 celular y la personalizada en 2.</li>
     <li>Si cambias de celular o pierdes el tuyo, escríbenos por WhatsApp. Podemos reactivar tu app, a criterio del vendedor.</li>
     <li>La licencia es solo tuya: no se puede revender, regalar ni compartir con otras personas u otros negocios.</li>
   </ul>
+
   <h2>3. Tus datos son tuyos y quedan en tu celular</h2>
   <p>Lo que anotas en la app (productos, precios, ajustes) se guarda solo en tu celular. Ordenaíto no lo ve ni lo guarda en ningún servidor.</p>
   <p>Por eso tú eres responsable de hacer respaldos con el botón "Exportar respaldo". Si borras los datos del navegador o pierdes el celular sin tener un respaldo, esos datos no se pueden recuperar.</p>
+
   <h2>4. Lo que la app no hace</h2>
   <p>La app no emite boletas ni facturas del SII, y no reemplaza la asesoría de un contador. Sirve para ordenar y calcular tus costos y precios.</p>
+
   <h2>5. Soporte</h2>
   <p>Te ayudamos por WhatsApp, en horario hábil, con la instalación, la activación y las dudas de uso.</p>
+
   <h2>6. Personalizaciones a tu gusto</h2>
   <p>Los cambios a la medida (más productos cargados, textos o ajustes especiales) se cotizan aparte y tienen un costo adicional, que acordamos contigo antes de hacerlos.</p>
+
   <h2>7. Actualizaciones</h2>
   <p>Las actualizaciones generales de la app están incluidas mientras la app siga disponible.</p>
+
   <h2>8. Si la compra no se paga</h2>
   <p>Si la compra no se paga, el vendedor puede suspender la licencia. Tus datos siguen guardados en tu celular, pero la app no se podrá usar hasta que se regularice el pago.</p>
+
   <h2>9. Sin devoluciones</h2>
+  
   <p>Las apps son licencias digitales y se entregan en el momento en que te enviamos tu código de activación. Por eso, <strong>una vez entregado el código no hay devoluciones ni derecho a retracto</strong>.</p>
   <p>Antes de pagar, abre el link de la app en tu celular para confirmar que se ve bien. Si tienes cualquier duda, escríbenos y lo revisamos contigo antes de que compres.</p>
+
   <h2>10. Contacto</h2>
   <p>Escríbenos por WhatsApp: <a href="#" data-wa="Hola, tengo una consulta sobre las condiciones de uso.">abrir WhatsApp</a>.</p>
 </main>
@@ -175,6 +222,8 @@ footer .sep{margin:0 8px}
   <p style="margin:10px 0 0">© 2026 Ordenaíto · Hecha en Chile, para emprendedores de verdad.</p>
 </div></footer>
 <script>
+
+
 const WHATSAPP = "56937476833";
 document.querySelectorAll("[data-wa]").forEach(function (a) {
   a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.getAttribute("data-wa"));
