@@ -256,6 +256,11 @@ header.top .seg button{flex:1;padding:0 4px;font-size:12.5px;min-width:0}
 .seg-fila{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--borde)}
 .seg-fila .btn{width:auto;margin:0;padding:0 18px;min-height:44px}
 label.mini.un{flex:0 0 96px;min-width:96px}
+.franja{display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:18px;padding:10px 12px;margin-bottom:14px;font-weight:700;font-size:14px}
+.franja .btn{width:auto;margin:0;min-height:44px;padding:0 14px;flex:none}
+.fr-ok{background:var(--ok-fondo);color:var(--ok)}
+.fr-aviso{background:var(--aviso-fondo);color:var(--aviso)}
+.fr-mal{background:var(--mal-fondo);color:var(--mal)}
 :root{--primario:#0f766e;--grad:var(--primario);--brillo:none;--brillo-c:none;--grad-calido:#f59e0b}
 .btn.cal{color:#1b2430;box-shadow:none}
 .btn.pri,.seg button.sel{box-shadow:none}
@@ -798,6 +803,7 @@ var CotPDF = (function () {
 var PRO = true;
 var NOMBRE = "Cotizador";
 var DEMO = false;
+var LINEA_PRO = false;
 var VERSION = "1.0", KEY = DEMO ? "ord_cot_demo" : "ord_cot_datos", APPKEY = "COTIZADOR";
 var COLORES = ["#0f766e", "#2563eb", "#7c3aed", "#db2777", "#dc2626", "#ea580c", "#ca8a04", "#475569"];
 var RUBROS = PRO ? [["mat", "Materiales o productos", "Buscar en mi catálogo…"], ["mo", "Mano de obra o servicios", "Buscar servicio…"], ["gg", "Gastos y traslados", "Buscar gasto…"]] : [["mat", "Ítems", ""]];
@@ -973,7 +979,7 @@ function vistaCots() {
   var monto = delMes.reduce(function (s, c) { return s + calc(c).total; }, 0);
   var h = '<section class="card hero"><span class="eyebrow">COTIZACIONES</span><h1>' + esc(E.neg.nombre || "Tu negocio") + '</h1><p class="sub">Arma una cotización en segundos y envíala por WhatsApp o PDF.</p><button class="btn cal" data-a="nueva">+ Nueva cotización</button></section>';
   h += '<div class="stats"><div class="stat"><b>' + E.cots.length + "</b><span>cotizaciones</span></div><div class=\"stat\"><b>" + delMes.length + "</b><span>este mes</span></div><div class=\"stat\"><b class=\"av\" style=\"font-size:20px\">" + clp(monto) + "</b><span>cotizado en el mes</span></div></div>";
-  h += lineaNovedades();
+  h = lineaFranja() + h + lineaNovedades();
   if (DEMO) h += '<div class="alerta"><b>Versión de prueba:</b> puedes hacer ' + LIM_DEMO + " cotizaciones (llevas " + Math.min(demoUsadas(), LIM_DEMO) + '). Los PDF y mensajes salen con la marca DEMO.<a class="btn cal" style="width:100%;margin-top:8px" target="_blank" rel="noopener" href="' + linkComprar() + '">Comprar la versión completa</a></div>';
   h += avisoRespaldo() + resumenCierre() + seguimiento();
   if (!E.neg.nombre || !E.neg.logo) h += '<div class="alerta">Para que tus cotizaciones se vean profesionales, ' + (!E.neg.nombre ? "pon el nombre de tu negocio y " : "") + 'sube tu <b>logo</b>.<button class="btn" data-a="logo" style="margin-top:8px">Subir mi logo ahora</button></div>';
@@ -987,7 +993,7 @@ function nuevaCot() {
 }
 function abrirEd(id) {
   if (id) { var c = E.cots.filter(function (x) { return x.id === id; })[0]; if (!c) return; ed = JSON.parse(JSON.stringify(c)); edNuevo = false; }
-  else { if (DEMO && demoUsadas() >= LIM_DEMO) return hojaPagar(MSG_LIM); ed = nuevaCot(); edNuevo = true; if (!PRO) ed.items.push({ id: uid(), n: "", c: 1, p: 0, k: 0, r: "mat" }); }
+  else { if (soloLectura()) return hojaPausa(); if (DEMO && demoUsadas() >= LIM_DEMO) return hojaPagar(MSG_LIM); ed = nuevaCot(); edNuevo = true; if (!PRO) ed.items.push({ id: uid(), n: "", c: 1, p: 0, k: 0, r: "mat" }); }
   pintarEd();
 }
 function filaItem(it, ix) {
@@ -1046,6 +1052,7 @@ function recalc() {
   }
 }
 function guardarEd(silencio) {
+  if (soloLectura()) { if (!silencio) hojaPausa(); return false; }
   var c = ed;
   c.items = c.items.filter(function (it) { return it.n.trim() || it.p > 0; });
   if (!c.items.length && !c.cli.n.trim()) { return false; }
@@ -1327,7 +1334,7 @@ function vistaAj() {
   }
   h += lineaAjustes();
   h += '<div class="card"><h2>Respaldo</h2><p class="nota">Descarga tus datos en un archivo. Guárdalo en tu correo o Drive.</p><button class="btn pri" data-a="exportar">Descargar respaldo</button><button class="btn" data-a="importar">Cargar un respaldo</button><button class="btn" data-a="csv">Exportar historial a Excel (CSV)</button></div>';
-  if (!DEMO) h += '<div class="card"><h2>Tu código de celular</h2><p class="nota">Lo usa tu vendedor para activar la app.</p><p style="font:700 22px ui-monospace,Consolas,monospace;letter-spacing:2px;margin:0">' + esc(Activacion.codigoCelular()) + '</p></div>';
+  if (!DEMO && !LINEA_PRO) h += '<div class="card"><h2>Tu código de celular</h2><p class="nota">Lo usa tu vendedor para activar la app.</p><p style="font:700 22px ui-monospace,Consolas,monospace;letter-spacing:2px;margin:0">' + esc(Activacion.codigoCelular()) + '</p></div>';
   h += '<div class="card"><h2>Borrar todo</h2><button class="btn mal" data-a="borrar">Borrar mis datos de este celular</button></div>';
   h += '<p class="sii">⚠ ' + NOMBRE + " no emite boletas ni facturas del SII. Es una herramienta para preparar cotizaciones.</p>";
   return h;
@@ -1353,7 +1360,7 @@ function importar(file) {
   r.onload = function () {
     try {
       var d = JSON.parse(r.result);
-      if (d.app && d.app !== APPKEY) return aviso("Ese respaldo es de otra app.");
+      if (d.app && d.app !== APPKEY && !(LINEA_PRO && d.app === "COTIZADOR")) return aviso("Ese respaldo es de otra app.");
       if (!confirm("Se reemplazarán los datos de este celular con los del respaldo. ¿Seguro?")) return;
       E = migrar(d); lineaTrasImportar(); guardar(); tema(); pintar(); aviso("Respaldo cargado.");
     } catch (e) { aviso("No pude leer ese archivo."); }
@@ -1493,7 +1500,7 @@ function pintar() {
   var t = [["cots", "Cotizar"], ["cli", "Clientes"]]; if (PRO) t.push(["cat", "Catálogo"]); t.push(["ayuda", "Ayuda"]); t.push(["aj", "Ajustes"]);
   $("tabs").innerHTML = t.map(function (x) { return '<button data-a="tab" data-t="' + x[0] + '" class="' + (tab === x[0] ? "sel" : "") + '">' + x[1] + "</button>"; }).join("");
   var h = tab === "cots" ? vistaCots() : tab === "cli" ? vistaClientes() : tab === "cat" ? vistaCat() : tab === "ayuda" ? vistaAyuda() : vistaAj();
-  h += '<p class="pie">' + NOMBRE + " v" + VERSION + " · " + (DEMO ? "Versión de prueba (DEMO)" : "Licencia de uso personal") + " · Ordenaíto</p>";
+  h += '<p class="pie">' + NOMBRE + " v" + VERSION + " · " + (DEMO ? "Versión de prueba (DEMO)" : LINEA_PRO ? "Plan mensual" : "Licencia de uso personal") + " · Ordenaíto</p>";
   $("app").innerHTML = h; window.scrollTo(0, 0);
 }
 document.addEventListener("click", function (e) {
@@ -1522,8 +1529,8 @@ document.addEventListener("click", function (e) {
     ed.items = JSON.parse(JSON.stringify(l[0].items)).map(function (x) { x.id = uid(); return x; }); ed.proyecto = ed.proyecto || l[0].proyecto || ""; ed.lugar = ed.lugar || l[0].lugar || "";
     pintarEd(); aviso("Cargué la última cotización de " + l[0].cli.n + ". Ajusta cantidades y precios.");
   }
-  else if (a === "duplicar") { if (DEMO && demoUsadas() >= LIM_DEMO) return hojaPagar(MSG_LIM); guardarEd(true); var cp = JSON.parse(JSON.stringify(ed)); cp.id = uid(); cp.num = "COT-" + pad(E.cfg.correl, 4); cp.fecha = hoyISO(); cp.estado = "borrador"; ed = cp; edNuevo = true; pintarEd(); aviso("Duplicada como " + cp.num + "."); }
-  else if (a === "eliminar") { if (confirm("¿Eliminar esta cotización? No se puede deshacer.")) { E.cots = E.cots.filter(function (x) { return x.id !== ed.id; }); guardar(); cerrarEd(); } }
+  else if (a === "duplicar") { if (soloLectura()) return hojaPausa(); if (DEMO && demoUsadas() >= LIM_DEMO) return hojaPagar(MSG_LIM); guardarEd(true); var cp = JSON.parse(JSON.stringify(ed)); cp.id = uid(); cp.num = "COT-" + pad(E.cfg.correl, 4); cp.fecha = hoyISO(); cp.estado = "borrador"; ed = cp; edNuevo = true; pintarEd(); aviso("Duplicada como " + cp.num + "."); }
+  else if (a === "eliminar") { if (soloLectura()) return hojaPausa(); if (confirm("¿Eliminar esta cotización? No se puede deshacer.")) { E.cots = E.cots.filter(function (x) { return x.id !== ed.id; }); guardar(); cerrarEd(); } }
   else if (a === "enviar") abrirEnviar();
   else if (a === "wa") { marcarEnviada(); }
   else if (a === "pdfCompartir") { marcarEnviada(); compartirPDF(); }
@@ -1534,7 +1541,7 @@ document.addEventListener("click", function (e) {
   else if (a === "editCli") abrirCli(id);
   else if (a === "guardarCli") guardarCli();
   else if (a === "borrarCli") { if (confirm("¿Eliminar este cliente? Sus cotizaciones se mantienen.")) { E.clientes = E.clientes.filter(function (x) { return x.id !== edCli.id; }); guardar(); $("hoja").className = ""; pintar(); } }
-  else if (a === "impXls") { if (DEMO) return hojaPagar("Importar desde Excel está en la versión completa."); $("f-xls").click(); }
+  else if (a === "impXls") { if (soloLectura()) return hojaPausa(); if (DEMO) return hojaPagar("Importar desde Excel está en la versión completa."); $("f-xls").click(); }
   else if (a === "plantillaXls") plantillaCSV();
   else if (a === "packs") abrirPacks();
   else if (a === "addPack") addPack(id);
@@ -1548,7 +1555,7 @@ document.addEventListener("click", function (e) {
   else if (a === "plant") { E.neg.terminos = PLANTILLAS[b.getAttribute("data-p")]; guardar(); pintar(); aviso("Plantilla cargada. Puedes editarla."); }
   else if (a === "exportar") { if (DEMO) return hojaPagar("El respaldo está en la versión completa."); exportar(); }
   else if (a === "csv") { if (DEMO) return hojaPagar("Exportar a Excel está en la versión completa."); exportarCSV(); }
-  else if (a === "importar") { if (DEMO) return hojaPagar("Cargar respaldos está en la versión completa."); $("f-resp").click(); }
+  else if (a === "importar") { if (soloLectura()) return hojaPausa(); if (DEMO) return hojaPagar("Cargar respaldos está en la versión completa."); $("f-resp").click(); }
   else if (a === "borrar") { if (confirm("Se borrarán todas tus cotizaciones, clientes y ajustes de este celular. ¿Seguro?")) { E = nuevoE(); lineaReset(); guardar(); tema(); tab = "cots"; pintar(); aviso("Datos borrados."); } }
 });
 document.addEventListener("input", function (e) {
@@ -1582,299 +1589,19 @@ document.addEventListener("change", function (e) {
   t.value = "";
 });
 document.addEventListener("gesturestart", function (e) { e.preventDefault(); });
-var LBASE = "https://cotizar.ordenaito.cl", LKEY = KEY + "_linea";
-var lineaToken = (function () {
-  try {
-    var m = /[#&]linea=([A-Za-z0-9_-]{20,80})/.exec(location.hash || "");
-    if (m) { history.replaceState(null, "", location.pathname + location.search); return m[1]; }
-  } catch (e) {}
-  return "";
-})();
-function lNuevo() { return { on: false, negocio: null, plan: null, rev: 0, ver: { ajustes: 0, clientes: 0, catalogo: 0, logo: 0 }, h: {}, hc: {}, st: {}, pub: {}, lineas: {}, avisosUlt: 0, nuevos: [], ultima: "", msg: "" }; }
-function lCargar() {
-  try {
-    var s = localStorage.getItem(LKEY);
-    if (s) { var o = JSON.parse(s), b = lNuevo(); Object.keys(b).forEach(function (k) { if (o[k] != null && (b[k] === null || typeof o[k] === typeof b[k])) b[k] = o[k]; }); return b; }
-  } catch (e) {}
-  return lNuevo();
-}
-var L = lCargar(), lTimer = null, lCamb = null, lCorriendo = false;
-function lGuardar() { try { localStorage.setItem(LKEY, JSON.stringify(L)); } catch (e) {} }
-function lGuardarE() { try { localStorage.setItem(KEY, JSON.stringify(E)); } catch (e) {} }
-function hsh(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return String(h >>> 0) + ":" + s.length; }
-function lPlanOk() { return !!(L.plan && /^(activo|gracia)$/.test(L.plan.estado)); }
-function cotSubible(c) { var o = JSON.parse(JSON.stringify(c)); delete o.actualizado; return o; }
-function hashCot(c) { return hsh(JSON.stringify(cotSubible(c))); }
-function docsLocales() {
-  var neg = {};
-  Object.keys(E.neg).forEach(function (k) { if (!/^logo/.test(k)) neg[k] = E.neg[k]; });
-  return { ajustes: { neg: neg, cfg: E.cfg }, clientes: E.clientes, catalogo: E.cat, logo: { logo: E.neg.logo || "", logoW: E.neg.logoW || 0, logoH: E.neg.logoH || 0 } };
-}
-function unirPorId(srv, loc) {
-  var m = {}, orden = [];
-  srv.concat(loc).forEach(function (x) { if (x && x.id) { if (!m[x.id]) orden.push(x.id); m[x.id] = x; } });
-  return orden.map(function (k) { return m[k]; });
-}
-function lApi(met, ruta, cuerpo) {
-  var op = { method: met, credentials: "include", headers: {} };
-  if (cuerpo !== undefined) { op.headers["Content-Type"] = "application/json"; op.body = JSON.stringify(cuerpo); }
-  return fetch(LBASE + ruta, op).then(function (r) {
-    return r.json().catch(function () { return {}; }).then(function (j) {
-      if (!r.ok) { var e = new Error(j.mensaje || j.error || ("Error " + r.status)); e.status = r.status; e.codigo = j.error; e.j = j; throw e; }
-      return j;
-    });
-  });
-}
-function lineaCambio() { if (DEMO || !L || !L.on) return; clearTimeout(lCamb); lCamb = setTimeout(function () { lMarcar(); lProgramar(); }, 700); }
-function lMarcar() {
-  var cambio = false;
-  E.cots.forEach(function (c) { var hh = hashCot(c); if (L.hc[c.id] !== hh && L.st[c.id] !== hh) { c.actualizado = Date.now(); L.st[c.id] = hh; cambio = true; } });
-  if (cambio) { lGuardarE(); lGuardar(); }
-}
-function lProgramar(ms) { if (DEMO || !L.on) return; clearTimeout(lTimer); lTimer = setTimeout(function () { sincronizar(); }, ms == null ? 3000 : ms); }
-function lError(e) {
-  if (e && e.status === 401) { L.on = false; L.msg = "La sesión del plan en línea se cerró. Actívalo de nuevo con tu link."; }
-  else if (e && e.status === 423) { if (e.j && e.j.estado) L.plan = Object.assign({}, L.plan || {}, { estado: e.j.estado }); L.msg = (e.j && e.j.mensaje) || "Tu plan en línea no está activo. La app sigue funcionando en este celular."; }
-  else if (e && e.status) L.msg = e.message;
-  else L.msg = "Sin conexión con el servidor. Tus datos siguen en este celular.";
-  lGuardar();
-}
-function lSubir() {
-  if (!lPlanOk()) return Promise.resolve();
-  lMarcar();
-  var hs = {}, ids = {}, cots = [];
-  E.cots.forEach(function (c) { var hh = hashCot(c); hs[c.id] = hh; ids[c.id] = 1; if (L.hc[c.id] !== hh) cots.push({ id: c.id, actualizado: c.actualizado || Date.now(), datos: cotSubible(c) }); });
-  Object.keys(L.hc).forEach(function (id) { if (!ids[id]) cots.push({ id: id, actualizado: Date.now(), borrada: true }); });
-  var dl = docsLocales(), docs = {};
-  Object.keys(dl).forEach(function (t) { var hh = hsh(JSON.stringify(dl[t])); if (L.h[t] !== hh) docs[t] = { base: L.ver[t] || 0, datos: dl[t], hh: hh }; });
-  var lotes = [];
-  for (var i = 0; i < cots.length; i += 25) lotes.push(cots.slice(i, i + 25));
-  if (!lotes.length) lotes.push([]);
-  var p = Promise.resolve();
-  lotes.forEach(function (lote, k) {
-    p = p.then(function () {
-      var cuerpo = {};
-      if (lote.length) cuerpo.cots = lote;
-      if (k === 0 && Object.keys(docs).length) { cuerpo.docs = {}; Object.keys(docs).forEach(function (t) { cuerpo.docs[t] = { base: docs[t].base, datos: docs[t].datos }; }); }
-      if (!cuerpo.cots && !cuerpo.docs) return;
-      return lApi("PUT", "/api/sync", cuerpo).then(function (r) {
-        (r.cots || []).forEach(function (x) {
-          var orig = lote.filter(function (o) { return o.id === x.id; })[0];
-          if (x.resultado === "aplicada") { if (orig && orig.borrada) { delete L.hc[x.id]; delete L.lineas[x.id]; } else L.hc[x.id] = hs[x.id]; }
-          else if (x.resultado === "ignorada" && x.actual) lAplicarCot(x.actual);
-        });
-        var otra = {};
-        Object.keys(r.docs || {}).forEach(function (t) {
-          var x = r.docs[t];
-          if (x.resultado === "aplicado") { L.ver[t] = x.version; L.h[t] = docs[t].hh; }
-          else if (x.resultado === "conflicto") {
-            var dat = docs[t].datos;
-            if ((t === "clientes" || t === "catalogo") && Array.isArray(x.datos)) { dat = unirPorId(x.datos, dat); if (t === "clientes") E.clientes = dat; else E.cat = dat; }
-            docs[t].datos = dat; docs[t].hh = hsh(JSON.stringify(dat));
-            otra[t] = { base: x.version, datos: dat };
-          }
-        });
-        if (Object.keys(otra).length) return lApi("PUT", "/api/sync", { docs: otra }).then(function (r2) {
-          Object.keys(r2.docs || {}).forEach(function (t) { if (r2.docs[t].resultado === "aplicado") { L.ver[t] = r2.docs[t].version; L.h[t] = docs[t].hh; } });
-        });
-      });
-    });
-  });
-  return p;
-}
-function lBajar() {
-  return lApi("GET", "/api/sync?desde=" + (L.rev || 0)).then(function (r) {
-    if (r.plan) L.plan = r.plan;
-    Object.keys(r.docs || {}).forEach(function (t) { lAplicarDoc(t, r.docs[t]); });
-    (r.cots || []).forEach(lAplicarCot);
-    if (typeof r.rev === "number") L.rev = r.rev;
-    if (r.mas) return lBajar();
-  });
-}
-function lAplicarCot(x) {
-  if (!x || !x.id) return;
-  if (x.linea) L.lineas[x.id] = x.linea;
-  var i = -1; E.cots.forEach(function (c, k) { if (c.id === x.id) i = k; });
-  var loc = i >= 0 ? E.cots[i] : null;
-  if (x.borrada) {
-    if (loc && (loc.actualizado || 0) <= x.actualizado) E.cots.splice(i, 1);
-    delete L.hc[x.id]; delete L.lineas[x.id];
-    return;
-  }
-  if (!x.datos) return;
-  if (!loc || (loc.actualizado || 0) < x.actualizado) {
-    var n = limpiarCot(Object.assign({}, x.datos, { id: x.id }));
-    n.actualizado = x.actualizado;
-    if (i >= 0) E.cots[i] = n; else E.cots.push(n);
-    L.hc[x.id] = L.st[x.id] = hashCot(n);
-    var nn = parseInt(String(n.num).slice(4), 10);
-    if (nn >= E.cfg.correl) E.cfg.correl = nn + 1;
-  } else if (loc.actualizado === x.actualizado) L.hc[x.id] = hashCot(loc);
-}
-function lAplicarDoc(t, d) {
-  if (!d || typeof d.version !== "number" || d.version <= (L.ver[t] || 0)) return;
-  var dl = docsLocales(), hLocal = hsh(JSON.stringify(dl[t])), pendiente = L.h[t] ? L.h[t] !== hLocal : null;
-  if (pendiente === null) pendiente = t === "ajustes" ? !!E.neg.nombre : t === "logo" ? !!E.neg.logo : (dl[t] || []).length > 0;
-  if (pendiente) {
-    if ((t === "clientes" || t === "catalogo") && Array.isArray(d.datos)) { var u = unirPorId(d.datos, dl[t]), m0 = migrar(t === "clientes" ? { clientes: u } : { cat: u }); if (t === "clientes") E.clientes = m0.clientes; else E.cat = m0.cat; }
-    L.ver[t] = d.version;
-    return;
-  }
-  if (t === "ajustes" && d.datos) {
-    var m = migrar({ neg: Object.assign({}, d.datos.neg || {}, { logo: E.neg.logo, logoW: E.neg.logoW, logoH: E.neg.logoH }), cfg: d.datos.cfg || {} });
-    var correl = E.cfg.correl; E.neg = m.neg; E.cfg = m.cfg; E.cfg.correl = Math.max(correl, E.cfg.correl); tema();
-  } else if (t === "clientes" && Array.isArray(d.datos)) E.clientes = migrar({ clientes: d.datos }).clientes;
-  else if (t === "catalogo" && Array.isArray(d.datos)) E.cat = migrar({ cat: d.datos }).cat;
-  else if (t === "logo" && d.datos) {
-    var lg = String(d.datos.logo || "");
-    if (!lg || /^data:image\/(png|jpeg|webp);base64,/.test(lg)) { E.neg.logo = lg; E.neg.logoW = +d.datos.logoW || 0; E.neg.logoH = +d.datos.logoH || 0; }
-  }
-  L.ver[t] = d.version;
-  L.h[t] = hsh(JSON.stringify(docsLocales()[t]));
-}
-function lEstados() {
-  var cambio = false;
-  E.cots.forEach(function (c) {
-    var ln = L.lineas[c.id];
-    if (ln && ln.activo && /^(aceptada|rechazada)$/.test(ln.estado) && c.estado !== ln.estado) { c.estado = ln.estado; c.actualizado = Date.now(); cambio = true; }
-  });
-  return cambio;
-}
-function lAvisos() {
-  return lApi("GET", "/api/avisos?desde=" + (L.avisosUlt || 0)).then(function (r) {
-    (r.avisos || []).forEach(function (a) { L.nuevos.push(a); });
-    L.nuevos = L.nuevos.slice(-30);
-    if (r.ultimo) L.avisosUlt = r.ultimo;
-    if (r.mas) return lAvisos();
-  });
-}
-function sincronizar(manual) {
-  if (DEMO || !L.on) return Promise.resolve();
-  if (lCorriendo) { lProgramar(1500); return Promise.resolve(); }
-  lCorriendo = true;
-  var p = L.rev ? lSubir().then(lBajar) : lBajar().then(lSubir).then(lBajar);
-  return p.then(lAvisos).then(function () {
-    if (lEstados()) return lSubir();
-  }).then(function () { L.msg = ""; L.ultima = new Date().toISOString(); }, lError).then(function () {
-    lCorriendo = false; lGuardar(); lGuardarE();
-    if (!ed && $("hoja").className !== "on" && tab !== "aj") pintar();
-    if (manual) { if (tab === "aj" && !ed) pintar(); aviso(L.msg || "Sincronizado."); }
-  });
-}
-function lSubirYa() { return L.rev ? lSubir() : (lCorriendo ? Promise.resolve() : sincronizar()); }
-function lActivar(t) {
-  aviso("Activando el plan en línea…");
-  return lApi("POST", "/api/activar", { token: t }).then(function (r) {
-    if (L.negocio && r.negocio && L.negocio.id !== r.negocio.id) L = lNuevo();
-    L.on = true; L.negocio = r.negocio; L.plan = r.plan; L.msg = ""; lGuardar();
-    aviso("¡Plan en línea activado para " + (r.negocio ? r.negocio.nombre : "tu negocio") + "!");
-    return sincronizar();
-  }).catch(function (e) { aviso(e.status === 400 ? (e.message || "El link no es válido, venció o ya se usó.") : "No pude activar: " + (e.message || "sin conexión")); });
-}
-function lineaIniciar() {
-  if (DEMO) return;
-  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") lProgramar(500); });
-  window.addEventListener("online", function () { lProgramar(500); });
-  if (lineaToken) { var t = lineaToken; lineaToken = ""; lActivar(t); return; }
-  if (L.on) lProgramar(800);
-}
-function lineaReset() { if (L.on) lApi("POST", "/api/salir", {}).catch(function () {}); L = lNuevo(); lGuardar(); }
-function lineaTrasImportar() { var ids = {}; E.cots.forEach(function (c) { ids[c.id] = 1; }); Object.keys(L.hc).forEach(function (id) { if (!ids[id]) delete L.hc[id]; }); lGuardar(); }
-var LCHIP = { publicada: ["Link enviado", "enviada"], vista: ["Vista", "enviada"], aceptada: ["Aceptó en línea", "aceptada"], rechazada: ["Rechazó en línea", "rechazada"], cambios: ["Pidió cambios", "vencida"] };
-function chipTexto(ln) { if (ln.vence && ln.vence < hoyISO()) return "Link vencido"; var x = LCHIP[ln.estado]; return x ? x[0] : String(ln.estado || ""); }
-function lineaChip(c) {
-  if (DEMO || !L.on) return "";
-  var ln = L.lineas[c.id]; if (!ln || !ln.activo) return "";
-  var x = LCHIP[ln.estado] || ["", ""];
-  return ' <span class="chip ' + x[1] + '">🔗 ' + esc(chipTexto(ln)) + "</span>";
-}
-function lineaNovedades() {
-  if (DEMO || !L.on || !L.nuevos.length) return "";
-  var T = { vista: "abrió", aceptada: "aceptó", rechazada: "rechazó", cambios: "pidió cambios en" };
-  return '<div class="card"><h2>Novedades en línea <span class="chip aceptada">' + L.nuevos.length + "</span></h2>" + L.nuevos.slice(-5).reverse().map(function (a) {
-    var f = new Date(a.fecha);
-    return '<p class="nota">' + esc((a.nombre || "Tu cliente") + " " + (T[a.tipo] || a.tipo) + " la " + (a.num || "")) + (a.comentario ? ": «" + esc(a.comentario) + "»" : "") + " · " + esc(isNaN(f) ? "" : f.toLocaleString("es-CL")) + "</p>";
-  }).join("") + '<button class="btn" data-a="lnVisto">Entendido</button></div>';
-}
-function lineaAjustes() {
-  if (DEMO) return "";
-  var h = '<div class="card"><h2>Plan en línea</h2>';
-  if (!L.on) {
-    h += '<p class="nota">Con el plan en línea mandas un link: tu cliente abre la cotización y la acepta, la rechaza o pide cambios con un botón, y tú lo ves aquí. Además respalda todo en la nube y puedes usarla en el celular y en el computador.</p>';
-    if (L.msg) h += '<div class="alerta">' + esc(L.msg) + "</div>";
-    h += '<label class="l" for="ln-link">Pega aquí tu link de activación</label><input id="ln-link" autocomplete="off" placeholder="https://ordenaito.cl/cotizador/#linea=…"><button class="btn pri" data-a="lnActivar">Activar con mi link</button>';
-    h += '<a class="btn" target="_blank" rel="noopener" href="https://wa.me/' + Activacion.whatsapp + "?text=" + encodeURIComponent("Hola, quiero el plan en línea del Cotizador. Mi código es " + Activacion.codigoCelular()) + '">Quiero el plan en línea</a>';
-  } else {
-    var p = L.plan || {}, est = { activo: "activo", gracia: "en período de gracia", vencido: "vencido", suspendido: "suspendido", cancelado: "cancelado" }[p.estado] || "—";
-    h += "<p><b>" + esc(L.negocio ? L.negocio.nombre : "") + "</b><br>Plan " + est + (p.hasta ? " hasta el " + fecha(p.hasta) : "") + "</p>";
-    if (L.msg) h += '<div class="alerta">' + esc(L.msg) + "</div>";
-    h += '<p class="nota">Última sincronización: ' + (L.ultima ? esc(new Date(L.ultima).toLocaleString("es-CL")) : "aún no") + "</p>";
-    h += '<button class="btn pri" data-a="lnSync">Sincronizar ahora</button><button class="btn" data-a="lnVincular">Usarla en otro aparato</button><a class="btn" target="_blank" rel="noopener" href="' + LBASE + '/api/exportar">Descargar respaldo de la nube</a><button class="btn mal" data-a="lnSalir">Cerrar el plan en este aparato</button>';
-  }
-  return h + "</div>";
-}
-function lineaBotonEnviar() {
-  if (DEMO || !L.on) return "";
-  if (!lPlanOk()) return '<p class="nota">Tu plan en línea no está activo: el link no está disponible por ahora.</p>';
-  var ln = L.lineas[ed.id], h = '<button class="btn pri" data-a="lnEnviar">' + (ln && ln.activo ? "🔗 Enviar el link otra vez por WhatsApp" : "🔗 Enviar link (tu cliente la acepta en línea)") + "</button>";
-  if (ln && ln.activo) {
-    var r = ln.respuesta || {};
-    h += '<p class="nota">En línea: <b>' + esc(chipTexto(ln)) + "</b>" + (ln.vistas ? " · abierta " + ln.vistas + (ln.vistas === 1 ? " vez" : " veces") : "") + (r.nombre ? " · " + esc(r.nombre) : "") + (r.comentario ? ": «" + esc(r.comentario) + "»" : "") + '</p><button class="lnk" data-a="lnRevocar">Desactivar el link</button>';
-  }
-  return h;
-}
-function lMostrarLink(c, link) {
-  var nom = c.cli.n || "", msg = "Hola" + (nom ? " " + nom : "") + ", te envío la cotización " + c.num + " por " + clp(calc(c).total) + ". Puedes revisarla y aceptarla aquí: " + link;
-  $("caja").innerHTML = "<h2>Link listo</h2><p class=\"nota\">Tu cliente la abre, la revisa y la acepta, la rechaza o pide cambios. Te aparecerá aquí.</p><p style=\"word-break:break-all;font-size:14px\">" + esc(link) + '</p><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/' + telWA(c.cli.tel) + "?text=" + encodeURIComponent(msg) + '">Enviar por WhatsApp</a><button class="btn" data-a="lnCopiar" data-l="' + esc(link) + '">Copiar link</button><button class="btn" data-a="cerrar">Listo</button>';
-  $("hoja").className = "on";
-}
-function lEnviarLink() {
-  var c = ed; if (!c) return;
-  var guardada = E.cots.filter(function (x) { return x.id === c.id; })[0] || c, hh = hashCot(guardada), ln = L.lineas[c.id];
-  var reusar = ln && ln.activo && ln.link && L.pub[c.id] === hh && !(ln.vence && ln.vence < hoyISO());
-  aviso(reusar ? "Abriendo tu link…" : "Preparando el link…");
-  var p = reusar ? Promise.resolve({ link: ln.link }) : lSubirYa().then(function () {
-    var reabrir = ln && ln.activo && /^(aceptada|rechazada)$/.test(ln.estado);
-    if (reabrir && !confirm("Tu cliente ya respondió esta cotización. ¿Publicarla de nuevo para que la vuelva a revisar?")) throw { cancelado: true };
-    return lApi("POST", "/api/cot/publicar", { id: c.id, reabrir: !!reabrir, nuevoLink: false });
-  }).then(function (r) {
-    L.pub[c.id] = hh;
-    L.lineas[c.id] = Object.assign({}, ln || {}, { estado: r.estado, activo: true, link: r.link, version: r.version, validaHasta: r.validaHasta, vence: r.vence });
-    lGuardar();
-    return r;
-  });
-  p.then(function (r) { marcarEnviada(); lMostrarLink(c, r.link); }, function (e) {
-    if (e && e.cancelado) return;
-    if (e && e.status) lError(e);
-    aviso("No pude crear el link: " + ((e && e.message) || "sin conexión"));
-  });
-}
-function lineaClick(a, b, id) {
-  if (a === "lnActivar") {
-    var v = ($("ln-link").value || "").trim(), m = /linea=([A-Za-z0-9_-]{20,80})/.exec(v) || /^([A-Za-z0-9_-]{43})$/.exec(v);
-    if (!m) return aviso("Pega el link completo que te enviamos (termina en #linea=…).");
-    lActivar(m[1]).then(function () { if (tab === "aj") pintar(); });
-  } else if (a === "lnSync") sincronizar(true);
-  else if (a === "lnVincular") {
-    lApi("POST", "/api/vincular", {}).then(function (r) {
-      var ven = new Date(r.vence);
-      $("caja").innerHTML = '<h2>Usarla en otro aparato</h2><p class="nota">Abre este link en el otro celular o computador antes del ' + esc(isNaN(ven) ? "" : ven.toLocaleString("es-CL")) + '. Sirve una sola vez.</p><p style="word-break:break-all;font-size:14px">' + esc(r.link) + '</p><button class="btn pri" data-a="lnCopiar" data-l="' + esc(r.link) + '">Copiar link</button><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent("Mi link del Cotizador en línea: " + r.link) + '">Enviármelo por WhatsApp</a><button class="btn" data-a="cerrar">Listo</button>';
-      $("hoja").className = "on";
-    }, function (e) { lError(e); aviso(e.message || "No pude crear el link."); });
-  } else if (a === "lnSalir") {
-    if (!confirm("Este aparato deja de sincronizar. Tus cotizaciones siguen guardadas aquí y en la nube. ¿Seguir?")) return;
-    lineaReset(); pintar(); aviso("Listo: este aparato quedó sin el plan en línea.");
-  } else if (a === "lnEnviar") lEnviarLink();
-  else if (a === "lnCopiar") {
-    var t = b.getAttribute("data-l") || "";
-    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { aviso("Link copiado."); }, function () { aviso("No pude copiar: mantén presionado el link para copiarlo."); });
-  } else if (a === "lnRevocar") {
-    if (!ed || !confirm("El link dejará de abrir para siempre. ¿Desactivarlo?")) return;
-    var cid = ed.id;
-    lApi("POST", "/api/cot/revocar", { id: cid }).then(function () { if (L.lineas[cid]) L.lineas[cid].activo = false; delete L.pub[cid]; lGuardar(); $("hoja").className = ""; aviso("Link desactivado."); }, function (e) { aviso(e.message || "No pude desactivarlo."); });
-  } else if (a === "lnVisto") { L.nuevos = []; lGuardar(); pintar(); }
-}
-function arrancarApp() { tema(); pintar(); if (!tutVisto()) abrirTut(); lineaIniciar(); }
+function lineaCambio() {}
+function lineaIniciar() {}
+function lineaChip() { return ""; }
+function lineaNovedades() { return ""; }
+function lineaFranja() { return ""; }
+function lineaAjustes() { return ""; }
+function lineaBotonEnviar() { return ""; }
+function lineaClick() {}
+function lineaReset() {}
+function lineaTrasImportar() {}
+function soloLectura() { return false; }
+function proArrancar() {}
+function arrancarApp() { tema(); if (LINEA_PRO) return proArrancar(); pintar(); if (!tutVisto()) abrirTut(); lineaIniciar(); }
 Activacion.iniciar(arrancarApp);
 </script>
 </body>
